@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lang>
+	<image>Bilde</image>
+	<page>Side</page>
+	<next_image>Neste bilde</next_image>
+	<previous_image>Forrige bilde</previous_image>
+	<next_thumbnails>Neste side</next_thumbnails>
+	<previous_thumbnails>Forrige side</previous_thumbnails>
+	<popup>Åpne i popup vindu</popup>
+	<window>Åpne i nytt vindu</window>
+	<download>Last ned bilde</download>
+	<zoomin>Zoom ut</zoomin>
+	<zoomout>Zoom ut</zoomout>
+	<play>Automatisk bildevisning</play>
+	<stop>Stopp</stop>
+	<showimage>Vis Bilde</showimage>
+	<showthumbnails>bilder</showthumbnails>
+	<imageinfo>Bilde beskrivelse</imageinfo>
+	<mainmenu>Galleri meny</mainmenu>
+	<sendemail>Send i epost</sendemail>
+	<login>Logg in</login>
+	<logout>Logg ut</logout>
+	<open>Åpne</open>
+	<copylocation>Kopier Bilde lenke</copylocation>
+	<enterfullscreen>Fullskjerm vising</enterfullscreen>
+	<exitfullscreen>Tilbake til normal visning</exitfullscreen>
+	<audio>Musikk</audio>
+	<volume>Volum</volume>
+	<yourname>Ditt navn</yourname>
+	<youremail>Din e-post</youremail>
+	<yourfriendsemail>Din venn's e-post</yourfriendsemail>
+	<message>Melding</message>
+	<sent>Sendt!</sent>
+	<contact>Kontakt oss</contact>
+	<sendlink>Send bilde</sendlink>
+	<purchase>Kjøp nå!</purchase>
+	<link>lenke</link>
+	<sfx>Lyd effekter</sfx>
+	<empty_message>Tom melding!</empty_message>
+	<bad_email>Feil e-post!</bad_email>
+	<cannot_open_template>Kan ikke åpne template fil!</cannot_open_template>
+	<could_not_mail>Kan ikke sende e-post!</could_not_mail>
+	<email_disabled>E-mail disabled</email_disabled>
+	<no_such_pic>filen eksisterer ikke!</no_such_pic>
+	<path_is_empty>Path is empty!</path_is_empty>
+	<share>Del denne siden</share>
+	<fotomoto>Kjøp Nå</fotomoto>
+</lang>

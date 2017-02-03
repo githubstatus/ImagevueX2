@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This is the default THEME settings file with descriptions and attributes. You should not edit the file manually - Any changes should be done through the admin, which is saved in a specific USERtheme file-->
+<config>
+	<imagevue>
+		<style>
+			<stylesheet type="string" description="Sets what CSS stylesheet to load into the gallery for text formatting">imagevue.css</stylesheet>
+			<background_color type="color" description="Sets the default background color which should be in contrast to the foreground_color">222222</background_color>
+			<foreground_color type="color" description="Sets the default foreground color which should be in contrast to the background_color">EEEEEE</foreground_color>
+			<custom_color type="color" description="Sets a custom color which may be inherited upon any other item color setting">000000</custom_color>
+			<background_image>
+				<enabled type="boolean" description="Enable or disable the background image">true</enabled>
+				<url type="string" description="Sets a custom background to the gallery">background.gif</url>
+				<align type="enum" description="Sets the alignment of the background relative to the stage" options="TL,T,TR,R,BR,B,BL,L,M">TL</align>
+				<repeat type="enum" description="Sets the background to repeat vertically and/or horizontally" options="repeat,repeat-x,repeat-y,no-repeat">repeat-x</repeat>
+				<scalemode type="enum" description="Sets the background image scale mode. Only works if repeat is set to no-repeat" options="noScale,noBorder,exactFit,showAll">noScale</scalemode>
+			</background_image>
+			<background_image_2>
+				<enabled type="boolean" description="Enable or disable the background image">false</enabled>
+				<url type="string" description="Sets a custom background to the gallery">background.gif</url>
+				<align type="enum" description="Sets the alignment of the background relative to the stage" options="TL,T,TR,R,BR,B,BL,L,M">TL</align>
+				<repeat type="enum" description="Sets the background to repeat vertically and/or horizontally" options="repeat,repeat-x,repeat-y,no-repeat">repeat-x</repeat>
+				<scalemode type="enum" description="Sets the background image scale mode. Only works if repeat is set to no-repeat" options="noScale,noBorder,exactFit,showAll">noScale</scalemode>
+			</background_image_2>
+			<background_image_3>
+				<enabled type="boolean" description="Enable or disable the background image">false</enabled>
+				<url type="string" description="Sets a custom background to the gallery">background.gif</url>
+				<align type="enum" description="Sets the alignment of the background relative to the stage" options="TL,T,TR,R,BR,B,BL,L,M">TL</align>
+				<repeat type="enum" description="Sets the background to repeat vertically and/or horizontally" options="repeat,repeat-x,repeat-y,no-repeat">repeat-x</repeat>
+				<scalemode type="enum" description="Sets the background image scale mode. Only works if repeat is set to no-repeat" options="noScale,noBorder,exactFit,showAll">noScale</scalemode>
+			</background_image_3>
+			<globalshadow description="Sets parameters globally for the shadow effect that may be present on multiple items">
+				<enabled type="boolean" description="Drops a soft shadow or glow behind the item">true</enabled>
+				<color type="color" description="Sets a color to the shadow or glow. Use dar color on light backgrounds and light color on dark backgrounds">000000</color>
+				<alpha type="integer" description="Sets the alpha transparency value for the shadow or glow color" range="0,100">100</alpha>
+				<distance type="integer" description="Sets the offset distance for the shadow or glow. Use 0 for a soft,symmetric effect" range="0,100">0</distance>
+				<angle type="integer" description="Sets the angle of the shadow direction" range="0,360">45</angle>
+				<strength type="integer" range="0,100" description="Sets the strength of the shadow or glow">50</strength>
+				<blur type="integer" range="0,20" description="Sets the amount of blur for the shadow or glow">10</blur>
+				<quality type="integer" range="1,3" description="Set the quality of the shadow or glow effect">3</quality>
+			</globalshadow>
+		</style>
+		<controls>
+			<maincontrols>
+				<button>
+					<background_color type="color" description="Sets the background color for the control buttons">custom_color</background_color>
+					<foreground_color type="color" description="Sets the foreground color for the control buttons">foreground_color</foreground_color>
+					<width type="integer" description="Sets the width of the control buttons" range="0,200">50</width>
+					<height type="integer" description="Sets the height of the control buttons" range="0,200">35</height>
+					<opacity type="integer" description="Sets the opacity for the control buttons" range="0,100">50</opacity>
+					<opacity_rollover type="integer" description="Sets the opacity for the button rollover event" range="0,100">100</opacity_rollover>
+					<opacity_press type="integer" description="Sets the opacity for the button press event" range="0,100">75</opacity_press>
+				</button>
+			</maincontrols>
+			<largecontrols>
+				<color type="color" description="Sets the color of the large controls">background_color</color>
+				<arrow_color type="color" description="Sets the color of the arrow inside the large controls">foreground_color</arrow_color>
+				<size type="integer" description="Sets the dimensions of the large controls">45</size>
+				<opacity type="integer" description="Sets the transparency value for the large controls" range="0,100">20</opacity>
+				<opacityrollover type="integer" description="Sets the transparency value for the large controls on mouse rollover event" range="0,100">80</opacityrollover>
+			</largecontrols>
+		</controls>
+		<audioplayer>
+			<color type="color" description="Sets the color of the audioplayer button text">BBBBBB</color>
+			<backcolor type="color" description="Sets the color of the audioplayer background">background_color</backcolor>
+			<width type="integer" description="Sets the width of the audioplayer" range="200,400">240</width>
+		</audioplayer>
+		<image>
+			<imagebuttons>
+				<color type="color" description="Sets the color of the buttons">custom_color</color>
+				<iconcolor type="color" description="Sets the color of the icons">foreground_color</iconcolor>
+				<width type="integer" description="Sets the width of the button in pixels" range="10,50">40</width>
+				<height type="integer" description="Sets the height of the button in pixels" range="10,50">35</height>
+				<space type="integer" description="Sets the space between buttons in pixels" range="0,10">1</space>
+				<alpha type="integer" description="Sets the opacity of the button" range="0,100">80</alpha>
+				<alpharollover type="integer" description="Sets the opacity of the button on mouse rollover" range="0,100">100</alpharollover>
+				<shadow type="boolean" description="Sets a shadow or glow behind the imagebuttons based on the globalshadow settings">true</shadow>
+			</imagebuttons>
+			<closebutton>
+				<iconcolor type="color" description="Sets the color of the 'close' icon. Make sure it is not the same as image frame color">666666</iconcolor>
+			</closebutton>
+			<frame>
+				<enabled type="boolean" description="Sets a general frame around the image">true</enabled>
+				<width type="integer" description="Width of the image frame" range="0,100">10</width>
+				<color type="color" description="Sets the color of the image frame">FFFFFF</color>
+				<shadow type="boolean" description="Drops a soft shadow or glow behind the frame based on the globalshadow setting">true</shadow>
+				<frameborder>
+					<enabled type="boolean" description="Sets an additional border around the frame">false</enabled>
+					<borderwidth type="integer" range="0,100" description="Sets the width of the frame border">1</borderwidth>
+					<color type="color" description="Sets the color of the border">custom_color</color>
+				</frameborder>
+			</frame>
+			<text>
+				<text1>
+					<padding type="integer" description="Sets the padding/space around the text" range="0,100">9</padding>
+					<offset_x type="integer" description="Sets an offset value for horizontal position of the text">3</offset_x>
+					<offset_y type="integer" description="Sets an offset value for vertical position of the text">0</offset_y>
+					<background_color type="color" description="Sets the text background color">background_color</background_color>
+					<background_opacity type="integer" description="Sets the background opacity">0</background_opacity>
+					<background_shadow type="boolean" description="Sets a shadow effect on the background, based on globalshadow">false</background_shadow>
+				</text1>
+				<text2>
+					<padding type="integer" description="Sets the padding/space around the text" range="0,100">20</padding>
+					<offset_x type="integer" description="Sets an offset value for horizontal position of the text">0</offset_x>
+					<offset_y type="integer" description="Sets an offset value for vertical position of the text">70</offset_y>
+					<background_color type="color" description="Sets the text background color">FFFFFF</background_color>
+					<background_opacity type="integer" description="Sets the background opacity">80</background_opacity>
+					<background_shadow type="boolean" description="Sets a shadow effect on the background, based on globalshadow">false</background_shadow>
+				</text2>
+				<text3>
+					<padding type="integer" description="Sets the padding/space around the text" range="0,100">10</padding>
+					<offset_x type="integer" description="Sets an offset value for horizontal position of the text">0</offset_x>
+					<offset_y type="integer" description="Sets an offset value for vertical position of the text">0</offset_y>
+					<background_color type="color" description="Sets the text background color">foreground_color</background_color>
+					<background_opacity type="integer" description="Sets the background opacity">0</background_opacity>
+					<background_shadow type="boolean" description="Sets a shadow effect on the background, based on globalshadow">false</background_shadow>
+				</text3>
+			</text>
+			<transition>
+				<static_trans type="array" description="Sets an array of transitions between images of the same dimensions" options="motionmove,motionmask,blockmask,tint,white,fade,shine">fade</static_trans>
+				<resize_trans type="array" description="Sets an array of transitions between images of different dimensions" options="tint,white,shine">tint</resize_trans>
+				<trans_speed type="integer" description="Sets relative speed of the transition between two images. 2=very fast 30=very slow" range="2,30">10</trans_speed>
+				<frame_trans type="boolean" description="Enable or disable the animated frame-transition">true</frame_trans>
+				<frame_trans_speed type="integer" description="Sets the relative speed of the frame transition between two images at different size. 2=very fast 30=very slow" range="2,30">5</frame_trans_speed>
+			</transition>
+		</image>
+		<thumbnails>
+			<thumbnails>
+				<frame>
+					<width type="integer" description="Sets the width of the thumbnail frame" range="0,20">1</width>
+					<space type="integer" description="Sets the space between thumbnails" range="0,50">3</space>
+					<color type="color" description="Sets the color of the thumbnail frame">777777</color>
+					<rounded type="boolean" description="Sets a slightly rounded corner on the thumbnail frame. Looks best with frames that are wider than 1 px, or when using the box-setting below.">false</rounded>
+					<box type="boolean" description="Sets a symmetrical background-frame for all folders that contain different-size thumbnails (resize-to-box). Has no effect for folders where all thumbnails are the same size">false</box>
+				</frame>
+				<thumbnail>
+					<active_scale type="integer" description="Sets the % scale of the thumbnail when mouse rollover" range="80,300">115</active_scale>
+					<opacity type="integer" description="Sets the % opacity of the thumbnail" range="0,100">100</opacity>
+					<active_opacity type="integer" description="Sets the % opacity of the thumbnail on mouse over" range="0,100">100</active_opacity>
+					<shadow type="boolean" description="Drops a soft shadow or glow behind the thumbnail based on the globalshadow settings">false</shadow>
+				</thumbnail>
+				<thumbnails>
+					<thumbnailsarea_alpha type="integer" description="Sets the opacity of the area that contains the thumbnails" range="0,100">0</thumbnailsarea_alpha>
+				</thumbnails>
+			</thumbnails>
+			<thumbnailscroller>
+				<start_scale type="integer" description="Sets the default size scale percentage% for thumbnails in the thumbnailscroller" range="25,100">50</start_scale>
+				<active_scale type="integer" description="Sets the size scale percentage% for thumbnail when mouse over event" range="50,400">100</active_scale>
+				<start_brightness type="integer" description="Sets the brightness for thumbnails in the thumbnailscroller when inactive" range="0,100">30</start_brightness>
+				<active_brightness type="integer" description="Sets the brightness for thumbnails in the thumbnailscroller when mouse over event" range="0,100">100</active_brightness>
+				<space type="integer" description="Sets the space between thumbnails in the thumbnailscroller" range="0,50">10</space>
+				<frame_width type="integer" description="Sets the width of the frame around thumbnails in the thumbnailscroller" range="0,50">1</frame_width>
+				<frame_color type="color" description="Sets the color of the frame for the thumbnails in the thumbnailscroller">000000</frame_color>
+				<frame_color_active type="color" description="Sets the color of the frame for current displayed image">FFFFFF</frame_color_active>
+				<back_color type="color" description="Sets the color of the background for the thumbnailscroller">000000</back_color>
+				<alpha type="integer" description="Sets the opacity of the thumbnails when inactive" range="0,100">100</alpha>
+				<alpha_active type="integer" description="Sets the opacity of the thumbnails when mouseover" range="0,100">100</alpha_active>
+				<back_alpha type="integer" description="Sets the opacity of the thumbnailscroller background" range="0,100">25</back_alpha>
+				<back_alpha_active type="integer" description="Sets the opacity of the thumbnailscroller background when active" range="0,100">100</back_alpha_active>
+				<scrollbar_height type="integer" description="Sets the height of the thumbnailscroller scrollbar" range="0,30">8</scrollbar_height>
+			</thumbnailscroller>
+			<tooltip>
+				<shadow type="boolean" description="Drops a soft shadow or glow behind the tooltip based on the globalshadow setting">true</shadow>
+				<color type="color" description="Sets the background color of the tooltip">custom_color</color>
+				<maxwidth type="integer" description="Sets the maximum width of the tooltip text before it wraps into new line" range="0,800">200</maxwidth>
+			</tooltip>
+		</thumbnails>
+		<textpage>
+			<width type="integer" description="Sets the width of the textcontent" range="100,1000">500</width>
+			<margin type="integer" description="Sets the vertical margin between the screen and the textpage">60</margin>
+			<padding type="integer" description="Sets the padding between the textcontent and the background" range="0,100">30</padding>
+			<background>
+				<color type="color" description="Sets the textpage background color">custom_color</color>
+				<opacity type="integer" description="Sets the textpage background transparency" range="0,100">50</opacity>
+				<shadow type="boolean" description="Sets a shadow behind the textpage background based on globalshadow settings">true</shadow>
+				<scrollbar_color type="color" description="Sets a color for the textpage scrollbar">custom_color</scrollbar_color>
+				<scrollbar_arrow_color type="color" description="Sets the color for the arrow indicators inside the scrollbar">foreground_color</scrollbar_arrow_color>
+			</background>
+		</textpage>
+		<menu>
+			<mainmenu>
+				<indent type="integer" description="Sets the indent/offset amount in pixels for submenu items. Works slightly different depending on the submenu_style setting" range="0,100">50</indent>
+				<horizontal_margin type="integer" description="Sets the horizontal margin between the menu and menu background" range="0,200">20</horizontal_margin>
+				<vertical_margin type="integer" description="Sets the vertical margin between the menu and the top edge of the stage" range="0,200">20</vertical_margin>
+				<menubutton_height type="integer" description="Sets the initial height of the menubutton when the menu is collapsed" range="0,200">50</menubutton_height>
+				<menuitem>
+					<color type="color" description="Sets the color for the button background">custom_color</color>
+					<node_color type="color" description="Sets the color for the icon that indicates that this folder contains sub folders">foreground_color</node_color>
+					<space type="integer" description="Sets the space between buttons in the main menu" range="0,100">1</space>
+					<opacity type="integer" description="Sets the opacity of the button background" range="0,100">35</opacity>
+					<opacity_rollover type="integer" description="Sets the opacity of the button background on mouse rollover" range="0,100">70</opacity_rollover>
+					<opacity_active type="integer" description="Sets the opacity of the button background for an active page or folder" range="0,100">100</opacity_active>
+					<horizontal_textmargin type="integer" description="Sets the horizontal margin between the text and the button edge" range="0,100">18</horizontal_textmargin>
+					<vertical_textmargin type="integer" description="Sets the vertical margin between the text and the button edge" range="0,100">9</vertical_textmargin>
+					<minimum_width type="integer" description="Sets a minimal width for each button" range="0,500">0</minimum_width>
+					<shadow>
+						<enabled type="boolean" description="Drops a soft shadow or glow behind the menuitem">false</enabled>
+						<color type="color" description="Sets a color to the shadow or glow">000000</color>
+						<strength type="integer" range="0,1" description="Sets the strength of the shadow or glow">.5</strength>
+						<blur type="integer" range="0,20" description="Sets the amount of blur for the shadow or glow">5</blur>
+						<quality type="integer" range="1,3" description="Set the quality of the shadow or blur effect">3</quality>
+					</shadow>
+				</menuitem>
+				<menuback>
+					<hide_width type="integer" description="Sets how much the menu displays in hidden mode" range="0,200">50</hide_width>
+					<opacity type="integer" description="Sets the opacity of the menu background in hidden mode" range="0,100">60</opacity>
+					<opacity_rollover type="integer" description="Sets the opacity of the menu when in active mode" range="0,100">30</opacity_rollover>
+					<color type="color" description="Sets the color of the menu background">custom_color</color>
+					<shadow type="boolean" description="Sets a shadow behind the menu background when the menu is expanded. Recommended to use only if opacity-rollover is 100.">false</shadow>
+				</menuback>
+				<folderdescription>
+					<shadow type="boolean" description="Drops a soft shadow or glow behind the tooltip based on the globalshadow setting">true</shadow>
+					<maxwidth type="integer" description="Sets the maximum width of the tooltip text before it wraps into new line" range="0,800">250</maxwidth>
+					<padding type="integer" description="Sets the padding between the edges of the tooltip background and the text inside" range="0,100">20</padding>
+				</folderdescription>
+				<menubutton_icon>
+					<enabled type="boolean" description="Add a graphic menu icon in front of the menubutton text when the menu is collapsed">false</enabled>
+					<color type="color" description="Sets the color for the menubutton icon. Only works if there is no color style associated in theme css: .mainmenu_menubutton_icon {}">foreground_color</color>
+					<opacity type="integer" description="Sets the opacity for the menubutton icon" range="0,100">100</opacity>
+				</menubutton_icon>
+			</mainmenu>
+		</menu>
+		<modules>
+			<hotspot>
+				<color type="color" description="Sets the color of the hotspots">foreground_color</color>
+				<opacity type="integer" description="Sets the opacity of the hotspot" range="0,100">60</opacity>
+				<opacity_rollover type="integer" description="Sets the opacity of the hotspot on rollover" range="0,100">100</opacity_rollover>
+			</hotspot>
+		</modules>
+	</imagevue>
+</config>

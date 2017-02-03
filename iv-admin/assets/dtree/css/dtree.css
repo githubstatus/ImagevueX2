@@ -1,0 +1,53 @@
+
+.dtree {
+	white-space: nowrap;
+	line-height: 11px;
+}
+.dtree * { 	line-height: 11px !important; padding: 0 !important; vertical-align: middle !important;}
+.dtree img {
+	border: 0px;
+	vertical-align: middle;
+}
+.dtree img.folderimage{
+	height: 16px;
+}
+.dtree img#id0 {
+	height: 20px;
+}
+
+.dtree a {
+	color: #EFEFEF;
+	text-decoration: none;
+	height: auto;
+	display: inline;
+	
+}
+.dtree a:hover{
+	background-color: #0066CC;
+}
+.dtree .text{
+	padding: 2px 4px !important; vertical-align: baseline !important;
+}
+.dtree .title{
+	margin-right: 3px;
+}
+.dtree .name{
+	margin-right: 3px;
+}
+.dtree .number{
+}
+.dtree a.node, .dtree a.nodeSel {
+	white-space: nowrap;
+	padding: 2px 4px;
+}
+.dtree a.node:hover, .dtree a.nodeSel:hover {
+	color: #FFFFFF;
+}
+.dtree a.nodeSel {
+	background-color: #666666;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+.dtree .clip {
+	
+}

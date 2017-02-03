@@ -1,0 +1,11 @@
+<filemod title="Slideshow 1,0">
+	<title type="string" description="Sets a text title for a filemod. If undefined, title is inherited from folder title. If using randomimage, title is inherited from image title."/>
+	
+	<description type="string" description="Sets a description for a filemod. If undefined, description is inherited from folder description. If using randomimage, description is inherited from image description(unless undefined)"/>
+
+	<align type="enum" options="TL,T,TR,R,BR,B,BL,L,M" description="Sets the alignment of the filemod relative to the Stage. This option is globally set in config modules.filemod.align, but may be overwritten in parameters string for a specific filemod."/>
+	<frame type="boolean" description="Sets a frame around the filemod, with frame attributes inherited from image.frame in config. This option is globally set in config.filemod.frame, but may be overwritten in parameters string for a specific filemod."/>
+	<click type="string" description="Sets an action when clicking the filemod. Can be any internal link &quot;#/folder/&quot; or set to &quot;togglefullscreen&quot;. If undefined, there is not click event."/>
+	<text type="boolean" description="Sets the text(title+description) on or off. This option is globally set in config.filemod.text, but may be overwritten in parameters string for a specific filemod."/>
+	<textalign type="enum" options="above,over" description="Sets the alignment of the text relative to the filemod. This option is globally set in config modules.filemod.textalign, but may be overwritten in parameters">above</textalign>
+</filemod>

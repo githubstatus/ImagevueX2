@@ -1,0 +1,62 @@
+<?php
+	$thumbWidth = ($this->width ? $this->width : ivPool::get('conf')->get('/config/imagevue/thumbnails/thumbnail/boxwidth'));
+	$thumbHeight = ($this->height ? $this->height : ivPool::get('conf')->get('/config/imagevue/thumbnails/thumbnail/boxheight'));
+?>
+<div class="bodyContent single createThumbs">
+	<h1>Creating thumbnails and publishing</h1>
+
+	<div id="lastAction">
+		<div class="status">
+			Checking thumbnails...
+		</div>
+	</div>
+
+		<?php $header = false; ?>
+		<!-- folderList -->
+		<?php foreach ($this->folderTreeIterator as $folder): ?>
+			<?php if ('_altimage' != $folder->name): ?>
+				<?php $output = array(); ?>
+				<?php foreach ($folder->Files as $item): ?>
+					<?php if (is_a($item, 'ivFileImage')): ?>
+						<?php if ($this->missingOnly && substr($item->thumbnail, 0, strlen($this->contentPath)) === $this->contentPath) {continue;} ?>
+						<?php $output[] = $item; ?>
+					<?php endif; ?>
+				<?php endforeach; ?>
+
+				<?php if (count($output)): ?>
+					<?php if (!$header): ?>
+						<h2>Creating thumbnails:</h2>
+						<?php $header = true; ?>
+					<?php endif ?>
+					<h2><img src="assets/dtree/images/folderOpen.gif" align="absmiddle"> <a href="?path=<?php echo smart_urlencode($folder->getPrimary()); ?>"><?php echo($folder->getPrimary()); ?></a></h2>
+
+					<div id="thumbs">
+						<?php foreach ($output as $item):?>
+							<table class="thumb" style="width: <?php echo $thumbWidth + 20; ?>px; height:<?php echo $thumbHeight + 20 ?>px">
+								<tr>
+									<td>
+										<a href="?c=file&amp;path=<?php echo smart_urlencode($item->getPrimary()); ?>">
+											<img src="<?php echo $this->url(array('c' => 'file', 'a' => 'getthumb', 'path' => ivPath::canonizeRelative($item->getPrimary(), true), 'width' => $this->width, 'height' => $this->height, 'resizetype' => $this->resizetype)) ?>&<?php echo microtime(); ?>"  alt="" />
+										</a>
+									</td>
+								</tr>
+							</table>
+						<?php endforeach ?>
+					</div>
+
+				<?php endif ?>
+			<?php endif; ?>
+		<?php endforeach; ?>
+		<!-- /folderList -->
+
+</div>
+
+<script type="text/javascript">
+// <![CDATA[
+	(function ($) {
+		$(window).load(function () {
+			$('#lastAction').html('<div class="message">Thumbnails created</div>')
+		});
+	})(jQuery);
+// ]]>
+</script>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lang>
+	<image>Foto</image>
+	<page>Pagina</page>
+	<next_image>Volgende Foto</next_image>
+	<previous_image>Vorige Foto</previous_image>
+	<next_thumbnails>Volgende Pagina</next_thumbnails>
+	<previous_thumbnails>Vorige Pagina</previous_thumbnails>
+	<popup>Open in Popup Scherm</popup>
+	<window>Open in Scherm</window>
+	<download>Download Foto</download>
+	<zoomin>Vergroot</zoomin>
+	<zoomout>Verklein</zoomout>
+	<play>Toon Diashow</play>
+	<stop>Stop Diashow</stop>
+	<showimage>Toon Foto</showimage>
+	<showthumbnails>Toon Thumbnails</showthumbnails>
+	<imageinfo>Foto Beschrijving</imageinfo>
+	<mainmenu>Galerie Menu</mainmenu>
+	<sendemail>Verstuur Foto</sendemail>
+	<logout>Log uit</logout>
+	<copylocation>Kopieer Foto Locatie</copylocation>
+	<enterfullscreen>Volledige Schermmodus</enterfullscreen>
+	<exitfullscreen>Sluit Volledige Schermmodus</exitfullscreen>
+	<yourname>Je naam</yourname>
+	<youremail>Je e-mailadres</youremail>
+	<yourfriendsemail>E-mail adres geadresseerde</yourfriendsemail>
+	<message>Bericht</message>
+	<send>Verstuur</send>
+	<sent>Verzonden!</sent>
+	<contact>Contactformulier</contact>
+	<sendlink>Verstuur foto</sendlink>
+	<purchase>Koop nu!</purchase>
+	<empty_message>Leeg bericht</empty_message>
+	<share>Deel deze pagina</share>
+	<fotomoto>Koop nu</fotomoto>
+</lang>

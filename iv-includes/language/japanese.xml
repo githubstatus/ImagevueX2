@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lang>
+	<image>イメージ</image>
+	<page>ページ</page>
+	<next_image>次のイメージ</next_image>
+	<previous_image>前のイメージ</previous_image>
+	<next_thumbnails>次のページ</next_thumbnails>
+	<previous_thumbnails>前のページ</previous_thumbnails>
+	<popup>ポップアップウインドウを開ける</popup>
+	<window>新規ウインドウを開く</window>
+	<download>イメージをダウンロード</download>
+	<zoomin>拡大</zoomin>
+	<zoomout>縮小</zoomout>
+	<play>スライドショー作成</play>
+	<stop>スライドショー停止</stop>
+	<showimage>イメージを見る</showimage>
+	<showthumbnails>サムネイルを見る</showthumbnails>
+	<imageinfo>イメージの説明を読む</imageinfo>
+	<mainmenu>ギャラリーメニュー</mainmenu>
+	<sendemail>このページを友人に知らせる</sendemail>
+	<login>ログイン</login>
+	<logout>ログアウト</logout>
+	<open>開く</open>
+	<copylocation>イメージの場所にコピーする</copylocation>
+	<enterfullscreen>フルスクリーンで表示</enterfullscreen>
+	<exitfullscreen>フルスクリーン表示を解除</exitfullscreen>
+	<videofullscreen>フルスクリーン表示</videofullscreen>
+	<audio>Music</audio>
+	<volume>Volume</volume>
+	<yourname>あなたの名前</yourname>
+	<youremail>あなたのメールアドレス</youremail>
+	<yourfriendsemail>友人のメールアドレス</yourfriendsemail>
+	<message>一言メッセージ</message>
+	<send>送信</send>
+	<sent>送信完了!</sent>
+	<contact>お問い合わせ</contact>
+	<sendlink>イメージを送る</sendlink>
+	<purchase>Buy?</purchase>
+	<link>リンク</link>
+	<sfx>Toggle Sound FX</sfx>
+</lang>

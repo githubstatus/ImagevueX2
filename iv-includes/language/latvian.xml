@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<lang>
+	<image>Attēls</image>
+	<page>Lapa</page>
+	<next_image>Nākamais Attēls</next_image>
+	<previous_image>Iepriekšējais Attēls</previous_image>
+	<next_thumbnails>Nākamā Lapa</next_thumbnails>
+	<previous_thumbnails>Iepriekšējā Lapa</previous_thumbnails>
+	<popup>Atvērt Izlēcošajā logā</popup>
+	<window>Atvērt Jaunā Logā</window>
+	<download>Lejuplādēt Attēlu</download>
+	<zoomin>Pietuvināt</zoomin>
+	<zoomout>Attālināt</zoomout>
+	<play>Skatīt Slīdrādē</play>
+	<stop>Apstādināt Slīdrādi</stop>
+	<showimage>Rādīt Attēlu</showimage>
+	<showthumbnails>Rādīt Sīkbildes</showthumbnails>
+	<imageinfo>Attēla Apraksts</imageinfo>
+	<mainmenu>Galerijas Izvēlne</mainmenu>
+	<sendemail>Sūtīt Attēlu</sendemail>
+	<login>Ienākt</login>
+	<logout>Iziet</logout>
+	<open>Atvērt</open>
+	<copylocation>Kopēt Attēla saiti</copylocation>
+	<enterfullscreen>Ieiet Pilnekrānā</enterfullscreen>
+	<exitfullscreen>Iziet no Pilnekrāna</exitfullscreen>
+	<videofullscreen>Skatīt Pilnekrānu</videofullscreen>
+	<volume>Skaļums</volume>
+	<yourname>Tavs Vārds</yourname>
+	<youremail>Tavs E-pasts</youremail>
+	<yourfriendsemail>Tava Drauga E-pasts</yourfriendsemail>
+	<message>Ziņa</message>
+	<send>Sūtīt</send>
+	<sent>Nosūtīts!</sent>
+	<input_password>Ieejas Parole</input_password>
+	<incorrect_password>Nepareiza Parole</incorrect_password>
+	<contact>Kontakti</contact>
+	<sendlink>Sūtīt Attēlu</sendlink>
+	<purchase>Pirkt!</purchase>
+	<link>saite</link>
+	<sfx>Pārslēgt uz Sound FX</sfx>
+	<empty_message>Tukša Ziņa</empty_message>
+	<bad_email>Nepareizs E-pasts</bad_email>
+	<cannot_open_template>Nevar Atvērt Sagatavi</cannot_open_template>
+	<could_not_mail>Nevar Nosūtīt</could_not_mail>
+	<email_disabled>Lūdzu Ieslēdziet E-pasta funkciju</email_disabled>
+	<no_such_pic>Attēls nav Atrasts</no_such_pic>
+	<path_is_empty>Saite ir Tukša</path_is_empty>
+	<share>Dalīties ar šo Lapu</share>
+</lang>

@@ -1,0 +1,321 @@
+<?php
+	$this->placeholder->set('currentPath', $this->file->getPrimary());
+	$this->placeholder->set('currentTitle', $this->file->getTitle());
+	$this->placeholder->set('currentDescription', $this->file->description);
+	$conf = ivPool::get('conf');
+	$fotomotoId = preg_replace('/\W+/', '_', $this->file->getPrimary());
+	$sharing = $conf->get('/config/imagevue/misc/sharing/enabled');
+	$this->placeholder->set('theParentLink', '/' . smart_urlencode($this->file->Parent->getPrimary()));
+if (IS_MOBILE) {
+	$conf->set('/config/imagevue/mobile/heading','');
+	$this->placeholder->set('removeMenu',true);
+	// $this->placeholder->set('jqueryMobileTheme','a');
+	// $this->placeholder->set('textColor','white');
+	$this->placeholder->set('theTitle', t($conf->get('/config/imagevue/settings/autoTitling') ? $this->file->getTitle() : $this->file->title));
+	$this->placeholder->set('theDescription', t($this->file->description));
+	$this->placeholder->set('toolbars','fixed');
+	$this->placeholder->set('fullscreen','true');
+
+	$shareUrl = $this->file->getPrimary();
+	setcookie('location', $shareUrl);
+}
+?>
+
+
+
+<div class="i" id="<?php echo smart_urlencode($this->file->name); ?>">
+	<table align="center" id="imageTable">
+		<tr>
+			<td>
+				<span id="navigation">
+					<?php
+						if ($this->file->link) {
+							$link = explode('*', t($this->file->link));
+							if (substr($link[0],0,1)=="#") $link[0]='?'.substr($link[0],1);
+							echo '<i class="link"><div>
+							<a title="This file has a link attached" href="' . htmlspecialchars($link[0]) . '"';
+							if (count($link>1)) echo ' target="' . htmlspecialchars($link[1]) . '"';
+							echo '></a></div></i>';
+						}
+					?>
+					<?php if(!IS_MOBILE): ?>
+					<i class="prev"><div><a data-prefetch href="?/<?php echo smart_urlencode($this->prevFile->getPrimary()); ?><?php if(!IS_MOBILE) :?>#<?php echo urlencode($this->prevFile->name); ?><?php endif ?>" title="Previous image"></a></div></i>
+					<i class="next"><div><a data-prefetch href="?/<?php echo smart_urlencode($this->nextFile->getPrimary()); ?><?php if(!IS_MOBILE) :?>#<?php echo urlencode($this->nextFile->name); ?><?php endif ?>" title="Next image"></a></div></i>
+					<?php endif ?>
+					<?php if (is_a($this->file, 'ivFileImage')): ?>
+
+						<?php if(!IS_MOBILE): ?>
+						<a 	href="?/<?php echo smart_urlencode($this->nextFile->getPrimary()); ?>"
+							title="<?php echo htmlspecialchars(t($conf->get('/config/imagevue/settings/autoTitling') ? $this->file->getTitle() : $this->file->title)); ?>">
+						<?php endif; ?>
+
+							<img id="<?php echo htmlspecialchars($fotomotoId); ?>"
+								src="<?php echo htmlspecialchars($this->file->getPath()); ?>"
+								alt="<?php echo htmlspecialchars(t($conf->get('/config/imagevue/settings/autoTitling') ? $this->file->getTitle() : $this->file->title)); ?>"
+								width="<?php echo htmlspecialchars($this->file->width); ?>"
+								height="<?php echo htmlspecialchars($this->file->height); ?>"
+								style="background: #<?php echo ivPool::get('conf')->get('/config/imagevue/thumbnails/thumbnail/backgroundColor')?>"
+								class="single_image <?php echo ($this->file->width > $this->file->height)?'horizontal':'vertical' ?>"
+							/>
+						<?php if(!IS_MOBILE): ?>
+							</a>
+						<?php endif ?>
+					<?php elseif ( is_a($this->file, 'ivFileVideo') ): ?>
+					<?php list($width, $height) = fittobox($this->file->width, $this->file->height); ?>
+						<video <?php echo (ivPool::get('conf')->get('config/imagevue/misc/video/autoPlay'))?'autoplay="autoplay"':''?> id="video" <?php if ($width && $height) :?>width="<?php echo $width ?>" height="<?php echo $height ?>"<?php endif ?> src="<?php echo htmlspecialchars($this->file->getPath()); ?>"></video>
+
+						<script type="text/javascript">
+							$('#video').mediaelementplayer({enablePluginSmoothing: true
+								<?php echo (ivPool::get('conf')->get('config/imagevue/misc/video/loop'))? ', loop: true' : '' ?>
+							});
+						</script>
+
+					<?php elseif (is_a($this->file, 'ivFileMp3')): ?>
+						<div id="mp3">
+							<audio src="<?php echo htmlspecialchars($this->file->getPath()); ?>"></audio>
+						</div>
+
+						<script type="text/javascript">
+						$('audio').mediaelementplayer();
+						</script>
+
+					<?php else: ?>
+						<a href="<?php echo htmlspecialchars($this->file->getPath()); ?>" title="Open file">
+							<img class="file" id="<?php echo htmlspecialchars($fotomotoId); ?>" src="<?php echo htmlspecialchars($this->file->thumbnail); ?>" alt="<?php echo htmlspecialchars(t($conf->get('/config/imagevue/settings/autoTitling') ? $this->file->getTitle() : $this->file->title)); ?>" />
+						</a>
+					<?php endif ?>
+				</span>
+
+				<?php if (!IS_MOBILE): ?>
+					<div id="imagetext" <?php if (is_a($this->file, 'ivFileMp3')): ?> class="mp3" <?php endif ?>>
+
+
+						<h1 class="title">
+							<?php if(count($link)) {
+								echo '<a href="' . htmlspecialchars($link[0]) . '"';
+								if (count($link>1)) echo ' target="' . htmlspecialchars($link[1]) . '"';
+								echo '>'; }
+	 						?>
+							<?php echo t($conf->get('/config/imagevue/settings/autoTitling') ? $this->file->getTitle() : $this->file->title); ?>
+							<?php echo (count($link)) ? '</a>' : ''; ?>
+						</h1>
+						<?php if (!empty($this->file->description)): ?>
+							<h2 class="description">
+								<?php echo t($this->file->description); ?>
+							</h2>
+						<?php endif; ?>
+
+							<?php
+								$count = 0;
+								foreach ($this->file->getAttributeNames() as $name) {
+									if (!in_array($name, array('title', 'description', 'order')) && $this->file->$name) {
+										$count++;
+									}
+								}
+								foreach ($this->file->getUserAttributeNames() as $name) {
+									if ($this->file->$name) {
+										$count++;
+									}
+								}
+							?>
+							<?php if ($count): ?>
+								<table style="width: 100%" class="imageAttributes">
+									<?php foreach ($this->file->getAttributeNames() as $name): ?>
+										<?php if (!in_array($name, array('title', 'description', 'order')) && $this->file->$name): ?>
+											<tr>
+												<td><?php echo htmlspecialchars(ucfirst($name)); ?></td>
+												<td><strong><?php echo htmlspecialchars($this->file->$name); ?></strong></td>
+											</tr>
+										<?php endif; ?>
+									<?php endforeach; ?>
+									<?php foreach ($this->file->getUserAttributeNames() as $name): ?>
+										<?php if ($this->file->$name): ?>
+											<tr>
+												<?php if($name!='link'): ?>
+													<td><?php echo htmlspecialchars(ucfirst($name)); ?></td>
+													<td><strong>
+														<?php echo htmlspecialchars($this->file->$name); ?>
+													</strong></td>
+												<?php endif ?>
+											</tr>
+										<?php endif; ?>
+									<?php endforeach; ?>
+								</table>
+							<?php endif; ?>
+
+						<div class="imageProperties">
+							<div class="filename"><?php echo htmlspecialchars($this->file->name); ?></div>
+							<div class="date"><?php echo htmlspecialchars(formatDate($this->file->date)); ?></div>
+							<?php if (is_a($this->file, 'ivFileImage')): ?>
+								<div class="dimensions"><?php echo htmlspecialchars($this->file->width); ?> x <?php echo htmlspecialchars($this->file->height); ?></div>
+							<?php endif ?>
+							<div class="filesize"><?php echo htmlspecialchars(formatFilesize($this->file->size)); ?></div>
+						</div>
+						<?php if (is_a($this->file, 'ivFileImage')): ?>
+							<div class="exifData">
+								<table>
+							<?php $exifData = $this->file->getExifData(); ?>
+							<?php if (!empty($exifData)): ?>
+
+								<?php foreach ($exifData as $key => $value): ?>
+									<tr>
+										<td><?php echo htmlspecialchars($key); ?></td>
+										<td><strong><?php echo htmlspecialchars($value); ?></strong></td>
+									</tr>
+								<?php endforeach; ?>
+
+							<?php endif; ?>
+							<?php $iptcData = $this->file->getIptcData(); ?>
+							<?php if (!empty($iptcData)): ?>
+
+								<?php foreach ($iptcData as $key => $value): ?>
+									<tr>
+										<td><?php echo htmlspecialchars($key); ?></td>
+										<td><strong><?php echo htmlspecialchars(is_array($value) ? implode("\n", $value) : $value); ?></strong></td>
+									</tr>
+								<?php endforeach; ?>
+
+							<?php endif; ?>
+							<?php $xmpData = $this->file->getXmpData(); ?>
+							<?php if (!empty($xmpData)): ?>
+
+								<?php foreach ($xmpData as $key => $value): ?>
+									<tr>
+										<td><?php echo htmlspecialchars($key); ?></td>
+										<td><strong><?php echo htmlspecialchars(is_array($value) ? implode("\n", $value) : $value); ?></strong></td>
+									</tr>
+								<?php endforeach; ?>
+
+							<?php endif; ?>
+								</table>
+							</div>
+						<?php endif; ?>
+						<?php if (is_a($this->file, 'ivFileMP3')): ?>
+							<?php $id3Data = $this->file->getId3Data(); ?>
+							<?php if (!empty($id3Data)): ?>
+								<div class="exifData">
+									<div class="exif_heading">id3 data</div>
+									<table>
+										<?php foreach ($id3Data as $key => $value): ?>
+											<tr>
+												<td><?php echo htmlspecialchars($key); ?></td>
+												<td><?php echo htmlspecialchars($value); ?></td>
+											</tr>
+										<?php endforeach; ?>
+									</table>
+								</div>
+							<?php endif; ?>
+						<?php endif; ?>
+					</div>
+				<?php endif; ?>
+			</td>
+		</tr>
+	</table>
+</div>
+<ul class="imageNav">
+	<li><a class="a back" href="?/<?php echo smart_urlencode($this->file->Parent->getPrimary()); ?>" title="Back to thumbnails"><i></i></a></li>
+	<li><a class="a prev" href="?/<?php echo smart_urlencode($this->prevFile->getPrimary()); ?>" title="Previous image"><i></i></a>
+</li>
+	<li><span class="c"><?php echo htmlspecialchars($this->current); ?>/<?php echo htmlspecialchars($this->count); ?></span></li>
+	<li><a class="a next" href="?/<?php echo smart_urlencode($this->nextFile->getPrimary()); ?>" title="Next image"><i></i></a></li>
+	<?php if (is_a($this->file, 'ivFileImage')): ?>
+		<?php if ($this->file->getGPSCoords(true)): ?>
+		 	<li><a id="map" class="a map" href="imagevue.php?a=map&path=<?php echo $this->file->getPrimary() ?>" title="View on the map" target="_blank"><i></i></a></li>
+		 	<script>$('#map').colorbox({iframe:true, width: '80%', height: '80%', title: ' '});</script>
+		<?php endif ?>
+	<?php endif ?>
+	<?php if ($link=$this->file->link) : ?>
+			<a  class="a link" title="This file has a link attached" href="<?php htmlspecialchars($link) ?>"><i></i></a>
+	<?php endif ?>
+	<?php if ($sharing): ?>
+		<li>
+			<span class="a share" title="Share this image">
+				<span id="shareMenu">
+					<span class="wrap">
+						<span class="addthis_toolbox addthis_32x32_style">
+						    <?php
+								$sservices = explode(',', $conf->get('/config/imagevue/misc/sharing/services'));
+								foreach ($sservices as $s) :
+									list($service, $title) = explode('|', $s);
+									if (!$title) {
+										$title = ucfirst($service);
+									}
+								?>
+
+								<a addthis:url="<?php echo pageURL() ?>imagevue.php?share=<?php echo smart_urlencode($this->file->getPrimary()); ?>" class="addthis_button_<?php echo htmlspecialchars($service) ?>"><?php echo htmlspecialchars(ucfirst($title)) ?></a>
+							<?php endforeach; ?>
+						</span>
+						<span class="nozzle"></span>
+					</span>
+				</span>
+				<i></i>
+			</span>
+		</li>
+	<?php endif ?>
+	<?php if ($conf->get('/config/imagevue/fotomoto/siteKey') && $conf->get('/config/imagevue/fotomoto/enabled')): ?>
+		<li><a class="a fotomoto" href="#" onclick="if (FOTOMOTO) {FOTOMOTO.API.showWindow(FOTOMOTO.API.PRINT,'<?php echo htmlspecialchars($fotomotoId); ?>');} return false;" title="Buy print"><i></i></a></li>
+	<?php endif ?>
+</ul>
+<?php if (!IS_MOBILE) : ?>
+	<script type="text/javascript">
+	//<![CDATA[
+	$(document).bind('ready', function ()
+	{
+		var open;
+
+		(new Image()).src = 'http://s7.addthis.com/static/r07/widget30_32x32.png';
+
+		function closeShare() {
+			$('#shareMenu').fadeOut('150');
+			open=false;
+			}
+		function openShare() {
+			$('#shareMenu').fadeIn('150');
+			open=true;
+		}
+
+		$("span.a.share").hover( openShare, closeShare );
+		$("span.a.share").click(
+			function() {
+				if (open) {
+						closeShare();
+					} else {
+						openShare();
+					}
+			}
+		);
+
+
+		$("#navigation i").hover(
+			function () {
+				$('div', this).fadeIn('150');
+			},
+			function () {
+				$('div',this).fadeOut('150');;
+			}
+		);
+
+
+		$(document).keyup(function (event)
+		{
+			switch (event.keyCode)
+			{
+			case 37:
+				location = '?/<?php echo smart_urlencode($this->prevFile->getPrimary()); ?>';
+				event.stopPropagation();
+				break;
+			case 39:
+				location = '?/<?php echo smart_urlencode($this->nextFile->getPrimary()); ?>';
+				event.stopPropagation();
+				break;
+			case 38:
+			case 27:
+				location = '?/<?php echo smart_urlencode($this->file->Parent->getPrimary()); ?>';
+				event.stopPropagation();
+				break;
+			}
+		});
+	});
+	// ]]>
+	</script>
+<?php endif; ?>

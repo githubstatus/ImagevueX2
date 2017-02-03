@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<?php
+	$conf = ivPool::get('conf');
+	$siteTitle = $conf->get('/config/imagevue/settings/sitetitle');
+	$currentTitle = $this->placeholder->get('currentTitle');
+	$swfAPath = $this->placeholder->get('currentPath');
+	if (substr($swfAPath,-1) != '/') {
+		$swfAPath .= '/';
+	}
+	$keywords = $conf->get('/config/imagevue/seo/keywords');
+	$description = $conf->get('/config/imagevue/seo/description');
+	$counters = $conf->get('/config/imagevue/seo/counters');
+?>
+		<meta content="minimum-scale=1.0, width=device-width, maximum-scale=0.6667, user-scalable=yes" name="viewport" />
+		<link href="<?php echo htmlspecialchars(IV_PATH); ?>images/imagevueTouch.png" rel="apple-touch-icon" />
+
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="<?php echo htmlspecialchars($keywords); ?>" />
+		<meta name="description" content="<?php echo htmlspecialchars($description); ?>" />
+
+		<link href="<?php echo htmlspecialchars(IV_PATH); ?>assets/dtree/css/dtree.css" rel="stylesheet" type="text/css" />
+		<?php if (ivAcl::isAdmin()): ?><link href="<?php echo htmlspecialchars(IV_PATH); ?>assets/css/imagevue.adminbar.css" rel="stylesheet" type="text/css" /><?php endif ?>
+		<link href="<?php echo htmlspecialchars(IV_PATH); ?>assets/css/imagevue.html.css" rel="stylesheet" type="text/css" />
+		<?php if (getCssPath('html')): ?>
+			<link href="<?php echo htmlspecialchars(getCssPath('html')); ?>" rel="stylesheet" type="text/css" />
+		<?php endif; ?>
+		<link rel="stylesheet" type="text/css" media="all and (max-device-width: 480px)" href="<?php echo htmlspecialchars(IV_PATH); ?>assets/css/imagevue.iphone.css" />
+		<?php if (getCssPath('iphone')): ?>
+			<link rel="stylesheet" type="text/css" media="all and (max-device-width: 480px)" href="<?php echo htmlspecialchars(getCssPath('iphone')); ?>" />
+		<?php endif; ?>
+		<link rel="stylesheet" type="text/css" media="all and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)" href="<?php echo htmlspecialchars(IV_PATH); ?>assets/css/imagevue.ipad.css" />
+		<link rel="stylesheet" type="text/css" media="all and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)" href="<?php echo htmlspecialchars(IV_PATH); ?>assets/css/imagevue.ipad.css" />
+		<?php if (getCssPath('ipad')): ?>
+			<link rel="stylesheet" type="text/css" media="all and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)" href="<?php echo htmlspecialchars(getCssPath('ipad')); ?>" />
+			<link rel="stylesheet" type="text/css" media="all and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)" href="<?php echo htmlspecialchars(getCssPath('ipad')); ?>" />
+		<?php endif; ?>
+
+		<title>Imagevue XML API</title>
+		<style type="text/css">
+			table { margin: 0 0 0 50px;}
+			td { vertical-align: top; padding: 5px 10px 5px 0}
+		</style>
+
+		<script type="text/javascript" src="<?php echo htmlspecialchars(IV_PATH); ?>assets/dtree/js/dtree.js"></script>
+		<script type="text/javascript" src="<?php echo htmlspecialchars(IV_PATH); ?>assets/js/jquery.min.js"></script>
+		<script type="text/javascript" src="<?php echo htmlspecialchars(IV_PATH); ?>assets/js/jquery.c.js"></script>
+		<script type="text/javascript" src="<?php echo htmlspecialchars(IV_PATH); ?>assets/colorbox/jquery.colorbox-min.js"></script>
+		<script type="text/javascript" src="<?php echo htmlspecialchars(IV_PATH); ?>assets/js/functions.js"></script>
+		<?php if (IS_MOBILE): ?>
+			<script type="text/javascript">
+			// <![CDATA[
+				function initScreen() {
+					setTimeout("window.scrollTo(0,1);", 100);
+				}
+				$(document).ready(initScreen);
+			// ]]>
+			</script>
+		<?php endif; ?>
+		<link rel="stylesheet" href="<?php echo htmlspecialchars(IV_PATH); ?>assets/colorbox/colorbox.css" type="text/css" media="screen" />
+	</head>
+	<?php if (IS_MOBILE): ?>
+		<body onorientationchange="initScreen()">
+	<?php else: ?>
+		<body>
+	<?php endif; ?>
+	<div id="body">
+		<?php if (ivAcl::isAdmin() && !ivPool::get('conf')->get('/config/imagevue/settings/disableAdminbar')): ?>
+			<!-- #adminBar -->
+			<div id="adminBar" class="<?php echo (isset($_COOKIE['adminBarHidden']) && $_COOKIE['adminBarHidden'] ? 'closed' : '') ?>">
+				<div class="right"><?php echo htmlspecialchars(ivAuth::getCurrentUserLogin()) ?>
+					<a href="#" title="Hide admin bar" onclick="$('#adminBar').addClass('closed');$.cookie('adminBarHidden', 1, {path: '/'});return false;">Hide &uarr;</a>
+				</div>
+				<a id="flashVersionLink" href="?p=gallery" title="Flash Gallery">Flash gallery &raquo;</a>
+				<a id="htmlVersionLink" href="?/" title="HTML Gallery">HTML gallery &raquo;</a>
+				<?php $thumbRecreationPath = $this->placeholder->get('thumbRecreationPath'); ?>
+				<a href="<?php echo htmlspecialchars($conf->get('/config/imagevue/settings/adminfolder')) ?>?c=config" title="Change <?php echo htmlspecialchars($siteTitle); ?> settings">Settings &raquo;</a>
+			</div>
+			<a href="#" id="barOpen">&times;</a>
+			<!-- /adminBar -->
+		<?php endif; ?>
+		<div id="page">
+
+			<div id="pageHeader">
+				<div id="tree" class="static">
+					<div class="holder">
+						<a href="?/" id="logo"></a>
+					</div>
+				</div>
+
+				<a class="logo" href="?/">Imagevue X2.8.10.3</a>
+			</div><!-- pageHeader -->
+
+			<div id="pageBody">
+				<table>
+					<?php foreach ($this->actions as $controllerName => $methods): ?>
+						<tr>
+							<td><h2><?php echo htmlspecialchars($controllerName); ?>&nbsp;controller</h2></td>
+							<td>&nbsp;</td>
+						</tr>
+						<?php foreach ($methods as $methodName => $methodDesc): ?>
+							<tr>
+								<td><a href="?a=<?php echo htmlspecialchars($methodName); ?>">?a=<?php echo htmlspecialchars($methodName); ?></a></td>
+								<td><?php echo nl2br(htmlspecialchars($methodDesc)); ?></td>
+							</tr>
+						<?php endforeach; ?>
+					<?php endforeach; ?>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>

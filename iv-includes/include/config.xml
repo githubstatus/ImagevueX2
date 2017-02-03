@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This is the default CONFIG settings file with descriptions and parameters. You should not edit this XML manually - Any changes should be done through the admin, which creates a USERconfig.xml file in your imagevue/config/ directory -->
+<config>
+	<imagevue>
+		<settings>
+			<sitetitle title="Site Title" type="string" description="Sets the title of the site">Imagevue Gallery</sitetitle>
+			<contentfolder title="Content folder" type="string" description="Sets the path to the main content folder which contains all image- and file folders">content/</contentfolder>
+			<adminfolder title="Admin folder" type="string" description="Sets the path to the admin folder">iv-admin/</adminfolder>
+			<startpath title="Start Path" type="dir" description="Sets the path to the first gallery folder to display on startup. If set to false, no gallery will display automatically on startup">start/</startpath>
+			<htmlstartpath title="HTML Start Path" type="dir" description="Sets the path to the first gallery folder to display in HTML gallery">/</htmlstartpath>
+			<startmode title="Start Mode" type="enum" description="Sets the gallery to display either thumbnails or fullsize image on gallery start" options="thumbnails,image">thumbnails</startmode>
+			<language type="language" description="Enter the name of the language you wish to use. The language must exist as a language file.">english</language>
+			<useswfaddress title="SWF Address" type="boolean" description="Enables flash deep linking and browser navigation with the SWFAddress module">true</useswfaddress>
+			<url_params title="URL Parameters" type="array" separator="," description="Sets a group of parameters from the config that may be set from url parameters">globalpath, theme, contentfolder, startpath, startmode, language, maincontrols, stylesheet</url_params>
+			<allowedext title="Allowed Extensions" type="array" separator="," description="Sets an array of extensions which the Imagevue scripts are allowed to handle">mp3, jpg, png, gif, jpeg, swf, doc, docx, flv, mp4, m4v, html, pdf, txt</allowedext>
+			<includefilesext title="Included Extensions" type="array" separator="," description="Sets default extensions to be included in file handling">jpg, gif, png, jpeg, flv, mp4, m4v, swf, docx, doc, html, txt, pdf</includefilesext>
+			<videofilesext title="Video Files Extensions" type="array" separator="," description="Extensions for video files to be processed">flv, mp4, m4v</videofilesext>
+			<excludefilesprefix title="Prefixes to exclude" type="array" separator="," description="Select prefixes which will be excluded by the file handling">tn_, thumb_</excludefilesprefix>
+			<dateformat title="Date format" type="string" description="Sets the data formatting method">d M Y</dateformat>
+			<theme type="theme" description="Sets the default theme">carbonizer</theme>
+			<defaultPage title="Default Page" description="Default page: Flash Gallery / HTML" type="enum" options="gallery,html">gallery</defaultPage>
+			<enableHTML title="Enable HTML" description="Enable HTML gallery, if set to false you will have only Flash gallery" type="boolean">true</enableHTML>
+			<useLightview title="Lightbox view" description="Use Lightbox View for Photos in HTML" type="boolean">false</useLightview>
+			<defaultSortFiles title="Sort Files by" description="Default files sorting method - name, date or size" type="enum" options="na,nd,ta,td,da,dd,sa,sd,rnd">na</defaultSortFiles>
+			<defaultViewAs title="Default View" description="Default item list view - grid or list" type="enum" options="grid,list,text">grid</defaultViewAs>
+			<uploader>
+				<type description="File uploader to use" type="enum" options="swfupload,html">swfupload</type>
+				<width description="Width of the bounding box for resize" type="integer">1024</width>
+				<height description="Height of the bounding box for resize" type="integer">1024</height>
+				<resizeDefault type="boolean" description="Resize images before upload by default (you can controls this when you upload also)">true</resizeDefault>
+				<overwrite type="boolean" description="">false</overwrite>
+			</uploader>
+			<autoTitling description="Sets filenames to appear as title by default. If set to false, titles will be empty unless added from the admin" type="boolean">true</autoTitling>
+			<attributes>
+				<image type="array" separator="," description="Decides what custom attributes are available for images" options="custom,link,purchase,hotspot_coordinates,hotspot_url"></image>
+				<folder type="array" separator="," description="Decides what custom attributes are available for folders" options="url1"></folder>
+			</attributes>
+			<email>
+				<allowEmail type="boolean" description="Enable/disable mail functions">false</allowEmail>
+				<ownerEmail type="array" description="Enter your Email address for contact form to work, use comma to separate more than one email. Example: &lt;div class=&quot;example&quot;&gt;you@youremail.com,another@youremail.com&lt;/div&gt;"></ownerEmail>
+				<ownerBcc type="boolean" description="When somebody shares a link from your gallery send an Email to the owner also">true</ownerBcc>
+				<contactSubj type="string" description="Default subj for contact email">Message from Imagevue contact form</contactSubj>
+				<sendlinkSubj type="string" description="Default subj for link sending email">You have received a link from [senderName]!</sendlinkSubj>
+				<forceFrom type="string" description="If your hosting allows emails to be sent only from a certain email address (like GoDaddy), add the address here or write 'none' to send emails without from field."></forceFrom>
+			</email>
+			<disableDashboard description="Disable dashboard" type="boolean">false</disableDashboard>
+			<disableAdminbar description="Disable AdminBar" type="boolean">false</disableAdminbar>
+			<disableImageMeta description="Disable EXIF/IPTC meta data display for images" type="boolean">false</disableImageMeta>
+			<ffmpegPath title="Path to FFMPEG" description="FFMPEG is needed to create thumbnails for video files, if this path is empty, it will probe just 'ffmpeg'"></ffmpegPath>
+		</settings>
+		<controls>
+			<maincontrols>
+				<enabled type="boolean" description="Enables or disables the main controls module">true</enabled>
+				<items type="array" description="Selects what items to display in the main controls" options="togglethumbnails,previous,scrollinfo,next,toggleplay,sfx,html,togglefullscreen,zoomin,zoomout,link,purchase,sendlink,contact,share,fotomoto,close">togglethumbnails,previous,scrollinfo,next,toggleplay,togglefullscreen</items>
+				<autohide type="boolean" description="Only display the main controls when rolling over the appropriate area of the screen">true</autohide>
+				<align type="enum" description="Sets the alignment of the main controls" options="ITL,ITM,ITR,IRT,IRM,IRB,IBR,IBM,IBL,ILB,ILM,ILT,OITL,OITM,OITR,OIRM,OIBR,OIBM,OIBL,OILM,OIM,TL,T,TR,R,BR,B,BL,L,M">B</align>
+				<margin type="integer" description="Sets the margin of the main controls in respect to its alignment" range="0,200">55</margin>
+				<locktothumbnails type="boolean" description="This setting automatically aligns the controls above the thumbnailscroller">true</locktothumbnails>
+			</maincontrols>
+			<largecontrols>
+				<enabled type="boolean" description="Enables the large alternative next and previous controls">true</enabled>
+				<autohide type="boolean" description="Hides the large controls if there is no mouse activity">true</autohide>
+				<margin type="integer" description="Sets the margin for the large controls in regards to the alignment">50</margin>
+			</largecontrols>
+			<rightclick>
+				<controls type="array" description="Specifies an array of controls available in the right-click context menu, and in which order they appear. Items are context-sensitive, and will vary depending on the property of the item being right-clicked" options="next,previous,popup,lightbox,window,download,html,zoomin,zoomout,togglethumbnails,toggleplay,sendlink,link,purchase,fotomoto,copylocation,sfx,togglefullscreen,contact">next,previous,lightbox,download,html,zoomin,zoomout,togglethumbnails,toggleplay,sendlink,fotomoto,copylocation,sfx,togglefullscreen,contact</controls>
+			</rightclick>
+			<fullscreen_click type="boolean" description="Sets the gallery to enter fullscreen mode after visitor clicks first time anywhere in the gallery">false</fullscreen_click>
+			<keycontrols type="boolean" description="Enable arrow controls to be used for navigating the gallery - next/previous/togglethumbnails/toggleplay">true</keycontrols>
+			<inverse_controls type="boolean" description="Inverse the direction of all next/previous controls in the gallery">false</inverse_controls>
+			<mousewheel type="enum" description="Sets interactivity method for the mousewheel" options="zoom, togglethumbs, none">zoom</mousewheel>
+			<altimage type="boolean" description="Sets an extended folder path '_altimage/' to open a different version of selected image. Effects the functions popup, window and download image">false</altimage>
+		</controls>
+		<audioplayer>
+			<enabled type="boolean" description="Enable or disable the audioplayer">true</enabled>
+			<path type="dir" description="Sets the initial path for the audio folder">mp3/</path>
+			<use_imagefolder type="boolean" description="Sets the audioplayer to load tracks from active imagefolder if mp3 files exist">false</use_imagefolder>
+			<autostart type="boolean" description="Sets the audioplayer to play when gallery starts">true</autostart>
+			<startvolume type="integer" description="Sets the initial volume of the audioplayer" range="1,100">75</startvolume>
+			<repeat type="integer" description="Sets how many times a track or playlist will loop. 0 for unlimited">0</repeat>
+			<minimum_connection type="integer" description="Sets the minimum connection speed|kb/s| required for the audioplayer to run">20</minimum_connection>
+			<sorting type="enum" description="Sets the sorting order for list of audio tracks. Set to auto to have the tracks sorted manually from the admin." options="na,nd,da,dd,sa,sd,rnd,auto">rnd</sorting>
+			<id3tags type="array" description="Sets what ID3 tags to display">TIT2,TPE1</id3tags>
+			<showplaylist type="boolean" description="Show or hide the playlist">true</showplaylist>
+			<showcontrols type="boolean" description="Show or hide the 3 controls previous, playtoggle and next">true</showcontrols>
+		</audioplayer>
+		<image>
+			<image>
+				<margin type="integer" description="Sets the minimum margin for the image relative to the outer boundaries of the stage" range="0,500">94</margin>
+				<scale type="enum" description="Sets the image scale method" options="fitmargin,original,fitstage,croptostage">fitmargin</scale>
+				<scale_limit type="boolean" description="When set to true, prevents the image from scaling larger than 100% of original size when the visitor uses the zoom buttons">false</scale_limit>
+				<scale_reset type="boolean" description="Resets to the original zoom/scale when a new image is loaded">true</scale_reset>
+				<image_panning type="boolean" description="Allows image panning on mouse movement if the image is scaled larger than the stage area.">true</image_panning>
+				<original_optimized type="boolean" description="Displays image at original size if it fits within stage, although it may break the margin setting. May provide better image quality(display image unscaled), but at the cost of possibly overlapping controls and missing descriptions">false</original_optimized>
+				<click type="enum" description="Sets the event when mouse clicking current image" options="false,showthumbnails,next,popup,lightbox,window,download,togglefullscreen,toggleplay,link,html">next</click>
+				<shiftclick type="enum" description="Sets the event when mouse clicking current image" options="false,showthumbnails,next,previous,popup,lightbox,window,download,togglefullscreen,toggleplay,link,html">lightbox</shiftclick>
+				<progress_bar type="enum" descriptions="Sets the loading progress bar style" options="bar,spin,none">spin</progress_bar>
+			</image>
+			<slideshow>
+				<autostart type="boolean" description="Sets the slideshow to play on start(autostart)">false</autostart>
+				<interval type="integer" description="Sets the interval(in seconds) between images when slideshow is in play mode" range="0,100">6</interval>
+				<end_event type="event" description="Sets the action on slideshow end event. To use the 'url' option, you must enable the 'url1' setting in attributes -&gt; folder, before you can create separate urls for each folder from the admin" options="loop,stop,thumbnails,startpath,url">loop</end_event>
+				<loop type="boolean" description="Loops the slideshow seamlessly between last image and first image.">true</loop>
+				<jsresize type="boolean" description="Resizes POPUP window to fit displayed image in slideshow mode">false</jsresize>
+			</slideshow>
+			<imagebuttons>
+				<enabled type="boolean" description="Sets a group of buttons which appear on top of current image">true</enabled>
+				<align type="enum" description="Sets the alignment of the buttons" options="ITL,ITM,ITR,IRT,IRM,IRB,IBR,IBM,IBL,ILB,ILM,ILT,OITL,OITM,OITR,OIRM,OIBR,OIBM,OIBL,OILM,OIM">OITR</align>
+				<autohide type="boolean" description="Only shows the buttons when mouse is over image">true</autohide>
+				<buttons type="array" description="Select which buttons to be used when hovering over the image" options="imageinfo,window,popup,lightbox,copylocation,link,purchase,download,html,sendlink,contact,zoomin,zoomout,togglefullscreen,toggleplay,maplink,share,fotomoto">lightbox,download,zoomin,zoomout,maplink,share,fotomoto</buttons>
+				<margin type="integer" description="sets the margin between the buttons and the edge of the image" range="0,100">20</margin>
+			</imagebuttons>
+			<closebutton>
+				<enabled type="boolean" description="Sets a 'close' button to appear at top right of the image, which returns the viewer to thumbnails mode on click">true</enabled>
+				<autohide type="boolean" description="Only shows the close button when mouse is over image">true</autohide>
+			</closebutton>
+			<text>
+				<text1>
+					<enabled type="boolean" description="Toggles this description node on or off">true</enabled>
+					<style type="enum" description="Sets the display style of the description node" options="auto,right,bottom_right,left,below,above,over_image_top,over_image_bottom,over_image_left,over_image_right">above</style>
+					<event type="enum" description="Decides on what event the description triggers" options="static,rollover,imageinfo_button">static</event>
+					<items type="array" description="Decides what description items to display in this description node" options="imageindex,titlepath,title,filename,dimensions,filesize,date,folderdescription,description,custom,exif,xmp,iptc,link,filelink,purchase,download,folderpath,foldername,abslink,fotomoto,fotomotoproducts,maplink,lightbox">title,description,maplink</items>
+					<width type="string" description="Sets the width of the textitem for styles that support 'width' including: right,left,over_image_left,over_image_right. May be set as a percentage of the image width by using the % symbol">200</width>
+					<margin type="integer" description="Sets the margin around the textbox" range="0,100">0</margin>
+					<min_width type="integer" description="Minimum width">200</min_width>
+					<scaleheight type="enum" description="Scaleheight" options="max,min">min</scaleheight>
+					<height type="string" description="Sets the maximum height of the textitem for styles:below, above, over_image_top, over_image_bottom. Supports number or percentage%">200</height>
+				</text1>
+				<text2>
+					<enabled type="boolean" description="Toggles this description node on or off">true</enabled>
+					<style type="enum" description="Sets the display style of the description node" options="auto,right,bottom_right,left,below,above,over_image_top,over_image_bottom,over_image_left,over_image_right">over_image_right</style>
+					<event type="enum" description="Decides on what event the description triggers" options="static,rollover,imageinfo_button">rollover</event>
+					<items type="array" description="Decides what description items to display in this description node" options="imageindex,titlepath,title,filename,dimensions,filesize,date,folderdescription,description,custom,exif,xmp,iptc,link,filelink,purchase,download,folderpath,foldername,abslink,fotomoto,fotomotoproducts,maplink,lightbox">exif,xmp</items>
+					<width type="string" description="Sets the width of the textitem for styles that support 'width' including: right,left,over_image_left,over_image_right. May be set as a percentage of the image width by using the % symbol">250</width>
+					<margin type="integer" description="Sets the margin around the textbox" range="0,100">1</margin>
+					<min_width type="integer" description="Minimum width">200</min_width>
+					<scaleheight type="enum" description="Scaleheight" options="max,min">min</scaleheight>
+					<height type="string" description="Sets the maximum height of the textitem for styles: below, above, over_image_top, over_image_bottom. Supports number or percentage%">500</height>
+				</text2>
+				<text3>
+					<enabled type="boolean" description="Toggles this description node on or off">false</enabled>
+					<style type="enum" description="Sets the display style of the description node" options="auto,right,bottom_right,left,below,above,over_image_top,over_image_bottom,over_image_left,over_image_right">above</style>
+					<event type="enum" description="Decides on what event the description triggers" options="static,rollover,imageinfo_button">static</event>
+					<items type="array" description="Decides what description items to display in this description node" options="imageindex,titlepath,title,filename,dimensions,filesize,date,folderdescription,description,custom,exif,xmp,iptc,link,filelink,purchase,download,folderpath,foldername,abslink,fotomoto,fotomotoproducts,maplink,lightbox">fotomotoproducts</items>
+					<width type="string" description="Sets the width of the textitem for styles that support 'width' including: right,left,over_image_left,over_image_right. May be set as a percentage of the image width by using the % symbol">200</width>
+					<margin type="integer" description="Sets the margin around the textbox" range="0,100">0</margin>
+					<min_width type="integer" description="Minimum width">200</min_width>
+					<scaleheight type="enum" description="Scaleheight" options="max,min">min</scaleheight>
+					<height type="string" description="Sets the maximum height of the textitem for styles: below, above, over_image_top, over_image_bottom. Supports number or percentage%">500</height>
+				</text3>
+			</text>
+			<imagelayer>
+				<layer>
+					<enabled type="boolean" description="Enable or disable this image layer">false</enabled>
+					<filepath type="file" description="Filepath relative to your gallery document root">shape.swf</filepath>
+					<opacity type="integer" description="Sets the opacity of this image layer" range="0,100">100</opacity>
+					<align type="enum" description="Sets the alignment of this layer" options="OITL,OITM,OITR,OIRM,OIBR,OIBM,OIBL,OILM,OIM">OITL</align>
+					<margin type="integer" description="Sets the margin of this layer from the image edge" range="0,500">1</margin>
+				</layer>
+			</imagelayer>
+		</image>
+		<thumbnails>
+			<thumbnail>
+				<boxwidth type="integer" description="Sets the box constraint width parameter">160</boxwidth>
+				<boxheight type="integer" description="Sets the box constraint height parameter">120</boxheight>
+				<resizetype type="enum" options="resizetobox,croptobox" description="Method for creating thumbnails - resizetobox resizes images constrained within the boxwidth and boxheight parameters - croptobox resizes images to boxwidth and boxheight parameters, cutting away some of the image if necessary">croptobox</resizetype>
+				<click type="enum" description="Sets the event when clicking a thumbnail" options="false,open,window,popup,lightbox,download,link,html">open</click>
+				<shiftclick type="enum" description="Sets the event when shift-clicking a thumbnail" options="false,open,window,popup,lightbox,download,link,html">lightbox</shiftclick>
+				<backgroundColor type="color" description="Background color for transparent .png">FFFFFF</backgroundColor>
+			</thumbnail>
+			<thumbnails>
+				<margin type="array" description="Sets the margin between the sides of the screen and the thumbnails. TOP,RIGHT,BOTTOM,LEFT">100,100,200,100</margin>
+				<min_width type="integer" description="Sets the minimum width for the thumbnails area" range="0,2000">200</min_width>
+				<min_height type="integer" description="Sets the minimum height for the thumbnails area" range="0,2000">200</min_height>
+				<max_width type="integer" description="Sets the maximum width for the thumbnails area" range="0,2000">1200</max_width>
+				<max_height type="integer" description="Sets the maximum width for the thumbnails area" range="0,2000">1000</max_height>
+				<horizontalamount type="integer" description="Force the amount of thumbnails to display horizontally. Leave at 0 for auto, so that thumbnails are created based on stage size. Use with care, as the interface UI cannot respond to all combinations for all screen sizes" range="0,100">0</horizontalamount>
+				<verticalamount type="integer" description="Force the amount of thumbnails to display vertically. Leave at 0 for auto, so that thumbnails are created based on stage size. Use with care, as the interface UI cannot respond to all combinations for all screen sizes" range="0,100">0</verticalamount>
+				<text type="array" description="Sets what text options to display above the thumbnails" options="breadcrumbs,pagecount,title,description">breadcrumbs,title,pagecount,description</text>
+				<sharebutton type="boolean" description="Enable or disable the social media share button that displays above the thumbnails. Sharing must also be enabled for this button to display.">true</sharebutton>
+				<pagebuttons type="boolean" description="Enable or disable the pagebuttons that display below the thumbnails when there are multiple pages">true</pagebuttons>
+			</thumbnails>
+			<thumbnailscroller>
+				<enabled type="boolean" description="Toggle the thumbnailsscroller on or off">true</enabled>
+				<autohide type="boolean" description="If set to true, hides the thumbnailscroller when inactive">false</autohide>
+				<autohide_offset type="integer" description="Sets how much to display from the thumbnailscroller when in hidden mode">10</autohide_offset>
+				<tooltip type="boolean" description="Inherits the same tooltip as used for standard thumbnails to display title and description">true</tooltip>
+			</thumbnailscroller>
+			<tooltip>
+				<enabled type="boolean" description="Enable or disable text tooltip on thumbnail rollover">true</enabled>
+				<items type="array" description="Sets what items to display in the thumbnails tooltip text" options="name,title,date,description">title,description</items>
+				<interval type="integer" description="Sets the delay in milliseconds for the tooltip to display on thumbnail rollover" range="0,2000">500</interval>
+			</tooltip>
+		</thumbnails>
+		<textpage>
+			<show_title type="boolean" description="Enable or disable the title for the textpage">true</show_title>
+			<sharebutton type="boolean" description="Enable or disable the social media share button that displays on the top right of the textpage. Sharing must also be enabled for this button to display.">true</sharebutton>
+		</textpage>
+		<menu>
+			<mainmenu>
+				<enabled type="boolean" description="Enables the main gallery menu">true</enabled>
+				<items type="array" description="Sets what items to display in the main menu" options="node,title,amount">node,title,amount</items>
+				<submenu_style type="enum" description="Sets submenu items to either display below or on the side of its parent menu item" options="vertical,horizontal">vertical</submenu_style>
+				<close_same_level type="boolean" description="Only one node within a parent can be expanded at the same time">false</close_same_level>
+				<autohide type="boolean" description="Sets the menu to autohide when not active">true</autohide>
+				<startshow type="boolean" description="If set to true, menu will not hide on startup">false</startshow>
+				<x_offset type="integer" description="Sets the x position of the menu from the top left corner">10</x_offset>
+				<folderdescription>
+					<enabled type="boolean" description="Enable or disable the mainmenu- descriptions and previewimage tooltip on menu mouse hover">true</enabled>
+					<items type="array" description="Toggle items to be displayed in the mainmenu tooltip" options="title,filecount,date,description,previewimage">title,filecount,description,previewimage</items>
+				</folderdescription>
+				<menu_logo type="string" description="Sets a logo above the menu. Using this setting overrides several other settings to facilitate the menu logo nicely. Use an absolute path, or a path relative from gallery root. Use PNG-24 or SWF with transparency."></menu_logo>
+				<menu_logo_link type="string" description="Sets a click link for the main menu logo. You can use an absolute path, or a relative swfaddress path like /#/start/ if you want it to go to the start page."></menu_logo_link>
+			</mainmenu>
+		</menu>
+		<misc>
+			<sharing>
+				<enabled type="boolean" description="Enable or disable the Share button, which will be available in several locations">true</enabled>
+				<sharebutton_click type="enum" description="Sets the mouse-click event for the main share button. If set to 'menu', mouse-click will toggle the native Imagevue sharing menu. If set to 'extended', mouse-click will display the sharing popover html layer with extended sharing options, just like the 'more' button" options="menu,extended">menu</sharebutton_click>
+				<services type="string" description="Select what services to display in the Imagevue Share menu. 'more', will display an extended list of services through AddThis on click. In addition to the services, you can add custom titles like this: service|Title. &lt;a href='http://www.addthis.com/services/list'&gt;Services full list&lt;/a&gt;" >email|E-mail,facebook,twitter,more</services>
+				<addthis_username type="string" description="If you have an AddThis(www.addthis.com) username, add it here to attribute shares in your AddThis analytics"></addthis_username>
+			</sharing>
+			<sfx>
+				<enabled type="boolean" description="Enable or disable sound effects">true</enabled>
+				<volume type="integer" description="Sets the relative volume of sound effects from 1-100" range="1,100">90</volume>
+			</sfx>
+			<video>
+				<external_player type="boolean" description="Opens video files in an external player in a lightbox window. Although not as integrated as the internal player, it has better format support (FLV+MP4) and better fullscreen rendering. MP4 files always open in the external player.">true</external_player>
+				<controlsAutoHide type="boolean" description="Choose to autohide the video controls, so they only display on mouse over">true</controlsAutoHide>
+				<autoPlay type="boolean" description="Sets the video to start automatically. If set to false, viewer will have to click the play button to start video">true</autoPlay>
+				<loop type="boolean" description="Sets the video to loop">false</loop>
+				<bufferTime type="integer" description="Sets the buffertime for loading videos. Does not apply if using external_player (default)">5</bufferTime>
+				<stopAudioPlayer type="boolean" description="Stops the Imagevue audioplayer when a video loads, to make room for audio from the video file">true</stopAudioPlayer>
+			</video>
+		</misc>
+		<modules>
+			<filemod>
+				<align type="enum" description="Sets the alignment of the filemod" options="TL,T,TR,R,BR,B,BL,L,M">M</align>
+				<frame type="boolean" description="Sets a frame to display behind the filemod. Frame parameters are inherited from image">true</frame>
+				<text type="boolean" description="Displays text above the filemod. Only works well with certain mods">true</text>
+				<textalign type="enum" description="Sets where to align the text" options="above,over">above</textalign>
+			</filemod>
+			<hotspot>
+				<enabled type="boolean" description="Enables the hotspot module">false</enabled>
+				<event type="enum" description="Sets on what event the hotspots appear" options="static,rollover">rollover</event>
+				<url_prefix type="string" description="Sets an URL prefix for all hotspot links">http://www.imagevuex.com/</url_prefix>
+				<window_target type="enum" description="Sets the window target for all hotspot links" options="_blank,_parent,_top">_blank</window_target>
+			</hotspot>
+		</modules>
+		<seo>
+			<googleAnalytics title="Google Analytics Accoiunt ID" description="UA-XXXXX-Y"></googleAnalytics>
+			<keywords type="string" description="Add a few keywords to your gallery separated by ,(comma). This will be added to the source code, and picked up by some search engines">imagevue, flash, photo, image, gallery, slideshow</keywords>
+			<description type="string" description="Add a description to your gallery. This will be added to the source code of your gallery, and the search engines will use it to display information about your site in their listings">Another Gallery from Imagevuex.com</description>
+			<counters title="Footer code" type="text" description="Add code for any 3rd party counters or stats, it will be displayed below the footer in div#counters"></counters>
+			<htmlRedirect title="Redirect to Flash gallery" type="boolean" description="Enable this to redirect users to Flash gallery if they have flash installed">true</htmlRedirect>
+			<disableSitemap type="boolean" description="Disables the sitemap.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Note:&lt;/b&gt; You can submit the sitemap from &lt;a href='../?p=sitemap.xml'&gt;this link&lt;/a&gt; to Google Webmaster">false</disableSitemap>
+		</seo>
+		<fotomoto>
+			<enabled type="boolean" description="Enable or disable the Fotomoto shopping cart option. You will need Fotmoto account to use this option">false</enabled>
+			<siteKey type="string" description="Your Fotomoto site key / Store ID"></siteKey>
+			<product_menu type="boolean" description="Displays a fotomoto product submenu on mouse hover over the Fotomoto button in imagecontrols and maincontrols. If disabled, the menu will only react to click which is set in the option below">true</product_menu>
+			<fotomotobutton_click type="enum" description="Sets the mouse-click event for the main fotomoto button. If set to 'menu', mouse-click will toggle the native Imagevue fotomoto dropdown menu. If set to 'window', mouse-click will immediately display the fotomoto window from it's default page." options="menu,window">menu</fotomotobutton_click>
+			<default_page type="enum" description="Choose what default page the Fotomoto window opens on, unless a specific product-button is clicked. Default set to 'buy' shows the first product available for the item." options="buy,print,card,file,ecard">buy</default_page>
+		</fotomoto>
+		<mobile>
+			<view type="enum" title="Folder view mode" options="Thumbnails, Images, Images with Info, Images with Info Below" description="Default mobile folder view mode. Select images to view full-size images listed vertically, with our without text info.">Thumbnails</view>
+			<toolbar type="text" title="Toolbar Title" description="HTML to display in the header toolbar instead of the default folder titles.&lt;code&gt;Your Gallery&lt;/code&gt;"></toolbar>
+			<heading title="Global Header" type="text" description="Html to display globally on the top of your mobile gallery. Good for logo image or similar. Elements wrapped in div tags will have whitepaces around them.&lt;code&gt;&amp;lt;img src=&amp;quot;iv-config/image_fullwidth.jpg&amp;quot;/&amp;gt;&amp;lt;div&gt;Text with whitespace&amp;lt;/div&gt;&lt;/code&gt;">&lt;a href=&quot;?/&quot;&gt;&lt;img src=&quot;iv-includes/images/mobile/mobile-global-header.jpg&quot;/&gt;&lt;/a&gt;</heading>
+			<startpage title="Startpage Header" type="text" description="HTML to display on the frontpage only. Elements wrapped in div tags will have whitepaces around them.&lt;code&gt;&amp;lt;img src=&amp;quot;iv-config/image_fullwidth.jpg&amp;quot;/&amp;gt;&amp;lt;div&gt;Welcome text with whitespace&amp;lt;/div&gt;&lt;/code&gt;">&lt;a href=&quot;?/&quot;&gt;&lt;img src=&quot;iv-includes/images/mobile/mobile-start-header.jpg&quot;/&gt;&lt;/a&gt;</startpage>
+			<footing title="Footer" type="text" description="Html to display globally in the footer of your mobile gallery. Good for name/company, contact info, copyright info, small logo or similar.  Elements wrapped in div will have whitepaces around them.&lt;code&gt;&amp;amp;copy; Name&lt;/code&gt;"></footing>
+			<footer title="Footer Toolbar" type="text" description="HTML to display in the global footer toolbar. Leave it empty to remove the footer bar. You might need to add rel=&quot;external&quot; to the link on the same domain. &lt;code&gt;Powered by Imagevue&lt;/code&gt;">&lt;a href=&quot;http://imagevuex.com&quot;&gt;&lt;img src=&quot;iv-includes/images/imagevueMobile.png&quot; height=&quot;20&quot;&gt;&lt;/a&gt;</footer>
+			<mobileMenu title="Mobile Menu" type="boolean" description="Show folders tree when you tap the mobile header">true></mobileMenu>
+			<showMenuThumbnails title="Show Thumbnails in Menu" type="boolean" description="Show thumbnails/icons in menu, or have a text-based menu">true</showMenuThumbnails>
+			<showMenuDescriptions title="Show Descriptions in Menu" type="boolean" description="Show descriptions in menu, makes sense to disable with thumbnails">true</showMenuDescriptions>
+			<showFileCounters title="Show File Counters in Menu" type="boolean" description="Show file counters in the gallery list">false</showFileCounters>
+			<columns title="Thumbnail Columns" type="int" description="How many columns to display" range="1-4">3</columns>
+			<jqueryMobileTheme title="Theme" type="enum" description="Select a dark or light Mobile Theme" options="Dark, Light">Light</jqueryMobileTheme>
+		</mobile>
+	</imagevue>
+</config>

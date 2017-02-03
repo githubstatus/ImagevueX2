@@ -1,0 +1,48 @@
+<div class="formTree">
+	<?php $oldDepth = -1; ?>
+	<?php $id = 1; ?>
+	<?php $sections = $this->sections; ?>
+	<?php foreach ($sections as $sectionName => $flatSection): ?>
+		<?php foreach ($flatSection as $itemInfo): ?>
+			<?php if (0 == $itemInfo['depth']): ?>
+				<?php if ($oldDepth > $itemInfo['depth']): ?>
+					</div>
+				<?php endif; ?>
+				<div id="<?php echo htmlspecialchars($itemInfo['node']->getName()); ?>" class="tabBody">
+			<?php else: ?>
+				<?php if ($oldDepth > $itemInfo['depth']): ?>
+					<?php for ($i = 0; $i < $oldDepth - $itemInfo['depth']; $i++): ?>
+						</div>
+					</div>
+					<?php endfor; ?>
+				<?php endif; ?>
+				<?php if ($itemInfo['node']->hasChildren()): ?>
+					<?php $aId = "config_imagevue_{$sectionName}_" . str_replace('/', '_', $itemInfo['path']); ?>
+					<?php $opened = in_array($aId, $this->openedPanels); ?>
+
+					<a href="#" class="ivconf <?php echo $opened ? 'open' : ''; ?>" id="<?php echo $aId; ?>" onclick="return false;"><?php echo ($title=$itemInfo['node']->getAttribute('title'))? $title:ucwords( str_replace( '_', ' ', (preg_replace(array('#(?<=(?:[a-z0-9]))([A-Z])#'), array(' \1'), $itemInfo['node']->getName() ) ) ) ); ?></a>
+					<div class="subitems"<?php echo $opened ? '' : ' style="display: none;"'; ?>>
+						<div class="itemgroup">
+				<?php else: ?>
+					<table class="item">
+						<tr>
+						<td class="itemControl">
+						   <div class="title"><?php echo ($title=$itemInfo['node']->getAttribute('title'))? $title: ucwords( str_replace( '_', ' ', (preg_replace(array('#(?<=(?:[a-z0-9]))([A-Z])#'), array(' \1'), $itemInfo['node']->getName() ) ) ) ); ?>:</div>
+						   <?php echo $itemInfo['node']->toFormElement("config[/config/imagevue{$itemInfo['path']}]", $id); ?>
+						</td>
+						<td class="itemHelp">
+							<?php echo $itemInfo['node']->getAttribute('description'); ?>
+						</td>
+						</tr>
+					</table>
+				<?php endif; ?>
+			<?php endif; ?>
+			<?php $oldDepth = $itemInfo['depth']; ?>
+			<?php $id++; ?>
+		<?php endforeach; ?>
+		<?php for ($i = 0; $i < $oldDepth - 1; $i++): ?>
+			</div>
+		</div>
+		<?php endfor; ?>
+	<?php endforeach; ?>
+</div>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lang>
+	<image>圖片</image>
+	<page>頁</page>
+	<next_image>往後</next_image>
+	<previous_image>往前</previous_image>
+	<next_thumbnails>往後</next_thumbnails>
+	<previous_thumbnails>往前</previous_thumbnails>
+	<popup>在彈出窗口打開</popup>
+	<window>在新窗口打開</window>
+	<download>下載</download>
+	<zoomin>放大</zoomin>
+	<zoomout>縮小</zoomout>
+	<play>開始播放</play>
+	<stop>停止</stop>
+	<showimage>顯示所有圖片</showimage>
+	<showthumbnails>顯示小圖</showthumbnails>
+	<imageinfo>圖片說明</imageinfo>
+	<mainmenu>菜單</mainmenu>
+	<sendemail>email</sendemail>
+	<login>登入</login>
+	<logout>退出</logout>
+	<open>開啟</open>
+	<copylocation>複製位置</copylocation>
+	<enterfullscreen>全屏</enterfullscreen>
+	<exitfullscreen>退出全屏</exitfullscreen>
+	<videofullscreen>全屏觀看</videofullscreen>
+	<audio>聲音</audio>
+	<volume>音量</volume>
+	<yourname>你的姓名</yourname>
+	<youremail>你的email</youremail>
+	<yourfriendsemail>朋友的email</yourfriendsemail>
+	<message>意見</message>
+	<send>寄出</send>
+	<sent>成功寄出</sent>
+	<contact>聯繫我們</contact>
+	<sendlink>寄出鏈接</sendlink>
+	<purchase>購買</purchase>
+	<link>鏈接</link>
+	<sfx>開關FX聲</sfx>
+</lang>

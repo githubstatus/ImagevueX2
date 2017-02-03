@@ -1,0 +1,90 @@
+<div class="narrow">
+	
+	<div class="bodyContent single">
+		<h1>Environment check</h1>
+
+		<?php if (!in_array('noteDiag', ivPool::get('notes'))): ?>
+			<div class="note">
+				<a id="noteDiag" href="#" class="close">&times;</a>
+				This page is used to help to diagnose your gallery if something is not working properly.
+			</div>
+		<?php endif; ?>
+
+		<div class="contentMenu">
+			<a href="index.php?c=diag">File System</a>
+			<a class="selected" href="index.php?c=diag&amp;a=errors">PHP check</a>
+			<a href="index.php?c=diag&amp;a=apachemod#error">Apache modules check</a>
+			<a href="index.php?c=diag&amp;a=phpinfo">PhpInfo</a>
+		</div>
+
+
+		<table class="nice">
+			<?php if (SUHOSIN_INSTALLED): ?>
+				<tr>
+					<td><img src="assets/images/icon_notice.gif" alt="" /></td>
+					<td><a name="suhosin"></a>suhosin</td>
+					<td>Oh, bad luck. This is some 'hardened php' project which went wrong. You might  have to disable it.
+						<a  class="iv-ext" target="_blank" href="http://imagevuex.com/forum/viewtopic.php?p=13808#13808">Related topic on imagevuex.com</a>
+					</td>
+				</tr>
+			<?php endif; ?>
+			<tr>
+				<td><img src="<?php echo (version_compare('5.1.3', phpversion()) > 0 ? 'assets/images/icon_error.gif' : 'assets/images/icon_ok.gif'); ?>" alt="" /></td>
+				<td>php&nbsp;version&nbsp;<?php echo phpversion(); ?></td>
+				<td><p>
+					Imagevue X2 requires a server that runs PHP5.1.3+.
+					</p><p><a href="http://en.wikipedia.org/wiki/PHP" target="_blank" >http://en.wikipedia.org/wiki/PHP</a></p>
+				</td>
+			</tr>
+			<tr>
+				<td><img src="<?php echo (XML_INSTALLED ? 'assets/images/icon_ok.gif' : 'assets/images/icon_error.gif'); ?>" alt="" /></td>
+				<td><a name="xml"></a>XML parser</td>
+				<td><p>
+					XML Parser is a PHP extension required by Imagevue X2 to execute many of the Imagevue scripts. Imagevue communicates with XML, so  this extension is critical for running the Imagevue X2 gallery. This extension is common on most professional PHP servers.</p>
+					<p><a href="http://php.net/manual/en/intro.xml.php" target="_blank" >http://php.net/manual/en/intro.xml.php</a></p>
+				</td>
+			</tr>
+			<tr>
+				<td><img src="<?php echo (GD_INSTALLED ? 'assets/images/icon_ok.gif' : 'assets/images/icon_notice.gif'); ?>" alt="" /></td>
+				<td><a name="gd"></a>GD 2</td>
+				<td><p>
+					GD is a PHP extension required by Imagevue to resize images into thumbnails. This extension is mostly standard on all servers running PHP these days. If your server does not have this extension enabled, you can still run Imagevue X2, but you will need to create thumbnails manually.
+					</p><p><a href="http://en.wikipedia.org/wiki/GD_Graphics_Library" target="_blank" >http://en.wikipedia.org/wiki/GD_Graphics_Library</a></p>
+				</td>
+			</tr>
+			<tr>
+				<td><img src="<?php echo (MBSTRING_INSTALLED ? 'assets/images/icon_ok.gif' : 'assets/images/icon_notice.gif'); ?>" alt="" /></td>
+				<td><a name="mbstring"></a>mbstring</td>
+				<td><p>
+					Multibyte string is a PHP extension required by Imagevue X2 to display international characters. This exension is usually enabled on professional PHP servers. If your server does not have this extension enabled, there will be problems displaying and formatting international characters and languages.
+					</p><p><a href="http://php.net/manual/en/intro.mbstring.php" target="_blank" >http://php.net/manual/en/intro.mbstring.php</a></p>
+				</td>
+			</tr>
+			<tr>
+				<td><img src="<?php echo (ICONV_INSTALLED ? 'assets/images/icon_ok.gif' : 'assets/images/icon_notice.gif'); ?>" alt="" /></td>
+				<td><a name="iconv"></a>iconv</td>
+				<td><p>This library is needed to support special chars in mp3 tags mostly</p></td>
+			</tr>
+			<tr>
+				<td><img src="<?php echo (EXIF_INSTALLED ? 'assets/images/icon_ok.gif' : 'assets/images/icon_notice.gif'); ?>" alt="" /></td>
+				<td><a name="exif"></a>EXIF</td>
+				<td><p>
+					EXIF is a PHP extension required by Imagevue X2 to display EXIF data from photos. EXIF data is generally information about a photo stored directly in the file, most often created by the camera. It can be camera info, data as well as keywords and description. The EXIF PHP extension is usually enabled on most professional PHP server. If your server does not have this extension enabled, EXIF data from photos will not display.</p><p>
+					<a href="http://php.net/manual/en/intro.exif.php" target="_blank" >http://php.net/manual/en/intro.exif.php</a>
+					<a href="http://en.wikipedia.org/wiki/Exif" target="_blank" >http://en.wikipedia.org/wiki/Exif</a></p>
+				</td>
+			</tr>
+			<tr>
+				<td><img src="<?php echo (SAFE_MODE_ENABLED ? 'assets/images/icon_error.gif' : 'assets/images/icon_ok.gif'); ?>" alt="" /></td>
+				<td><a name="safemode"></a>safe mode</td>
+				<td><p>No support on questions related to these restriction<?php echo (SAFE_MODE_ENABLED ? ', just ask your hoster to disable this configuration option' : ''); ?></p></td>
+			</tr>
+			<tr>
+				<td><img src="<?php echo (OPEN_BASEDIR_ENABLED ? 'assets/images/icon_error.gif' : 'assets/images/icon_ok.gif'); ?>" alt="" /></td>
+				<td>open basedir</td>
+				<td><p>No support on questions related to these restriction<?php echo (OPEN_BASEDIR_ENABLED ? ', just ask your hoster to disable this configuration option' : ''); ?></p></td>
+			</tr>
+		</table>
+
+	</div>
+</div>

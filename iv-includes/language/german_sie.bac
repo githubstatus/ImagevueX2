@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<lang>
+	<image>Bild</image>
+	<page>Seite</page>
+	<next_image>Nächstes Bild</next_image>
+	<previous_image>Vorheriges Bild</previous_image>
+	<next_thumbnails>Nächste Seite</next_thumbnails>
+	<previous_thumbnails>Vorherige Seite</previous_thumbnails>
+	<popup>Als Popup öffnen</popup>
+	<window>In neuem Fenster öffnen</window>
+	<download>Bild herunterladen</download>
+	<zoomin>Hereinzoomen</zoomin>
+	<zoomout>Herauszoomen</zoomout>
+	<play>Als Diashow abspielen</play>
+	<stop>Diashow anhalten</stop>
+	<showimage>Bild zeigen</showimage>
+	<showthumbnails>Übersicht</showthumbnails>
+	<imageinfo>Bildbeschreibung</imageinfo>
+	<mainmenu>Galeriemenü</mainmenu>
+	<sendemail>Bild senden</sendemail>
+	<login>Einloggen</login>
+	<logout>Ausloggen</logout>
+	<open>Öffnen</open>
+	<copylocation>Bild kopieren</copylocation>
+	<enterfullscreen>Zu Vollbild wechseln</enterfullscreen>
+	<exitfullscreen>Vollbild verlassen</exitfullscreen>
+	<videofullscreen>Zu Vollbild wechseln</videofullscreen>
+	<audio>Ton</audio>
+	<volume>Lautärke</volume>
+	<yourname>Ihr Name</yourname>
+	<youremail>Ihre E-Mail</youremail>
+	<yourfriendsemail>E-Mail Adresse des Empfängers</yourfriendsemail>
+	<message>Nachricht</message>
+	<send>Senden</send>
+	<sent>Versendet!</sent>
+	<contact>Schreiben Sie uns!</contact>
+	<sendlink>Bild verschicken</sendlink>
+	<purchase>Jetzt kaufen!</purchase>
+	<sfx>Ton an/aus</sfx>
+</lang>

@@ -1,0 +1,59 @@
+<div class="narrow">
+	<div class="bodyContent single">
+		<h1>
+			<?php echo htmlspecialchars(ucfirst($this->lang)); ?>
+		</h1>
+
+		<?php if (!in_array('noteLanguage', ivPool::get('notes'))): ?>
+			<div class="note">
+				<a id="noteLanguage" href="#" class="close">&times;</a>
+				The language items are used in the flash gallery interface for navigation and controls.
+				<a title="Imagevue Languages Page" href="http://imagevuex.com/documentation/languages-page/" taget="_blank" class="iv-ext">Languages Page</a>
+			</div>
+		<?php endif; ?>
+
+		<div>
+			<form method="post" action="">
+				<div class="controls left">
+					<input type="submit"  class="button buttonSave" name="Save" value="Save" />
+					<a class="button buttonCheckbox" href = "index.php?c=lang&amp;a=use&amp;name=<?php echo urlencode($this->lang); ?>">Use <?php echo htmlspecialchars(ucfirst($this->lang)); ?></a>
+
+					<a href="#"  class="button buttonNew" onclick="var langName = window.prompt('Enter name for a new language'); if (langName) {location.href = 'index.php?c=lang&amp;name=' + langName;} return false;">New Language</a>
+					&nbsp;
+					Edit:
+					 <select onchange="location.href = 'index.php?c=lang&amp;name=' + this.value;">
+						<?php $languages = $this->languages; ?>
+						<?php foreach ($languages as $lang): ?>
+							<option value="<?php echo htmlspecialchars($lang); ?>" <?php echo ($this->lang == $lang ? 'selected="selected"' : '')?>><?php echo htmlspecialchars(ucfirst($lang)); ?></option>
+						<?php endforeach; ?>
+					</select>
+				</div>
+				<table class="nice tableLanguage">
+					<thead>
+						<tr>
+							<th>Language item</th>
+							<th><?php echo htmlspecialchars(ucfirst($this->lang)); ?> text</th>
+						</tr>
+					</thead>
+					<?php $id = 1; ?>
+					<?php $flatConfig = $this->flatConfig; ?>
+					<?php foreach ($flatConfig as $itemInfo): ?>
+						<?php if (0 < $itemInfo['depth']): ?>
+							<tr>
+								<td><?php echo htmlspecialchars(ucfirst($itemInfo['node']->getName())); ?></td>
+								<td><?php echo $itemInfo['node']->toFormElement("lang[{$itemInfo['path']}]", $id); ?></td>
+							</tr>
+						<?php endif; ?>
+						<?php $id++; ?>
+					<?php endforeach; ?>
+				</table>
+
+				<div class="controls left">
+					<input type="submit"  class="button buttonSave" name="Save" value="Save" />
+					<input type="button"  class="button buttonCheckbox" value="Use <?php echo htmlspecialchars(ucfirst($this->lang)); ?>" onclick="location.href = 'index.php?c=lang&amp;a=use&amp;name=<?php echo urlencode($this->lang); ?>'; return false;" />
+				</div>
+
+			</form>
+		</div>
+	</div>
+</div>

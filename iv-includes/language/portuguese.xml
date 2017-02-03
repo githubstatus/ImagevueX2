@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This is the default LANGUAGE file. You should not edit this file manually - Any changes should be done throguh the admin, which is saved in a specific language files in your imagevue/language/ folder-->
+<lang>
+<image>Imagem</image>
+<indexseparator>/</indexseparator>
+<page>Pagina</page>
+<next_image>proxima Imagem</next_image>
+<previous_image>Imagem Anterior</previous_image>
+<next_thumbnails>Proxima Pagina</next_thumbnails>
+<previous_thumbnails>Pagina Anterior</previous_thumbnails>
+<popup>Abrir em Janela Popup</popup>
+<window>Abrir em outra Janela</window>
+<download>Baixar imagem</download>
+<zoomin>Aumentar Zoom</zoomin>
+<zoomout>Diminuir Zoom</zoomout>
+<play>Iniciar Slideshow</play>
+<stop>Parar Slideshow</stop>
+<showimage>Show Imagem</showimage>
+<showthumbnails>Show Thumbnails</showthumbnails>
+<imageinfo>Descricao da Imagem</imageinfo>
+<mainmenu>Menu da Galeria</mainmenu>
+<sendemail>Enviar Imagem</sendemail>
+<login>Login</login>
+<logout>Deslogar</logout>
+<open>Abrir</open>
+<copylocation>Copiar Imagem neste local</copylocation>
+<enterfullscreen>Abrir em tela cheia</enterfullscreen>
+<exitfullscreen>Fechar tela cheia</exitfullscreen>
+<videofullscreen>Visualizar tela cheia</videofullscreen>
+<audio>Audio</audio>
+<volume>Volume</volume>
+<yourname>Seu Nome</yourname>
+<youremail>Seu E-mail</youremail>
+<yourfriendsemail>E-mail do seu Amigo</yourfriendsemail>
+<message>Mensagem</message>
+<send>Enviar</send>
+<sent>Enviada com Sucesso!</sent>
+<input_password>Insira Senha</input_password>
+<incorrect_password>Senha incorreta</incorrect_password>
+<contact>Contato</contact>
+<sendlink>Eviar Imagem</sendlink>
+<purchase> Obrigado por adqueir nosso sistema</purchase>
+<link>link</link>
+<sfx>Mudar Som</sfx>
+<empty_message>Mensagem em Branco</empty_message>
+<bad_email>E-mail Falso </bad_email>
+<cannot_open_template>Não e possivel abrir o modelo</cannot_open_template>
+<could_not_mail>Não e possivel enviar e-mail</could_not_mail>
+<email_disabled>Por favor habilite o e-mail no admin</email_disabled>
+<no_such_pic>Imagem nao encontrada</no_such_pic>
+<path_is_empty>Caminho vazio</path_is_empty>
+</lang>

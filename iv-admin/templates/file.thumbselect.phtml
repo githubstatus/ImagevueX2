@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+	<title>Imagevue Admin</title>
+	<link href="assets/css/imagevue.admin.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="<?php echo htmlspecialchars(IV_PATH); ?>assets/js/jquery.min.js"></script>
+	<script type="text/javascript" src="assets/js/jquery-ui.min.js"></script>
+</head>
+<body>
+	<?php if (!$this->done): ?>
+		<div class="layerBody" id="layerSelectThumb">
+
+			<div class="layerHeader">
+				Select Thumbnail
+			</div>
+
+			<fieldset>
+
+				<div id="thumbs">
+				<?php foreach ($this->thumbnails as $thumbnail): ?>
+					<ins class="thumb" style="width:<?php echo $this->file->Parent->maxThumbWidth + 12; ?>px">
+
+
+								<a class="thumbImage" title="<?php echo $this->file->getCleanTitle() ?>" href="<?php echo $this->url(array('c' => 'file', 'a' => 'thumbselect', 'path' => $this->file->getPrimary(), 'thumbnail' => $thumbnail)) ?>">
+									<img src="../<?php echo htmlspecialchars($thumbnail) ?>" alt="" />
+								</a>
+					</ins>
+
+				<?php endforeach; ?>
+			</div>
+			</fieldset>
+		</div>
+	<?php else: ?>
+		<script type="text/javascript">
+		// <![CDATA[
+			parent.$.fn.colorbox.close();
+			top.location.href = top.location.href;
+		// ]]>
+		</script>
+	<?php endif; ?>
+</body>
+</html>

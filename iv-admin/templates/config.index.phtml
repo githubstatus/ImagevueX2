@@ -1,0 +1,39 @@
+<div class="bodyContent single">
+	<div class="contentSubMenu">
+		<a title="Edit Gallery Settings" class="selected" href="index.php?c=config">Gallery Settings</a>
+		<a title="Edit Email Templates"  href="index.php?c=config&amp;a=templates">Email Templates</a>
+		<a title="Edit Custom CSS" href="index.php?c=config&amp;a=css">Custom CSS</a>
+
+	</div>
+	<?php if (!in_array('noteSettings', ivPool::get('notes'))): ?>
+		<div class="note">
+			<a id="noteSettings" href="#" class="close">&times;</a>
+			Settings page allows you to change how your gallery works.
+			<a title="About Imagevue Settings" href="http://imagevuex.com/documentation/settings-page/" target="_blank" class="iv-ext">Settings Page</a>
+		</div>
+	<?php endif; ?>
+
+	<form method="post" action="">
+
+		<div class="controls left">
+			<input type="submit" class="button buttonSave" name="save" value="Save" />
+			<input type="button" class="button buttonExpand" value="Expand all" onclick="$('.ivconf').each(function () {$(this).addClass('open').next().show();});" />
+			<input type="button" class="button buttonCollapse" value="Collapse all" onclick="$('.ivconf').each(function () {$(this).removeClass('open').next().hide();});" />
+		</div>
+
+		<div class="contentMenu" id="configTabHeaders">
+			<?php $sections = $this->sections; ?>
+			<?php foreach ($sections as $name => $flatSection): ?>
+				<a href="#<?php echo htmlspecialchars($name); ?>" class="tabHeader config-<?php echo htmlspecialchars($name); ?>"><?php echo htmlspecialchars(ucfirst($name)); ?></a>
+			<?php endforeach; ?>
+		</div>
+		<?php echo $this->partial('formtree', array('sections' => $this->sections, 'openedPanels' => $this->openedPanels)); ?>
+	</div>
+
+		<div class="controls left">
+			<input type="submit" class="button buttonSave" name="save" value="Save" />
+			<input type="button" class="button buttonExpand" value="Expand all" onclick="$('.ivconf').each(function () {$(this).addClass('open').next().show();});" />
+			<input type="button" class="button buttonCollapse" value="Collapse all" onclick="$('.ivconf').each(function () {$(this).removeClass('open').next().hide();});" />
+		</div>
+	</form>
+</div>

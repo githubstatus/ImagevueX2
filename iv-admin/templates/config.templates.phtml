@@ -1,0 +1,86 @@
+<div class="bodyContent single">
+	<div class="contentSubMenu">
+		<a title="Edit Gallery Settings" href="index.php?c=config">Gallery Settings</a>
+		<a title="Edit Email Templates" class="selected" href="index.php?c=config&amp;a=templates">Email Templates</a>
+		<a title="Edit Custom CSS" href="index.php?c=config&amp;a=css">Custom CSS</a>
+
+	</div>
+
+	<?php if (!in_array( 'noteSettings', ivPool::get( 'notes'))): ?>
+		<div class="note">
+			<a id="noteTemplates" href="#" class="close">&times;</a>
+			Here you can change
+			<a title="About Email Templates" href="http://imagevuex.com/documentation/sendemail/#templates" target="_blank" class="iv-ext">Email Templates</a>
+		</div>
+	<?php endif; ?>
+
+	<form method="post" action="">
+		<div class="controls left">
+			<input type="submit" class="button buttonSave" name="save" value="Save"/>
+		</div>
+
+		<div class="contentMenu" id="templatesTabHeaders">
+			<a href="#contact" class="tabHeader">Contact Email</a>
+			<a href="#sendlink" class="tabHeader">Send link</a>
+		</div>
+
+		<div class="formTree">
+			<div id="contact" class="tabBody">
+				<table class="item">
+					<tbody>
+						<tr>
+							<td class="itemControl">
+								<div class="title">
+									Template for contact email:
+								</div>
+								<div class="textarea">
+									<textarea name="contactTemplate" rows="10" cols="20"><?php echo htmlspecialchars($this->contactTemplate) ?></textarea>
+								</div>
+							</td>
+							<td class="itemHelp">
+								<br/>
+								<strong>Variables you can use:</strong><br>
+								<strong>[senderName]</strong> - The Name of the sender filled in from the form.<br />
+								<strong>[senderEmail]</strong> - The e-mail address of the sender filled in from the form.<br />
+								<strong>[messageBody]</strong> - The message filled in from the form.
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="sendlink" class="tabBody" >
+				<table class="item">
+					<tbody>
+						<tr>
+							<td class="itemControl">
+								<div class="title">
+									Template for sending links:
+								</div>
+								<div class="textarea">
+									<textarea name="sendlinkTemplate" rows="10" cols="20"><?php echo htmlspecialchars($this->sendlinkTemplate) ?></textarea>
+								</div>
+							</td>
+							<td class="itemHelp">
+								<br/>
+								<strong>Variables you can use:</strong><br>
+								<strong>[receiverName]</strong> - The Name of the receiver filled in from the form.<br />
+								<strong>[senderName]</strong> - The Name of the sender filled in from the form.<br />
+								<strong>[senderEmail]</strong> - The e-mail address of the sender filled in from the form.<br />
+								<strong>[receiverEmail]</strong> - The e-mail address of the receiver filled in from the form.<br />
+								<strong>[galleryURL]</strong> - The URL of the gallery root folder (Works together with [path] to create absolute picture link).<br />
+								<strong>[path]</strong> - Relative path of picture from gallery root folder (works together with [galleryURL] to create absolute picture link).<br />
+								<strong>[directory]</strong> - Relative path of picture's folder from gallery root folder.<br />
+								<strong>[file]</strong> - Picture's filename. [directory] + [file] = [path].<br />
+								<strong>[messageBody]</strong> - The message filled in from the form.<br />
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="controls left">
+			<input type="submit" class="button buttonSave" name="save" value="Save"/>
+		</div>
+	</form>
+</div>

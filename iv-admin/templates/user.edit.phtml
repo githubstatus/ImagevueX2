@@ -1,0 +1,69 @@
+<div class="narrow">
+
+	<div class="bodyContent single">
+		<h1><?php echo (isset($this->user) ? 'Edit ' . htmlspecialchars(ucfirst($this->user->login)) : 'Add user'); ?></h1>
+
+		<?php if (!in_array('noteUsers', ivPool::get('notes'))): ?>
+			<div class="note">
+				<a id="noteUsers" href="#" class="close">&times;</a>
+				You can create multiple users for the Imagevue Control Panel.
+				<a title="Imagevue User Management" href="http://imagevuex.com/documentation/settings-page/" class="iv-ext" target="_blank">Users Page</a>
+			</div>
+		<?php endif; ?>
+
+		<form method="post" action="">
+			<table  class="nice">
+				<tr>
+					<td class="text right">Username</td>
+					<td class="text">
+						<input name="login" type="text" class="text" value="<?php echo htmlspecialchars(isset($this->user) ? $this->user->login : ''); ?>" />
+						<?php if (isset($this->user)) : ?>
+							<input name="old_login" type="hidden" class="text" value="<?php echo htmlspecialchars($this->user->login); ?>" />
+						<?php endif ?>
+					</td>
+				</tr>
+				<tr class="odd">
+					<td class="text right">Password</td>
+					<td class="text">
+						<input type="password"  class="text" name="user[password]" value="" />
+					</td>
+				</tr>
+				<tr>
+					<td class="text right">Re-type password</td>
+					<td class="text">
+						<input type="password" name="password_confirm" class="text" value="" />
+					</td>
+				</tr>
+				<tr class="odd">
+					<td class="text right">Access</td>
+					<td class="text">
+						<input name="user[access]" id="hidden_selector" type="hidden" value="<?php echo htmlspecialchars(isset($this->user) ? $this->user->access : ''); ?>" />
+						<label>
+							<input type="radio" value="Admin" onclick="$('#path_selector').attr('disabled', true); $('#hidden_selector').val('*');" name="radio" <?php echo (isset($this->user) && ivAcl::isAdmin($this->user->login) ? 'checked="checked"' : ''); ?> />
+							Admin
+						</label>
+						<br />
+						<label>
+							<input type="radio" value="Restricted" onclick="$('#path_selector').attr('disabled', false); $('#hidden_selector').val($('#path_selector').val());" name="radio" <?php echo (isset($this->user) && !ivAcl::isAdmin($this->user->login) ? 'checked="checked"' : ''); ?>/>
+							Restricted
+						</label>
+						<br />
+						<select id="path_selector" style="margin: 5px 0px 5px 0px;" <?php echo (isset($this->user) && ivAcl::isAdmin($this->user->login) ? 'disabled="disabled"' : ''); ?> onchange="$('#hidden_selector').val($(this).val());">
+							<?php foreach ($this->folderTreeIterator as $folder): ?>
+								<option value="/<?php echo htmlspecialchars($folder->getPrimary()) ?>" <?php echo (isset($this->user) && $folder->getPrimary() == $this->user->access ? 'selected="selected"' : '') ?>>
+									<?php echo str_repeat('--', $this->folderTreeIterator->getDepth()); ?>[<?php echo smartStripTagsSubstr(t($folder->getTitle())) ?>]
+								</option>
+							<?php endforeach; ?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td class="controls left">
+						<input type="submit" name="save" class="buttonSave" value="Save" />
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</div>

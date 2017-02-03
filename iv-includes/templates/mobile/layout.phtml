@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<?php
+	$theConfig = ivPool::get('conf');
+	$the_breadcrumbs = ivPool::get('breadCrumbs');
+	$the_menu = ivMapperFactory::getMapper('folder')->find(ROOT_DIR . ivPool::get('conf')->get('/config/imagevue/settings/contentfolder'))->Folders;
+	$lang = ivPool::get('lang');
+
+	$theTitle = $this->placeholder->get('theTitle');
+
+	$sharing = $theConfig->get('/config/imagevue/misc/sharing/enabled');
+
+	if (($jqueryMobileTheme=$this->placeholder->get('jqueryMobileTheme')) && ($textColor=$this->placeholder->get('textColor'))) {
+
+	} else {
+		if (isset($_GET['theme']) && $jqueryMobileTheme = strtolower($_GET['theme'])) {
+			if (!in_array($jqueryMobileTheme, array('light', 'dark'))) $jqueryMobileTheme=$theConfig->get('/config/imagevue/mobile/jqueryMobileTheme');
+			$_SESSION['theme']=$jqueryMobileTheme;
+		} elseif (isset($_SESSION['theme'])) {
+			$jqueryMobileTheme=$_SESSION['theme'];
+		} else {
+			$jqueryMobileTheme=$theConfig->get('/config/imagevue/mobile/jqueryMobileTheme');
+		}
+		$bodyClass=$jqueryMobileTheme=('light' == strtolower($jqueryMobileTheme))?'light':'dark';
+		$jqueryMobileTheme=('light' == strtolower($jqueryMobileTheme))?'d':'a';
+		$textColor = (in_array($jqueryMobileTheme, array('a')))?'white':'black';
+		$negColor = (in_array($jqueryMobileTheme, array('a')))?'black':'white';
+	}
+
+?>
+<?php if (!$this->isXmlHttpRequest): ?>
+	<html>
+		<head>
+			<meta charset="UTF-8">
+			<title><?php echo htmlspecialchars(t($theConfig->get('/config/imagevue/settings/sitetitle'))); ?></title>
+			<meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+			<meta name="apple-mobile-web-app-capable" content="yes" />
+			<link href="<?php echo (file_exists('iv-config/apple-touch-icon.png'))?'iv-config/':IV_PATH . 'images/'; ?>apple-touch-icon.png" rel="apple-touch-icon" />
+			<link href="iv-includes/assets/jquery-mobile/jquery.mobile-1.3.1.min.css" rel="stylesheet" />
+			<link href="iv-includes/assets/photoswipe/photoswipe.css" type="text/css" rel="stylesheet" />
+			<link href="iv-includes/assets/css/imagevue.mobile.css" type="text/css" rel="stylesheet" />
+			<?php if (getCssPath('mobile')): ?>
+				<link rel="stylesheet" type="text/css" href="<?php echo htmlspecialchars(getCssPath('mobile')); ?>" />
+			<?php endif; ?>
+			<script>window.bubble_inner="<?php echo str_replace('"', '&quot;',$lang->get('/lang/mobile_homescreen')) ?>"</script>
+			<script type="text/javascript" src="iv-includes/assets/photoswipe/lib/klass.min.js"></script>
+			<script type="text/javascript" src="iv-includes/assets/js/jquery.min.js"></script>
+			<script type="text/javascript" src="iv-includes/assets/js/jquery.transit.js"></script>
+			<script type="text/javascript" src="iv-includes/assets/js/jquery.c.js"></script>
+			<script type="text/javascript" src="iv-includes/assets/js/jquery.ba-resize.min.js"></script>
+			<script type="text/javascript" src="iv-includes/assets/js/jquery.lazyload.min.js"></script>
+			<script type="text/javascript" src="iv-includes/assets/jquery-mobile/jquery.mobile-1.3.1.min.js"></script>
+			<script type="text/javascript" src="iv-includes/assets/photoswipe/code.photoswipe.js"></script>
+			<script type="text/javascript" src="iv-includes/assets/mobile-bookmark-bubble/bookmark_bubble.js"></script>
+			<script type="text/javascript" src="iv-includes/assets/mobile-bookmark-bubble/bubble.imagevue.js"></script>
+
+
+			<?php if ($theConfig->get('/config/imagevue/fotomoto/siteKey') && $theConfig->get('/config/imagevue/fotomoto/enabled')): ?>
+				<script type="text/javascript">
+				// <![CDATA[
+					$(window).load(function () {
+						$.getScript('http://widget.fotomoto.com/stores/script/<?php echo htmlspecialchars($theConfig->get('/config/imagevue/fotomoto/siteKey')) ?>.js?api=true&aid=38e40b1303333859');
+					});
+				// ]]>
+				</script>
+			<?php endif; ?>
+
+			<?php if ($this->isXmlHttpRequest) : ?>
+				<script type="text/javascript">
+				//<![CDATA[
+					window.xhr = true;
+				//]]>
+				</script>
+			<?php endif ?>
+			<script type="text/javascript">
+			//<![CDATA[
+				columns =<?php echo $theConfig->get('/config/imagevue/mobile/columns') ?>;
+				googleAnalytics = '<?php echo $theConfig->get('/config/imagevue/seo/googleAnalytics') ?>';
+
+				if (location.hash.length > 1 && ('#/' == location.hash.substr(0, 2)) && '#/<?php echo htmlspecialchars($this->placeholder->get('currentPath')) ?>' != location.hash) {
+					location.href = '?/' + location.hash.substring(2);
+				}
+			</script>
+			<script type="text/javascript" src="iv-includes/assets/js/imagevue.mobile.js"></script>
+
+		</head>
+		<body class="<?php echo $bodyClass ?>">
+
+		<?php if ($theConfig->get('/config/imagevue/mobile/mobileMenu')) : ?>
+			<div id="menu" class="menu" style="display: none">
+
+				<?php
+						$contentFolder = ivMapperFactory::getMapper('folder')->find('');
+						$iterator = new ivRecursiveFolderIterator($contentFolder);
+						$filter1 = new ivRecursiveFolderIteratorVisible($iterator);
+						$filter2 = new ivRecursiveFolderIteratorPassword($filter1, (isset($_SESSION['imagevue']['password']) ? (string) $_SESSION['imagevue']['password'] : null));
+						$filter3 = new ivRecursiveFolderIteratorShare($filter2);
+						$folderTreeIterator = new RecursiveIteratorIterator($filter3, RecursiveIteratorIterator::SELF_FIRST);
+
+						if (count($folderTreeIterator)):
+				?>
+					<div class="menuItems">
+						<?php $oldDepth = -1; foreach ($folderTreeIterator as $folder): ?>
+							<div id="<?php echo idfy($folder->getPrimary()); ?>" class="<?php if ($folder->getPrimary() == $this->placeholder->get('currentPath')) echo 'current'; ?>">
+								<h2>
+									<?php $d=$folderTreeIterator->getDepth(); ?>
+									<?php list($link, $target, $rel) = getPageLink($folder); ?>
+									<a style="padding-left: <?php echo  ($d>1)*($d-1)*16+49 ?>px;"
+										<?php echo ($rel)?'rel="'. $rel. '"':''; ?>
+										<?php echo ($target)?'target="'.$target.'"':'' ?>
+
+										class="<?php echo ($oldDepth==-1)?'home ':'' ?><?php echo ($d>2)?'light':'' ?>"
+										href="<?php echo ($link) ?>"
+									>
+									<?php if ($d>1) : ?>&rsaquo;&nbsp;<?php endif ?><?php echo strip_icon(strip_tags(t($folder->getTitle()))); ?>
+									</a>
+								</h2>
+							</div>
+							<?php $oldDepth = $folderTreeIterator->getDepth(); ?>
+
+						<?php endforeach; ?>
+
+					</div>
+				<?php endif; ?>
+			</div><!-- /menu -->
+		<?php endif; ?>
+
+<?php endif ?>
+
+		<div data-role="page" data-theme="<?php echo $jqueryMobileTheme ?>" id="<?php echo $this->placeholder->get('pageID')?>" data-add-back-btn="false" class="<?php echo ($this->placeholder->get('pageClass')) ?>">
+
+			<div data-role="header" class="<?php echo $this->placeholder->get('toolbars')?>" data-fullscreen="<?php echo $this->placeholder->get('fullscreen')?>" data-theme="<?php echo $jqueryMobileTheme ?>" data-position="fixed">
+
+				<div class="iv-header">
+
+					<h1 class="t <?php echo !$theConfig->get('/config/imagevue/mobile/mobileMenu')?'disabled':''?>" <?php echo ($theParentLink=$this->placeholder->get('theParentLink'))?'':'style="margin-left:0px"' ?> >
+
+						<span id="theTitle">
+						<?php if (!($theParentLink=$this->placeholder->get('theParentLink'))) : ?>
+							<?php echo t($theConfig->get('/config/imagevue/settings/sitetitle')); ?>
+						<?php elseif ($theConfig->get('/config/imagevue/mobile/toolbar')) :?>
+							<?php echo t($theConfig->get('/config/imagevue/mobile/toolbar')); ?>
+						<?php else: ?>
+							<?php echo ($theTitle = $this->placeholder->get('theTitle')) ? $theTitle : t($theConfig->get('/config/imagevue/settings/sitetitle')) ?>
+						<?php endif ?>
+						</span>
+					</h1>
+
+					<?php if ($sharing) : ?>
+						<a href="#share" class="button share" data-rel="dialog"></a>
+					<?php endif ?>
+
+					<?php if ($theParentLink=$this->placeholder->get('theParentLink')) : ?>
+						<a id="back" rel="<?php echo ('true' == $this->placeholder->get('fullscreen')) ? 'external' : '' ?>" onclick="current('<?php echo idfy($theParentLink) ?>')" class="button back" data-transition="fade" href="?<?php echo $theParentLink; ?>" data-icon="arrow-l" data-iconpos="left"></a>
+					<?php endif ?>
+				</div>
+			</div>
+
+
+			<div class="default <?php echo ($this->placeholder->get('removeMenu'))?'nomenu':'' ?>" >
+
+				<?php if ($theWelcomeHTML = $theConfig->get('/config/imagevue/mobile/heading')): ?>
+					<div class="heading"><?php echo t($theWelcomeHTML) ?></div>
+				<?php endif ?>
+
+				<?php if (!$theParentLink && ($theWelcomeHTML = $theConfig->get('/config/imagevue/mobile/startpage'))): ?>
+					<div class="welcome"><?php echo t($theWelcomeHTML) ?></div>
+				<?php endif ?>
+				<?php echo $this->getPageContent(); ?>
+				<?php if ($theWelcomeHTML = $theConfig->get('/config/imagevue/mobile/footing')): ?>
+					<div class="footing">
+						<?php echo t($theWelcomeHTML) ?>
+					</div>
+				<?php endif ?>
+			</div>
+			<?php if (!authCheck() || ($theD=$this->placeholder->get('theDescription')) || ($footer=t($theConfig->get('/config/imagevue/mobile/footer')))): ?>
+				<div data-role="footer" data-theme="<?php echo $jqueryMobileTheme ?>" class="footer <?php echo $this->placeholder->get('toolbars')?>" data-position="<?php echo $this->placeholder->get('toolbars') ?>" data-fullscreen="<?php echo $this->placeholder->get('fullscreen')?>">
+					<?php if ($theD) : ?>
+						<p><?php echo $theD ?></p>
+						<?php else : ?>
+						<h3>
+						<?php if (authCheck()): ?>
+							<?php echo $footer; ?>
+						<?php else: ?>
+							<a href="http://imagevuex.com"><img src="iv-includes/images/imagevueMobile.png" height="20"></a>
+						<?php endif ?>
+						</h3>
+					<?php endif ?>
+				</div>
+			<?php endif ?>
+		</div>
+<?php if (!$this->isXmlHttpRequest): ?>
+
+		<div data-role="page" id="share" class="dialog-actionsheet">
+			<div data-role="content">
+				<?php if ($sharing): ?>
+
+					<?php
+						$sservices = explode(',', $theConfig->get('/config/imagevue/misc/sharing/services'));
+						foreach ($sservices as $s) :
+							list($service, $title) = explode('|', $s);
+							if (!$title) {
+								$title = ucfirst($service);
+							}
+						?>
+
+							<a data-role="button" data-rel="dialog" data-transition="slidedown" onclick="window.open ('http://api.addthis.com/oexchange/0.8/forward/<?php echo htmlspecialchars($service) ?>/offer?url=<?php echo pageURL() ?>imagevue.php?share=' + getShareLink()); return false;" class="addthis_button_<?php echo htmlspecialchars($service) ?>"><?php echo htmlspecialchars(ucfirst($title)) ?></a>
+
+						<?php endforeach; ?>
+
+						<a href="?/" data-role="button" data-rel="back" data-theme="a"><?php echo $lang->get('/lang/mobile_cancel') ?></a>
+
+				<?php endif ?>
+			</div><!-- / -->
+		</div>
+	</body>
+</html>
+<?php  endif; ?>

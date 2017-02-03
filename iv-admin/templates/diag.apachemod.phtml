@@ -1,0 +1,48 @@
+<div class="narrow">
+	<div class="bodyContent single">
+
+		<h1>Apache modules check</h1>
+
+		<?php if (!in_array('noteDiag', ivPool::get('notes'))): ?>
+			<div class="note">
+				<a id="noteDiag" href="#" class="close">&times;</a>
+				This page is used to help to diagnose your gallery if something is not working properly.
+			</div>
+		<?php endif; ?>
+
+		<div class="contentMenu">
+			<a href="index.php?c=diag">File System</a>
+			<a href="index.php?c=diag&amp;a=errors">PHP check</a>
+			<a class="selected" href="index.php?c=diag&amp;a=apachemod#error">Apache modules check</a>
+			<a href="index.php?c=diag&amp;a=phpinfo">PhpInfo</a>
+		</div>
+
+		<table class="nice">
+			<thead>
+				<tr>
+					<th width="100%">Module name</th>
+					<th></th>
+				</tr>
+			</thead>
+			<?php $modules = $this->modules; ?>
+			<?php foreach ($modules as $module): ?>
+				<tr>
+					<td><?php echo htmlspecialchars($module); ?></td>
+					<?php if (isset($this->badModules[$module])): ?>
+						<td align="center">
+							<a name="error"></a>
+							<img src="assets/images/icon_error.gif" alt="" />
+						</td>
+						<td><?php echo htmlspecialchars($this->badModules[$module]) ?></td>
+					<?php else: ?>
+						<td align="center">
+							<img src="assets/images/icon_ok.gif" alt="" />
+						</td>
+						<td>&nbsp;</td>
+					<?php endif; ?>
+				</tr>
+			<?php endforeach; ?>
+		</table>
+
+	</div>
+</div>

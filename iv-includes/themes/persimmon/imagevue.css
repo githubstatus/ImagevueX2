@@ -1,0 +1,288 @@
+/* Imagevue CSS Document */
+
+/* Supported styles for Flash:
+font-family - A comma-separated list of fonts to use, in descending order of desirability. Any font family name can be used.
+font-size - Only the numeric part of the value is used; units (px, pt) are not parsed; pixels and points are equivalent.
+font-weight - Recognized values are normal and bold.
+font-style - Recognized values are normal and italic.
+color - Only hexadecimal color values are supported. Named colors (like blue) are not supported.
+text-decoration - Recognized values are none and underline.
+text-align - Recognized values are left, center, and right.
+margin-left - Only the numeric part of the value is used. Units (px, pt) are not parsed; pixels and points are equivalent.
+margin-right - Only the numeric part of the value is used. Units (px, pt) are not parsed; pixels and points are equivalent.
+text-indent - Only the numeric part of the value is used. Units (px, pt) are not parsed; pixels and points are equivalent.
+display - Supported values are inline, block, and none.
+leading - Space after end of line
+*/
+
+/* Guidelines:
+- Allways use # in front of colors
+*/
+
+body {
+	font-size: 13px;
+	font-family: "Book Antiqua", Palatino Linotype, Palatino, Georgia;
+	color: #594E09;
+}
+a:link {
+	color: #AA9311;
+}
+.mainmenu {
+}
+.mainmenu_menubutton {
+	font-size: 15px;
+	color: #F7EBAC;
+}
+.mainmenu_node {
+	font-family: "Courier New", Candara, Arial, "Times New Roman", Times, serif;
+	font-size:12px;
+	color: #AA9311;
+}
+.mainmenu_title {
+}
+.mainmenu_title_hover {
+	color: #AA9311;
+}
+.mainmenu_amount{
+	color: #AA9311;
+}
+.mainmenu_textPage{
+color: #AA9311;
+}
+.mainmenu_link{
+color: #AA9311;
+}
+.mainmenu_filemod{
+color: #AA9311;
+}
+.mainmenu_hasFiles{
+}
+.mainmenu_hasFolders{
+}
+.mainmenu_password {}
+.mainmenu_share {}
+.mainmenu_level1 {}
+.mainmenu_level2 {}
+.mainmenu_level3 {}
+.mainmenu_level4 {}
+.mainmenu_level5 {}
+.folderdescription_title{
+	font-size: 18px;
+	leading: 2px;
+	color: #AA9311;
+}
+.folderdescription_amount{
+	color: #594E09;
+}
+.folderdescription_date{
+	leading: 5px;
+}
+.folderdescription_description{
+}
+.thumbnails{
+	leading: 1;
+	color: #594E09;
+}
+.thumbnails_breadcrumbs{
+}
+.thumbnails_title{
+	font-size: 18px;
+	color: #AA9311;
+}
+.thumbnails_description{
+}
+.thumbnails_page{
+	font-size: 14px;
+}
+.thumbnails_separator {
+}
+.tooltip{
+}
+.tooltip_title{
+	font-size: 18px;
+	leading: 2px;
+	color: #AA9311;
+}
+.tooltip_description{
+}
+.tooltip_name{
+}
+.tooltip_date{
+}
+.maincontrols {
+	font-size: 14px;
+
+}
+.text_1 {
+	font-size: 12px;
+	font-weight: normal;
+	letter-spacing: 0px;
+	color: #594E09;
+}
+.text_1_imageindex {
+}
+.text_1_title {
+	font-size: 18px;
+	color: #AA9311;
+}
+.text_1_filename {
+}
+.text_1_dimensions {
+}
+.text_1_filesize {
+}
+.text_1_date {
+}
+.text_1_exif {
+}
+.text_1_description {
+}
+.text_1_folderdescription {
+}
+.text_1_filelink {
+}
+.text_1_download {
+}
+.text_1_folderpath{
+}
+.text_1_foldername{
+}
+.text_1_abslink{
+}
+.text_1_custom{
+}
+.text_1_link{
+}
+.text_1_purchase{
+}
+.text_1_maplink {
+	font-size: 16px;
+}
+.text_2 {
+	font-size: 12px;
+	font-weight: normal;
+	leading: 2;
+	text-align: right;
+}
+.text_2_imageindex {
+}
+.text_2_title {
+}
+.text_2_filename {
+}
+.text_2_dimensions {
+}
+.text_2_filesize {
+}
+.text_2_date {
+}
+.text_2_exif {
+}
+.text_2_description {
+}
+.text_2_folderdescription {
+}
+.text_2_filelink {
+}
+.text_2_download {
+}
+.text_2_folderpath{
+}
+.text_2_foldername{
+}
+.text_2_abslink{
+}
+.text_2_custom{
+}
+.text_2_link{
+}
+.text_2_purchase{
+}
+.text_3 {
+	text-align: right;
+	font-size: 12px;
+}
+.exif_name {
+}
+.exif_value {
+}
+/* You can set specific styles to specific EXIF tags, like the 3 exampels below which target the EXIF "model" attribute */
+.exif_model{
+	color: #AA9311;
+	font-size: 18px;
+	leading: 2;
+}
+.exif_name_model{
+	display: none;
+}
+.exif_value_model{
+}
+.textpage{
+	font-size: 15px;
+}
+.textpage_title{
+	font-size: 30px;
+	leading: 8px;
+	color: #AA9311;
+}
+.textpage_body{
+}
+.textpage_form{
+	font-size: 12px;
+}
+.textpage_forminput{
+	/* You need to specify all required styles in this class because they are not inherited from the main textpage class because of restrictions with input fields in flash. 
+	Please use 0x color formatting instead of #  
+	font-family onyl supports a single font value. Make sure its a font that is globally supported*/
+
+	color: 0x594E09;
+	font-size: 15;
+}
+.textpage_forminputback{
+	/* This specific class only supports the color style. Please use 0x color formatting instead of # */
+	color: 0xE1CC84;
+}
+.filemod {
+}
+.filemod_title {
+}
+.filemod_description {
+}
+.imagebuttons_help {
+}
+.audioplayer {
+	color: #594E09;
+}
+.audioplayer_main {
+	font-family: "standard 07_53";
+	font-size: 8px;
+}
+.audioplayer_id3 {
+}
+.audioplayer_id3_first {
+	font-size: 17px;
+	color: #AA9311;
+}
+.audioplayer_tracklist {
+	font-size: 12px;
+}
+.text_items {
+	font-family: Candara, Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+.unsupported_items {
+	font-family: Candara, Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+.unsupported_items_heading {
+	font-family: Candara, Georgia, "Times New Roman", Times, serif;
+	font-size: 17px;
+}
+.unsupported_items_content {
+}
+.sharemenu {
+	font-size: 12px;
+}
+.fotomotomenu {
+	font-size: 12px;
+}

@@ -1,0 +1,55 @@
+<script src="http://twitterjs.googlecode.com/svn/trunk/src/twitter.min.js"  type="text/javascript"></script>
+
+<script type="text/javascript">
+	getTwitters('tweets', {
+	  id: 'imagevue',
+	  count: 5,
+	  enableLinks: true,
+	  ignoreReplies: true,
+	  clearContents: true,
+	  template: '<div>%text%<div> <a  class="date" href="http://twitter.com/%user_screen_name%/statuses/%id%/">%time%</a>'
+	});
+</script>
+<div class="narrow" id="dashboard">
+	<div class="bodySidebar">
+		<h1>
+			<a title="Follow Imagevue on Twitter" href="http://twitter.com/imagevue" class="rss"><img src="assets/images/social/twitter.png" alt="" /></a>
+			<a title="Follow Imagevue on Twitter" href="http://twitter.com/imagevue">Imagevue Twitter</a>
+		</h1>
+		<div id="tweets" class="feed">
+		<ul>
+			<li>
+
+			<a title="Follow Imagevue on Twitter" href="http://twitter.com/imagevue">Follow on Twitter</a>
+			</li>
+		</ul>
+		</div>
+
+	</div>
+	<div class="bodyContent">
+		<h1>
+			<a href="http://feeds.imagevuex.com/Imagevue" title="Subscribe to our Blog" class="rss"><img src="assets/images/social/rss.png" alt="" /></a>
+			<a title="Visit Imagevue Blog" href="http://imagevuex.com/blog">Imagevue Blog</a>
+		</h1>
+		<div class="feed">
+			<ul>
+				<?php foreach($this->rss_feed as $item): ?>
+					<li>
+						<h2>
+							<a href="<?= ($item['link']) ?>">
+								<?= ($item['title']) ?>
+							</a>
+							<small class="date">
+								<?= $item['date'] ?>
+							</small>
+						</h2>
+						<p>
+							<?= ($item['desc']) ?>
+						</p>
+					</li>
+				<?php endforeach ?>
+			</ul>
+
+		</div>
+	</div>
+</div>

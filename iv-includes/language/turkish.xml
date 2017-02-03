@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<lang>
+	<image>Görüntü</image>
+	<page>Sayfa</page>
+	<next_image>Sonraki Görüntü</next_image>
+	<previous_image>Önceki Görüntü</previous_image>
+	<next_thumbnails>Sonraki Sayfa</next_thumbnails>
+	<previous_thumbnails>Önceki Sayfa</previous_thumbnails>
+	<popup>Açılır Pencerede Aç</popup>
+	<window>Pencerede Aç</window>
+	<download>Görüntüyü İndir</download>
+	<zoomin>Yakınlaş</zoomin>
+	<zoomout>Uzaklaş</zoomout>
+	<play>Slayt olarak Oynat</play>
+	<stop>Slaytı Durdur</stop>
+	<showimage>Götüntüyü Göster</showimage>
+	<showthumbnails>Küçük Görüntüleri Göster</showthumbnails>
+	<imageinfo>Görüntü Açıklaması</imageinfo>
+	<mainmenu>Galeri Menüsü</mainmenu>
+	<sendemail>Görüntüyü Yolla</sendemail>
+	<login>Giriş</login>
+	<logout>Çıkış</logout>
+	<open>Aç</open>
+	<copylocation>Görüntü Bağlantısını Kopyala</copylocation>
+	<enterfullscreen>Tam Ekrana Geç</enterfullscreen>
+	<exitfullscreen>Tam Ekrandan Çık</exitfullscreen>
+	<audio>Müzik</audio>
+	<volume>Ses Düzeyi</volume>
+</lang>

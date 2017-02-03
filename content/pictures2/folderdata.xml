@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder title="Pictures 2" previewimage="flowergirl.jpg" description="This is another demo folder with a few pictures of shiny happy people!" pageContent="" sort="auto" hidden="" page="gallery" fileCount="3" maxThumbWidth="100" maxThumbHeight="100" fileMod="" parameters="" totalFileCount="3" viewAs="list" order="3" url1="" password="" showInHtml="1" showInFlash="1" showOnMobile="1">
+	<file name="flowergirl.jpg" title="Flower Girl" description="Girl in Flowers" order="1"/>
+	<file name="happygirl.jpg" title="Happy Girl" description="A dazzling smile!" order="2"/>
+	<file name="laughboy.jpg" title="Laughing boy" description="Having a good laugh" order="3"/>
+</folder>

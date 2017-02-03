@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<folder title="Pictures 1" sort="auto" page="gallery" previewimage="cheetah.jpg" description="This is a demo folder with a few pictures of cute furry cats!" pageContent="" hidden="" fileCount="3" maxThumbWidth="120" maxThumbHeight="90" fileMod="" parameters="" totalFileCount="3" viewAs="grid" order="2" url1="" password="" showInHtml="1" showInFlash="1" showOnMobile="1">
+	<file name="cheetah.jpg" title="Cheetah" description="Two young cheetahs" order="1"/>
+	<file name="leopard.jpg" title="Leopard" description="A hunting leopard" order="2"/>
+	<file name="tiger.jpg" title="Tiger" description="I am the tiger" order="3"/>
+</folder>

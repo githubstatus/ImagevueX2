@@ -1,0 +1,48 @@
+<div class="bodyContent single">
+	<div class="contentSubMenu">
+		<a title="Edit Theme Settings" href="index.php?c=theme&amp;a=editconfig&amp;name=<?php echo urlencode($this->theme->getName()); ?>">Edit Settings</a>
+		<a title="Edit Theme Stylesheet" class="selected" href="index.php?c=theme&amp;a=editcss&amp;name=<?php echo urlencode($this->theme->getName()); ?>">Edit Stylesheet</a>
+	</div>
+
+	<?php if (!in_array('noteThemes', ivPool::get('notes'))): ?>
+		<div class="note">
+			<a id="noteThemes" href="#" class="close">&times;</a>
+			You can change the visual style of your gallery with themes.
+			<a title="Imagevue file management" class="iv-ext" target="_blank" href="http://imagevuex.com/documentation/edit-themes/">Create and Edit Themes</a>
+		</div>
+	<?php endif; ?>
+
+	<div class="controls right" style="white-space: nowrap">
+		<a  class="button buttonHide" title="Preview Theme" target="_blank" href="../index.php?c=gallery&amp;theme=<?php echo urlencode($this->theme->getName()); ?>">Preview</a>
+
+		<form id="themeBgUploaderForm" style="display: inline" action="index.php?c=theme&amp;a=upload&amp;name=<?php echo urlencode($this->themeName); ?>" method="post" enctype="multipart/form-data">
+			<a id="themeBgUploaderButton" class="cabinet button buttonUpload">Upload background</a>
+		</form>
+	</div>
+
+	<form method="post" action="">
+
+		<div class="controls left">
+			<input  class="button buttonSave"type="submit" class="button" value="Save"/>
+			&nbsp;
+			CSS File:
+			<select onchange="location.href = 'index.php?c=theme&amp;a=editcss&amp;name=<?php echo urlencode($this->theme->getName()); ?>&amp;file=' + this.value;">
+				<?php $cssfiles = $this->cssfiles; ?>
+				<?php foreach ($cssfiles as $file): ?>
+					<option value="<?php echo htmlspecialchars($file); ?>" <?php echo ($this->file == $file ? 'selected="selected"' : '')?>><?php echo htmlspecialchars(ucfirst($file)); ?></option>
+				<?php endforeach; ?>
+			</select>
+		</div>
+
+		<div class="editStylesheet">
+			<div class="textarea">
+				<textarea  name="css" cols="100" rows="30" id="field"><?php echo htmlspecialchars($this->theme->getStyle($this->file)); ?></textarea>
+			</div>
+		</div>
+
+		<div class="controls left">
+			<input  class="button buttonSave"type="submit" class="button" value="Save"/>
+		</div>
+
+	</form>
+</div>

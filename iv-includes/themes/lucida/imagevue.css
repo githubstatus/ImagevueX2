@@ -1,0 +1,263 @@
+body {
+	font-size: 11px;
+	font-family: "Lucida Grande", "Lucida Sans", Corbel, "Trebuchet MS", Arial, Verdana, sans-serif;
+	color: #666666;
+}
+a:link {
+	color: #333333;
+}
+.mainmenu {
+	color: #666666;
+}
+.mainmenu_menubutton {
+	font-size: 12px;
+}
+.mainmenu_menubutton_icon {
+	color: #999999;
+}
+.mainmenu_title {
+}
+.mainmenu_title_hover {
+	color: #333333;
+}
+.mainmenu_amount {
+	color: #999999;
+	font-size: 10px;
+}
+.mainmenu_textPage {
+}
+.mainmenu_link {
+}
+.mainmenu_filemod {
+}
+.mainmenu_hasFiles {
+	color: #333333;
+}
+.mainmenu_hasFolders {
+}
+.mainmenu_password {}
+.mainmenu_share {}
+.mainmenu_level1 {}
+.mainmenu_level2 {}
+.mainmenu_level3 {}
+.mainmenu_level4 {}
+.mainmenu_level5 {}
+.folderdescription_title {
+	font-size: 12px;
+	color: #333333;
+	leading: 1px;
+}
+.folderdescription_amount {
+	font-size: 10px;
+	color: #999999;
+}
+.folderdescription_date {
+	leading: 5px;
+	color: #CCCCCC;
+}
+.folderdescription_description {
+}
+.thumbnails {
+}
+.thumbnails_breadcrumbs {
+	color: #999999;
+	leading: 2;
+}
+.thumbnails_title {
+	color: #333333;
+	font-size: 12px;
+	leading: 1;
+}
+.thumbnails_description {
+}
+.thumbnails_page {
+	color: #999999;
+	font-size: 10px;
+}
+.thumbnails_separator {
+}
+.tooltip {
+}
+.tooltip_title {
+	font-size: 12px;
+	color: #333333;
+	leading: 2px;
+}
+.tooltip_description {
+}
+.tooltip_name {
+}
+.tooltip_date {
+}
+.maincontrols {
+	color: #666666;
+}
+.text_1 {
+	font-weight: normal;
+	letter-spacing: 0px;
+}
+.text_1_imageindex {
+}
+.text_1_title {
+	font-size: 12px;
+	color: #333333;
+	leading:1;
+}
+.text_1_filename {
+}
+.text_1_dimensions {
+}
+.text_1_filesize {
+}
+.text_1_date {
+}
+.text_1_exif {
+}
+.text_1_description {
+}
+.text_1_folderdescription {
+}
+.text_1_filelink {
+}
+.text_1_download {
+}
+.text_1_folderpath {
+}
+.text_1_foldername {
+}
+.text_1_abslink {
+}
+.text_1_custom {
+}
+.text_1_link {
+}
+.text_1_purchase {
+}
+.text_1_maplink {
+}
+.text_2 {
+	leading: 2px;
+}
+.text_2_imageindex {
+}
+.text_2_title {
+}
+.text_2_filename {
+}
+.text_2_dimensions {
+}
+.text_2_filesize {
+}
+.text_2_date {
+}
+.text_2_exif {
+}
+.text_2_description {
+}
+.text_2_folderdescription {
+}
+.text_2_filelink {
+}
+.text_2_download {
+}
+.text_2_folderpath {
+}
+.text_2_foldername {
+}
+.text_2_abslink {
+}
+.text_2_custom {
+}
+.text_2_link {
+}
+.text_2_purchase {
+}
+.text_3 {
+	text-align: right;
+}
+.exif_name {
+}
+.exif_value {
+	color: #333333;
+}
+.exif_model {
+}
+.exif_name_model {
+	display: none;
+}
+.exif_value_model {
+	font-size: 12px;
+	color: #333333;
+}
+.textpage {
+	leading: 2px;
+}
+.textpage_title {
+	font-size: 12px;
+	leading: 8px;
+	color: #333333;
+}
+.textpage_body {
+}
+.textpage_form {
+	font-size: 11;
+}
+.textpage_forminput {
+	/* You need to specify all required styles in this class because they are not inherited from the main textpage class because of restrictions with input fields in flash. 
+	- Please use 0x color formatting instead of #  
+	- Please do NOT use "px" after font-size. Use only numeral value
+	- font-family only supports a single font value. Make sure its a font that is globally supported*/
+	color: 0x666666;
+	font-size: 11;
+	font-family: Arial;
+}
+.textpage_forminputback {
+	/* This specific class only supports the color style. Please use 0x color formatting instead of # */
+	color: 0xCCCCCC;
+}
+.filemod {
+}
+.filemod_title {
+	font-size: 12px;
+	color: #333333;
+}
+.filemod_description {
+}
+.imagebuttons_help {
+}
+.audioplayer {
+	color: #666666;
+}
+.audioplayer_main {
+	font-family: "standard 07_53";
+	font-size: 8px;
+}
+.audioplayer_id3 {
+}
+.audioplayer_id3_first {
+	color: #333333;
+	font-size: 12px;
+}
+.audioplayer_tracklist {
+}
+.text_items {
+	font-size: 12px;
+	color: #666666;
+}
+.unsupported_items {
+	font-size: 12px;
+	color: #666666;
+}
+.unsupported_items_heading {
+	font-size: 12px;
+}
+.unsupported_items_content {
+}
+.filename_extension {
+}
+.sharemenu {
+	color: #333333;
+}
+.fotomotomenu {
+	color: #333333;
+}

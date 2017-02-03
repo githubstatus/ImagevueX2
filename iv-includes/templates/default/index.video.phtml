@@ -1,0 +1,47 @@
+<?php
+  if ($this->item->width && $this->item->height) {
+    list($width, $height) = fittobox($this->item->width, $this->item->height);
+  } else {
+    $width=720; $height=480;
+  }
+?>
+<div style="width: <?php echo $width+10; ?>px; height: <?php echo $height+11; ?>px; line-height: 1px; overflow: hidden;">
+<div id="container"></div>
+<script type="text/javascript">
+
+  var flashvars = {};
+  flashvars.videoPath = "../<?php echo htmlspecialchars($this->item->getPath()); ?>";
+  flashvars.imagePath = "<?php $thumbnail; ?>";
+
+  flashvars.videoWidth = <?php echo $width ?>;
+  flashvars.videoHeight = <?php echo $height ?>;
+
+  flashvars.allowFullscreen = true;
+  flashvars.autoPlay = <?php echo (ivPool::get('conf')->get('config/imagevue/misc/video/autoPlay'))?'true':'false'?>;
+  flashvars.allowOriginalSize = true;
+
+  flashvars.shareLink = "<?php echo $refreshUrl ?>";
+
+  flashvars.allowLooping = <?php echo (ivPool::get('conf')->get('config/imagevue/misc/video/loop'))?'true':'false'?>;
+  flashvars.allowOriginal = true;
+
+  flashvars.useStopButton = true;
+  flashvars.controlsHideTime = 2000;
+
+
+  flashvars.defaultVolume = 60;
+  flashvars.disableMiddleButton = false;
+
+  flashvars.barColor = "0xFF6600";
+  flashvars.soundBarColor = "0x0098ff";
+  flashvars.buttonsColor = "0x0098ff";
+  flashvars.bufferTime = 10;
+
+  var params = {};
+
+  params.bgcolor = "#000000";
+  params.allowfullscreen = "true";
+
+  swfobject.embedSWF("<?php echo htmlspecialchars(IV_PATH); ?>main.swf", "container", <?php echo $width +10?>, <?php echo $height + 8?>, "10.0.0", "<?php echo htmlspecialchars(IV_PATH); ?>expressInstall.swf", flashvars, params);
+</script>
+</div>

@@ -1,0 +1,46 @@
+<!--
+
+You can edit this template as you like. Use the following dynamic parameters to build your e-mail:
+
+[receiverName] - The Name of the receiveer filled in from the form.
+[senderName] - The Name of the sender filled in from the form.
+[senderEmail] - The e-mail address of the sender filled in from the form.
+[receiverEmail] - The e-mail address of the receiver filled in from the form.
+[galleryURL] - The URL of the gallery root folder (Works together with [path] to create absolute picture link).
+[path] - Relative path of picture from gallery root folder (works together with [galleryURL] to create absolute picture link).
+[directory] - Relative path of picture's folder from gallery root folder.
+[file] - Picture's filename. [directory] + [file] = [path]
+[messageBody] - The message filled in from the form.
+
+-->
+
+
+<STYLE TYPE="text/css">
+body { font-family: Candara, Arial; font-size:15px; color:#666666; padding: 20px; line-height: 18px; }
+A{color:#669900;text-decoration: none;}
+A:hover{color:#6C909D;text-decoration: underline;}
+</STYLE>
+Hi [receiverEmail],<br/>
+<br/>
+[senderName] (<a href="mailto:[senderEmail]">[senderEmail]</a>),<br/><br/>would like to show you this picture:<br/>
+<br/>
+<a href="[galleryURL]imagevue.php?share=[path]"><img style="border: 1px solid #ccc; padding: 1px;" src="[galleryURL][directory]tn_[filename].jpg"/></a><br/>
+
+<!-- Use the line below to include a link that goes to the picture in your Imagevue gallery: -->
+   <!-- <a href="[galleryURL]#/[path]/">[galleryURL]#/[path]/</a><br/> -->
+
+<!-- Use the line below to include a direct link to the picture: -->
+   <!-- <a href="[galleryURL]#/[path]">[galleryURL][path]</a><br/> -->
+
+<!-- Use the line below to show a picture linked directly in the e-mail: -->
+    <!-- <a href="[galleryURL]#/[path]"><img style="border: none;" src="[galleryURL][path]"/></a><br/> -->
+
+<!-- Use the line below to show a thumbnail preview linked directly in the e-mail: -->
+    <!-- <a href="[galleryURL]#/[path]"><img style="border: none;" src="[galleryURL][directory]tn_[filename].jpg"/></a><br/> -->
+
+   <br/>[messageBody]<br/>
+<br/>
+<br/>
+<br/>
+   _______________________________________________<br/>
+ <a href="http://www.imagevuex.com">www.imagevuex.com</a>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This is the default LANGUAGE file. You should not edit this file manually - Any changes should be done through the admin, which is saved in a specific language files in your imagevue/language/ folder-->
+<lang>
+	<image>Image</image>
+	<indexseparator>/</indexseparator>
+	<page>Page</page>
+	<next_image>Next Image</next_image>
+	<previous_image>Previous Image</previous_image>
+	<next_thumbnails>Next Page</next_thumbnails>
+	<previous_thumbnails>Previous Page</previous_thumbnails>
+	<popup>Open in Popup Window</popup>
+	<lightbox>Open in Lightbox</lightbox>
+	<window>Open in New Window</window>
+	<download>Download Image</download>
+	<zoomin>Zoom in</zoomin>
+	<zoomout>Zoom out</zoomout>
+	<play>Play Slideshow</play>
+	<stop>Stop Slideshow</stop>
+	<showimage>Show Image</showimage>
+	<showthumbnails>Show Thumbnails</showthumbnails>
+	<imageinfo>Image Description</imageinfo>
+	<mainmenu>Gallery Menu</mainmenu>
+	<sendemail>Send Image</sendemail>
+	<login>Login</login>
+	<logout>Logout</logout>
+	<open>Open</open>
+	<copylocation>Copy Image Location</copylocation>
+	<enterfullscreen>Go Full Screen</enterfullscreen>
+	<exitfullscreen>Exit Full Screen</exitfullscreen>
+	<videofullscreen>View Fullscreen</videofullscreen>
+	<audio>Audio</audio>
+	<volume>Volume</volume>
+	<yourname>Your Name</yourname>
+	<youremail>Your E-mail</youremail>
+	<yourfriendsemail>Your Friend's E-mail</yourfriendsemail>
+	<message>Message</message>
+	<send>Send</send>
+	<sent>Sent!</sent>
+	<input_password>Enter Password</input_password>
+	<incorrect_password>Incorrect Password</incorrect_password>
+	<unlock>Unlock</unlock>
+	<contact>Contact Us</contact>
+	<sendlink>Send Image</sendlink>
+	<purchase>Buy now!</purchase>
+	<link>link</link>
+	<sfx>Toggle Sound FX</sfx>
+	<empty_message>Empty message</empty_message>
+	<empty_owneremail>Settings › Email › Owner E-mail is empty</empty_owneremail>
+	<bad_email>Bad email</bad_email>
+	<cannot_open_template>Can't open template</cannot_open_template>
+	<could_not_mail>Could not mail</could_not_mail>
+	<email_disabled>Settings › Email › Allow E-mail is disabled</email_disabled>
+	<no_such_pic>Image not found</no_such_pic>
+	<path_is_empty>Path is empty</path_is_empty>
+	<share>Share this Page</share>
+	<html>View in Html</html>
+	<fotomoto>Buy Now</fotomoto>
+	<maplink>View on Map</maplink>
+	<mobile_cancel>Cancel</mobile_cancel>
+	<mobile_homescreen>Install this gallery on your device: tap &lt;b style='font-size:15px'&gt;+&lt;/b&gt; and then &lt;b&gt;'Add to Home Screen'&lt;/b&gt;</mobile_homescreen>
+</lang>

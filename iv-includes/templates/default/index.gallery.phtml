@@ -1,0 +1,228 @@
+<!DOCTYPE HTML>
+<head>
+<?php
+	$conf = ivPool::get('conf');
+	$keywords = $conf->get('/config/imagevue/seo/keywords');
+	$description = $conf->get('/config/imagevue/seo/description');
+	$counters = $conf->get('/config/imagevue/seo/counters');
+?>
+	<meta charset="UTF-8">
+	<meta name="keywords" content="<?php echo htmlspecialchars($keywords); ?>" />
+	<meta name="description" content="<?php echo htmlspecialchars($description); ?>" />
+	<?php if (IS_MOBILE): ?>
+		<noscript>
+			<meta http-equiv="refresh" content="0;url=<?php echo htmlspecialchars('?') ?>" />
+		</noscript>
+	<?php endif; ?>
+	<title><?php echo htmlspecialchars(t($this->siteTitle)); ?></title>
+	<link rel="icon" type="image/png" href="favicon.png" />
+<!-- 	<meta name="msapplication-TileColor" content="#D83434"> -->
+	<meta name="msapplication-TileImage" content="<?php echo (file_exists('iv-config/apple-touch-icon.png'))?'iv-config/':IV_PATH . 'images/'; ?>apple-touch-icon.png" />
+
+	<meta property="og:title" content="<?php echo htmlspecialchars($this->siteTitle); ?>" />
+	<meta property="og:type" content="website" />
+<?php if ($this->firstImage): ?>
+	<meta property="og:image" content="<?php echo pageURL().htmlspecialchars($this->firstImage->thumbnail); ?>?<?php echo htmlspecialchars($this->firstImage->getThumbnailMTime()); ?>" />
+<?php endif; ?>
+	<meta property="og:url" content="<?php echo pageURL() ?>" />
+	<meta property="og:description" content="<?php echo htmlspecialchars($description); ?>" />
+
+	<?php if (IS_FIRSTTIME || ivAcl::isAdmin()): ?><link href="<?php echo htmlspecialchars(IV_PATH); ?>assets/css/imagevue.adminbar.css" rel="stylesheet" type="text/css" /><?php endif ?>
+	<link href="<?php echo htmlspecialchars(IV_PATH); ?>assets/css/imagevue.flash.css" rel="stylesheet" type="text/css" />
+	<link href="<?php echo htmlspecialchars(IV_PATH); ?>assets/colorbox/colorbox.css" rel="stylesheet" type="text/css" />
+	<?php if (getCssPath('flash')): ?>
+		<link href="<?php echo htmlspecialchars(getCssPath('flash')); ?>" rel="stylesheet" type="text/css" />
+	<?php endif; ?>
+	<script type="text/javascript" src="<?php echo htmlspecialchars(IV_PATH); ?>assets/js/swfobject.js"></script>
+	<script type="text/javascript" src="<?php echo htmlspecialchars(IV_PATH); ?>assets/js/swfaddress.js"></script>
+	<script type="text/javascript" src="<?php echo htmlspecialchars(IV_PATH); ?>assets/js/swfmacmousewheel.js"></script>
+	<script type="text/javascript" src="<?php echo htmlspecialchars(IV_PATH); ?>assets/js/jquery.min.js"></script>
+	<script type="text/javascript" src="<?php echo htmlspecialchars(IV_PATH); ?>assets/js/jquery.c.js"></script>
+	<script type="text/javascript" src="<?php echo htmlspecialchars(IV_PATH); ?>assets/js/functions.js"></script>
+	<script type="text/javascript" src="<?php echo htmlspecialchars(IV_PATH); ?>assets/colorbox/jquery.colorbox-min.js"></script>
+
+	<?php if ($conf->get('/config/imagevue/misc/sharing/enabled')): ?>
+		<script type="text/javascript">
+		// <![CDATA[
+			$(window).load(function () {
+				$.getScript('http://s7.addthis.com/js/250/addthis_widget.js#pubid=<?php $a_user = $conf->get('/config/imagevue/misc/sharing/addthis_username'); echo urlencode($a_user ? $a_user : 'imagevue'); ?>&domready=1', function () {
+					addthis.init();
+					top.showAddThis = function(url, title, color, back_color, cobrand) {
+						window.addthis_share = {
+							templates: {twitter: '{{title}} - {{url}}'}
+						}
+						window.addthis_config = {
+							ui_header_color: color,
+							ui_header_background: back_color,
+							ui_cobrand: cobrand,
+							services_exclude: 'print',
+							ui_use_css: false,
+							data_track_clickback: true
+						};
+						addthis_open(document.body, "more", url, title);
+					}
+				});
+			});
+		// ]]>
+		</script>
+	<?php endif ?>
+	<style type="text/css">
+		body { 	background-color: #<?php echo htmlspecialchars($this->bkGrColor); ?>; }
+	</style>
+	<?php if ($conf->get('/config/imagevue/fotomoto/siteKey') && $conf->get('/config/imagevue/fotomoto/enabled')): ?>
+		<script type="text/javascript">
+		// <![CDATA[
+			$(window).load(function () {
+				$.getScript('http://widget.fotomoto.com/stores/script/<?php echo htmlspecialchars($conf->get('/config/imagevue/fotomoto/siteKey')) ?>.js?api=true&aid=38e40b1303333859', function () {
+					window.getCaptions = function(captions) {
+						document.getElementById('imagevue').sendCaptions(captions);
+					}
+					window.getImageProducts = function(products) {
+						document.getElementById('imagevue').sendImageProducts(products);
+					}
+				});
+			});
+
+		// ]]>
+		</script>
+	<?php endif; ?>
+	<script type="text/javascript">
+	// <![CDATA[
+		$(window).load(function () {
+			$("#na").css("margin-top", 0);
+		});
+	// ]]>
+	</script>
+
+	<?php if ($googleAnalytics = $conf->get('/config/imagevue/seo/googleAnalytics')) :?>
+		<script type="text/javascript">
+
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', '<?php echo $googleAnalytics; ?>']);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+
+		</script>
+	<?php endif ?>
+
+</head>
+<body class="<?php echo (IS_FIRSTTIME)?'firsttime':''; ?>">
+	<?php if (IS_FIRSTTIME || ivAcl::isAdmin() && !ivPool::get('conf')->get('/config/imagevue/settings/disableAdminbar')): ?>
+		<!-- #adminBar -->
+		<div id="adminBar" class="<?php echo (isset($_COOKIE['adminBarHidden']) && $_COOKIE['adminBarHidden'] ? 'closed' : '') ?>">
+			<div class="right">
+				<?php echo (IS_FIRSTTIME)?'Imagevue Admin':htmlspecialchars(ivAuth::getCurrentUserLogin()) ?>
+			</div>
+			<?php if (IS_FIRSTTIME): ?>
+				<a id="editPageLink" href="<?php echo htmlspecialchars($conf->get('/config/imagevue/settings/adminfolder')); ?>" title="Gallery Admin / File Management">/<?php echo htmlspecialchars($conf->get('/config/imagevue/settings/adminfolder')); ?> &raquo;</a>
+
+			<?php else: ?>
+				<a id="editPageLink" href="<?php echo htmlspecialchars($conf->get('/config/imagevue/settings/adminfolder')); ?>?path=<?php echo smart_urlencode($this->placeholder->get('currentPath')); ?>" title="Gallery Admin / File Management">Edit this page &raquo;</a>
+				<a id="htmlVersionLink" href="?/" title="HTML Gallery">HTML gallery &raquo;</a>
+				<?php $thumbRecreationPath = $this->placeholder->get('thumbRecreationPath'); ?>
+				<a id="makeThumbsLink" href="<?php echo htmlspecialchars($conf->get('/config/imagevue/settings/adminfolder')); ?>?c=publish&amp;path=<?php echo smart_urlencode($thumbRecreationPath); ?>" title="Recreate thumbnails in this folder">Recreate thumbs &raquo;</a>
+				<a href="<?php echo htmlspecialchars($conf->get('/config/imagevue/settings/adminfolder')); ?>?c=config" title="Change <?php echo htmlspecialchars($siteTitle); ?> settings">Settings &raquo;</a>
+			<?php endif ?>
+		</div>
+		<a href="#" id="barOpen" title="Toggle Admin Bar">&times;</a>
+		<!-- /adminBar -->
+		<script type="text/javascript">
+		//<![CDATA[
+		SWFAddress.addEventListener(SWFAddressEvent.CHANGE, function(event) {
+			var path = SWFAddress.getPath().substr(1);
+			if ('' == path)
+				return;
+			$('#editPageLink').attr('href', '<?php echo htmlspecialchars($conf->get('/config/imagevue/settings/adminfolder')); ?>?path=' + path);
+			$('#htmlVersionLink').attr('href', '?' + path);
+			if (/[^\/]+\.[^\/]+\/$/.test(path)) {
+				$('#makeThumbsLink').css('display', 'none');
+			} else {
+				$('#makeThumbsLink').css('display', '');
+				$('#makeThumbsLink').attr('href', '<?php echo htmlspecialchars($conf->get('/config/imagevue/settings/adminfolder')); ?>?c=publish&path=' + path);
+			}
+		});
+		// ]]>
+		</script>
+	<?php endif; ?>
+	<div id="imagevue">
+		<div id="na">
+			<div id="hud">
+				<script type="text/javascript">document.getElementById("na").style.marginTop = document.getElementById("imagevue").offsetHeight+"px";</script>
+				<div id="top">
+					<?php if ($this->firstImage): ?>
+						<?php if ((ivPath::canonizeRelative(substr($this->firstImage->thumbnail, 0, strlen($this->contentPath))) !== $this->contentPath)): ?>
+							<img src="<?php echo $this->url(array('c' => 'xml', 'a' => 'thumb', 'path' => $this->firstImage->getPrimary())) ?>" <?php echo htmlspecialchars($this->firstImage->title) ?>" />
+						<?php else: ?>
+							<img src="<?php echo htmlspecialchars($this->firstImage->thumbnail); ?>?<?php echo htmlspecialchars($this->firstImage->getThumbnailMTime()); ?>" alt="<?php echo htmlspecialchars($this->firstImage->title) ?>"/>
+						<?php endif; ?>
+					<?php endif; ?>
+					<div id="text">
+						<h1><a href="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>"><?php echo htmlspecialchars($this->siteTitle); ?></a></h1>
+						<p><?php echo $description; ?></p>
+						<?php if ($this->enabledHTML): ?><p>
+							<a href="?p=html">HTML Gallery</a> &rsaquo;<br/>
+							<a href="?p=sitemap">HTML Sitemap</a> &rsaquo;</p>
+							<a href="?p=sitemap.xml">Sitemap.xml</a> &rsaquo;</p>
+						<?php endif; ?>
+					</div>
+				</div>
+				<div id="bottom">
+					Gallery Software by ImagevueX:<br/>
+					<a class="iv-ext" target="_blank" href="http://imagevuex.com">Photo Gallery Website and Mobile Portfolio for Photographers</a> &rsaquo;
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="counters">
+		<?php echo $counters; ?>
+	</div>
+
+	<script type="text/javascript">
+		//<![CDATA[
+		var params = {
+			allowScriptAccess: 'always',
+			allowFullScreen: true,
+			bgcolor: '#<?php echo htmlspecialchars($this->bkGrColor); ?>',
+			wmode: 'opaque'
+		};
+<?php if (count($this->vars)): ?>
+			var flashVars = {
+				foreground_color: '<?php echo htmlspecialchars($this->frGrColor); ?>',
+				background_color: '<?php echo htmlspecialchars($this->bkGrColor); ?>'
+			};
+<?php foreach ($this->vars as $key => $value): ?>
+			flashVars.<?php echo htmlspecialchars($key); ?> = '<?php echo htmlspecialchars($value); ?>';
+<?php endforeach; ?>
+<?php endif; ?>
+			var attributes = {
+				id: 'imagevue',
+				name: 'imagevue'
+			}
+
+<?php if ($this->enabledHTML): ?>
+			swfobject.addDomLoadEvent(function () {
+				var playerVersion = swfobject.getFlashPlayerVersion();
+				if (playerVersion.major < 9) {
+					address = SWFAddress.getPath();
+					htmlstartpath = "/<?php echo $conf->get('/config/imagevue/settings/htmlstartpath') ?>";
+					if (address=='/' && htmlstartpath!='//') address = htmlstartpath;
+					location.href = '?' + address;
+				}
+			});
+<?php endif; ?>
+
+			if (<?php echo (intval(IS_IPHONE)) ?>) { $('#na').text('Sorry, HTML gallery is disabled, you will need Flash player installed to view this gallery.'); }
+			else { swfobject.embedSWF("<?php echo htmlspecialchars(IV_PATH); ?>imagevue2.swf", "imagevue", "100%", "100%", "8.0.0", "<?php echo htmlspecialchars(IV_PATH); ?>expressInstall.swf", flashVars, params, attributes); }
+
+			if (swfmacmousewheel && navigator.appName != 'Microsoft Internet Explorer')
+			    swfmacmousewheel.registerObject(attributes.id);
+		// ]]>
+	</script>
+</body>
+</html>

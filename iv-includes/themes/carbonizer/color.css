@@ -1,0 +1,279 @@
+body {
+	font-size: 13px;
+	font-family: Candara, "Lucida Grande", "Trebuchet MS", Arial, Verdana, sans-serif;
+	color: #DDDDDD;
+}
+a:link {
+	color: #ebc807;
+}
+.mainmenu {
+	color: #AAAAAA;
+}
+.mainmenu_menubutton {
+	font-style: italic;
+	font-size: 15px;
+	color: #FFFFFF;
+}
+.mainmenu_menubutton_icon {
+	color: #ebc807;
+}
+.mainmenu_title {
+}
+.mainmenu_title_hover {
+	color: #ebc807;
+}
+.mainmenu_amount {
+	color: #666666;
+	font-size: 12px;
+}
+.mainmenu_textPage {
+}
+.mainmenu_link {
+	font-style: italic;
+}
+.mainmenu_filemod {
+}
+.mainmenu_hasFiles {
+	color: #FFFFFF;
+}
+.mainmenu_hasFolders {
+}
+.mainmenu_password {}
+.mainmenu_share {}
+.mainmenu_level1 {}
+.mainmenu_level2 {font-size:13px;}
+.mainmenu_level3 {}
+.mainmenu_level4 {}
+.mainmenu_level5 {}
+.folderdescription_title {
+	font-size: 18px;
+	color: #ebc807;
+	leading: 2px;
+}
+.folderdescription_amount {
+	font-size: 12px;
+	color: #666666;
+}
+.folderdescription_date {
+	leading: 5px;
+	color: #CCCCCC;
+}
+.folderdescription_description {
+}
+.thumbnails {
+}
+.thumbnails_breadcrumbs {
+	leading: 0;
+	font-size: 12px;
+	color: #AAAAAA;
+}
+.thumbnails_title {
+	font-size: 18px;
+	color: #ebc807;
+	leading: 2;
+}
+.thumbnails_description {
+}
+.thumbnails_page {
+	font-size: 14px;
+}
+.thumbnails_separator {
+}
+.tooltip {
+	font-size: 12px;
+}
+.tooltip_title {
+	font-size: 16px;
+	color: #ebc807;
+	leading: 2px;
+}
+.tooltip_description {
+}
+.tooltip_name {
+}
+.tooltip_date {
+}
+.maincontrols {
+	color: #CCCCCC;
+	font-size: 14px;
+	font-style: italic;
+}
+.text_1 {
+	font-size: 13px;
+	font-weight: normal;
+	letter-spacing: 0px;
+}
+.text_1_imageindex {
+}
+.text_1_title {
+	font-size: 18px;
+	color: #ebc807;
+	/*font-weight: bold;*/
+	leading:1;
+}
+.text_1_filename {
+}
+.text_1_dimensions {
+}
+.text_1_filesize {
+}
+.text_1_date {
+}
+.text_1_exif {
+}
+.text_1_description {
+}
+.text_1_folderdescription {
+}
+.text_1_filelink {
+}
+.text_1_download {
+}
+.text_1_folderpath {
+}
+.text_1_foldername {
+}
+.text_1_abslink {
+}
+.text_1_custom {
+}
+.text_1_link {
+}
+.text_1_purchase {
+}
+.text_1_maplink {
+	font-size: 16px;
+}
+.text_2 {
+	font-size: 12px;
+	leading: 2px;
+}
+.text_2_imageindex {
+}
+.text_2_title {
+}
+.text_2_filename {
+}
+.text_2_dimensions {
+}
+.text_2_filesize {
+}
+.text_2_date {
+}
+.text_2_exif {
+}
+.text_2_description {
+}
+.text_2_folderdescription {
+}
+.text_2_filelink {
+}
+.text_2_download {
+}
+.text_2_folderpath {
+}
+.text_2_foldername {
+}
+.text_2_abslink {
+}
+.text_2_custom {
+}
+.text_2_link {
+}
+.text_2_purchase {
+}
+.text_3 {
+	font-size: 12px;
+	text-align: right;
+}
+.exif_name {
+}
+.exif_value {
+}
+.exif_model {
+	font-size: 18px;
+}
+.exif_name_model {
+	display: none;
+}
+.exif_value_model {
+	color: #ebc807;
+}
+.textpage {
+	font-size: 14px;
+}
+.textpage_title {
+	font-size: 30px;
+	leading: 8px;
+	color: #ebc807;
+	font-style: normal;
+}
+.textpage_body {
+}
+.textpage_form {
+	font-size: 12;
+}
+.textpage_forminput {
+	/* You need to specify all required styles in this class because they are not inherited from the main textpage class because of restrictions with input fields in flash. 
+	- Please use 0x color formatting instead of #  
+	- Please do NOT use "px" after font-size. Use only numeral value
+	- font-family only supports a single font value. Make sure its a font that is globally supported*/
+	color: 0xFFFFFF;
+	font-size: 15;
+	font-family: Arial;
+}
+.textpage_forminputback {
+	/* This specific class only supports the color style. Please use 0x color formatting instead of # */
+	color: 0x333333;
+}
+.filemod {
+}
+.filemod_title {
+	font-size: 18px;
+	color: #ebc807;
+}
+.filemod_description {
+}
+.imagebuttons_help {
+	font-style: italic;
+}
+.audioplayer {
+}
+.audioplayer_main {
+	font-family: "standard 07_53";
+	font-size: 8px;
+}
+.audioplayer_id3 {
+}
+.audioplayer_id3_first {
+	color: #ebc807;
+	font-size: 17px;
+	font-style: italic;
+}
+.audioplayer_tracklist {
+	font-size: 12px;
+}
+.text_items {
+	font-family: Candara, "Lucida Grande", "Trebuchet MS", Arial, Verdana, sans-serif;
+	font-size: 12px;
+	color: #666666;
+}
+.unsupported_items {
+	font-family: Candara, "Lucida Grande", "Trebuchet MS", Arial, Verdana, sans-serif;
+	font-size: 12px;
+	color: #666666;
+}
+.unsupported_items_heading {
+	font-family: Candara, "Lucida Grande", "Trebuchet MS", Arial, Verdana, sans-serif;
+	font-size: 17px;
+}
+.unsupported_items_content {
+}
+.filename_extension {
+}
+.sharemenu {
+	font-size: 13px;
+}
+.fotomotomenu {
+	font-size: 13px;
+}

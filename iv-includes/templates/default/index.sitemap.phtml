@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<?php
+	$conf = ivPool::get('conf');
+	$siteTitle = $conf->get('/config/imagevue/settings/sitetitle');
+	$currentTitle = $this->placeholder->get('currentTitle');
+	$swfAPath = $this->placeholder->get('currentPath');
+	if (substr($swfAPath,-1) != '/') {
+		$swfAPath .= '/';
+	}
+	$keywords = $conf->get('/config/imagevue/seo/keywords');
+	$description = $conf->get('/config/imagevue/seo/description');
+	$counters = $conf->get('/config/imagevue/seo/counters');
+?>
+		<meta content="minimum-scale=1.0, width=device-width, maximum-scale=0.6667, user-scalable=yes" name="viewport" />
+		<link href="<?php htmlspecialchars(IV_PATH); ?>images/imagevueTouch.png" rel="apple-touch-icon" />
+
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="<?php echo htmlspecialchars($keywords); ?>" />
+		<meta name="description" content="<?php echo htmlspecialchars($description); ?>" />
+		<title><?php echo ($currentTitle) ? htmlspecialchars($currentTitle) . ' ‹ ' : '' ?><?php echo htmlspecialchars($siteTitle); ?></title>
+
+		<link href="<?php echo htmlspecialchars(IV_PATH); ?>assets/dtree/css/dtree.css" rel="stylesheet" type="text/css" />
+		<?php if (ivAcl::isAdmin()): ?><link href="<?php echo htmlspecialchars(IV_PATH); ?>assets/css/imagevue.adminbar.css" rel="stylesheet" type="text/css" /><?php endif ?>
+		<link href="<?php echo htmlspecialchars(IV_PATH); ?>assets/css/imagevue.html.css" rel="stylesheet" type="text/css" />
+		<?php if (getCssPath('html')): ?>
+			<link href="<?php echo htmlspecialchars(getCssPath('html')); ?>" rel="stylesheet" type="text/css" />
+		<?php endif; ?>
+		<link rel="stylesheet" type="text/css" media="all and (max-device-width: 480px)" href="<?php echo htmlspecialchars(IV_PATH); ?>assets/css/imagevue.iphone.css" />
+		<?php if (getCssPath('iphone')): ?>
+			<link rel="stylesheet" type="text/css" media="all and (max-device-width: 480px)" href="<?php echo htmlspecialchars(getCssPath('iphone')); ?>" />
+		<?php endif; ?>
+		<link rel="stylesheet" type="text/css" media="all and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)" href="<?php echo htmlspecialchars(IV_PATH); ?>assets/css/imagevue.ipad.css" />
+		<link rel="stylesheet" type="text/css" media="all and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)" href="<?php echo htmlspecialchars(IV_PATH); ?>assets/css/imagevue.ipad.css" />
+		<?php if (getCssPath('ipad')): ?>
+			<link rel="stylesheet" type="text/css" media="all and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)" href="<?php echo htmlspecialchars(getCssPath('ipad')); ?>" />
+			<link rel="stylesheet" type="text/css" media="all and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)" href="<?php echo htmlspecialchars(getCssPath('ipad')); ?>" />
+		<?php endif; ?>
+
+		<script type="text/javascript" src="<?php echo htmlspecialchars(IV_PATH); ?>assets/js/jquery.min.js"></script>
+		<script type="text/javascript" src="<?php echo htmlspecialchars(IV_PATH); ?>assets/js/jquery.c.js"></script>
+		<script type="text/javascript" src="<?php echo htmlspecialchars(IV_PATH); ?>assets/js/functions.js"></script>
+
+		<?php if (IS_MOBILE): ?>
+			<script type="text/javascript">
+			// <![CDATA[
+				function initScreen() {
+					setTimeout("window.scrollTo(0,1);", 100);
+				}
+				$(document).ready(initScreen);
+			// ]]>
+			</script>
+		<?php endif; ?>
+	</head>
+	<?php if (IS_MOBILE): ?>
+		<body onorientationchange="initScreen()">
+	<?php else: ?>
+		<body>
+	<?php endif; ?>
+
+	<div id="body">
+		<?php if (ivAcl::isAdmin() && !ivPool::get('conf')->get('/config/imagevue/settings/disableAdminbar')): ?>
+			<!-- #adminBar -->
+			<div id="adminBar" class="<?php echo (isset($_COOKIE['adminBarHidden']) && $_COOKIE['adminBarHidden'] ? 'closed' : '') ?>">
+				<div class="right"><?php echo htmlspecialchars(ivAuth::getCurrentUserLogin()) ?>
+				</div>
+				<a id="htmlVersionLink" href="?p=gallery" title="Flash Gallery">Flash gallery &raquo;</a>
+				<a id="htmlVersionLink" href="?" title="HTML Gallery">HTML gallery &raquo;</a>
+				<?php $thumbRecreationPath = $this->placeholder->get('thumbRecreationPath'); ?>
+				<a href="<?php echo htmlspecialchars($conf->get('/config/imagevue/settings/adminfolder')) ?>?c=config" title="Change <?php echo htmlspecialchars($siteTitle); ?> settings">Settings &raquo;</a>
+			</div>
+			<a href="#" id="barOpen">&times;</a>
+			<!-- /adminBar -->
+		<?php endif; ?>
+
+		<div id="page">
+
+			<div id="pageHeader">
+				<div id="tree" class="static">
+					<div class="holder">
+						<a href="?/" id="logo"></a>
+					</div>
+				</div>
+
+				<a class="logo" href="?/"><?php echo htmlspecialchars($siteTitle); ?></a>
+			</div><!-- pageHeader -->
+
+			<div id="pageBody">
+				<div id="textPage" class="wide">
+					<h1><?php echo htmlspecialchars($this->siteTitle) ?> Sitemap</h1>
+					<?php if (count($this->folderTreeIterator)): ?>
+						<?php $oldDepth = -1; ?>
+						<?php foreach ($this->folderTreeIterator as $folder): ?>
+							<?php if ($oldDepth < $this->folderTreeIterator->getDepth()): ?>
+								<ul>
+									<li>
+							<?php elseif ($oldDepth > $this->folderTreeIterator->getDepth()): ?>
+								<?php for ($i = 0; $i < $oldDepth - $this->folderTreeIterator->getDepth(); $i++): ?>
+										</li>
+									</ul>
+								<?php endfor; ?>
+								</li>
+								<li>
+							<?php else: ?>
+								</li>
+								<li>
+							<?php endif; ?>
+								<h2>
+									<a href="?share=<?php echo ($folder->isLink() ? t($folder->pageContent) : smart_urlencode($folder->getPrimary())); ?>" title="<?php echo htmlspecialchars(strip_tags(t($folder->description))); ?>">
+										<?php echo strip_icon(strip_tags(t($folder->getTitle()))); ?>
+									</a>
+								</h2>
+							<?php $oldDepth = $this->folderTreeIterator->getDepth(); ?>
+							<?php if (!$folder->isPage() && !$folder->isLink()): ?>
+								<?php if (count($folder->getFolderdataXml()->file) && ($folder->checkPassword((isset($_SESSION['imagevue']['password']) ? $_SESSION['imagevue']['password'] : null)))): ?>
+									<ul>
+										<?php foreach ($folder->getFolderdataXml()->file as $file): ?>
+											<?php if (in_array(strtolower(ivFilepath::suffix($file['name'])), $conf->get('/config/imagevue/settings/includefilesext'))): ?>
+												<li>
+													<h3>
+														<a href="?share=<?php echo smart_urlencode($folder->getPrimary() . $file['name']); ?>" title="<?php echo htmlspecialchars(strip_tags(t($file['description']))); ?>">
+															<?php echo strip_icon(strip_tags(t(!empty($file['title']) ? $file['title'] : $file['name']))); ?>
+														</a>
+													</h3>
+												</li>
+											<?php endif; ?>
+										<?php endforeach; ?>
+									</ul>
+								<?php endif; ?>
+							<?php endif; ?>
+						<?php endforeach; ?>
+						<?php for ($i = -1; $i < $oldDepth; $i++): ?>
+								</li>
+							</ul>
+						<?php endfor; ?>
+					<?php endif; ?>
+				</div>
+			</div>
+
+			<div id="counters">
+				<?php echo $counters; ?>
+			</div>
+		</div>
+	</div>
+
+	<div id="footer">
+		<a href="http://imagevuex.com"><strong>ImagevueX</strong> - Photo Gallery Website and Mobile Portfolio for Photographers</a>
+	</div>
+	</body>
+</html>

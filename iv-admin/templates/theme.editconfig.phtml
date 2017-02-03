@@ -1,0 +1,49 @@
+<div class="bodyContent single">
+	<div class="contentSubMenu">
+		<a title="Edit Theme Settings" class="selected" href="index.php?c=theme&amp;a=editconfig&amp;name=<?php echo urlencode($this->themeName); ?>">Edit Settings</a>
+		<a title="Edit Theme Stylesheet" href="index.php?c=theme&amp;a=editcss&amp;name=<?php echo urlencode($this->themeName); ?>">Edit Stylesheet</a>
+	</div>
+
+	<?php if (!in_array('noteThemes', ivPool::get('notes'))): ?>
+		<div class="note">
+			<a id="noteThemes" href="#" class="close">&times;</a>
+			You can change the visual style of your gallery with themes.
+			<a title="About Imagevue Themes" class="iv-ext" target="_blank" href="http://imagevuex.com/documentation/edit-themes/">Create and Edit Themes</a>
+		</div>
+	<?php endif; ?>
+
+	<div class="controls right" style="white-space: nowrap" >
+		<a class="button buttonHide" title="Preview Theme" target="_blank" href="../index.php?c=gallery&amp;theme=<?php echo urlencode($this->themeName); ?>">Preview</a>
+
+		<form id="themeBgUploaderForm" style="display: inline" action="index.php?c=theme&amp;a=upload&amp;name=<?php echo urlencode($this->themeName); ?>" method="post" enctype="multipart/form-data">
+			<a id="themeBgUploaderButton" class="cabinet button buttonUpload">Upload background</a>
+		</form>
+	</div>
+
+	<form method="post" action="">
+
+		<div class="controls left">
+			<input class="button buttonSave" type="submit" name="save" value="Save" />
+			&nbsp;&nbsp;
+			<input class="button buttonExpand" type="button" value="Expand all" onclick="$('.ivconf').each(function () {$(this).addClass('open').next().show();});" />
+			<input class="button buttonCollapse" type="button" value="Collapse all" onclick="$('.ivconf').each(function () {$(this).removeClass('open').next().hide();});" />
+
+		</div>
+
+		<div class="contentMenu" id="themeConfigTabHeaders">
+			<?php $sections = $this->sections; ?>
+			<?php foreach ($sections as $name => $flatSection): ?>
+				<a href="#<?php echo htmlspecialchars($name); ?>" class="tabHeader"><?php echo htmlspecialchars(ucfirst($name)); ?></a>
+			<?php endforeach; ?>
+		</div>
+
+		<?php echo $this->partial('formtree', array('sections' => $this->sections, 'openedPanels' => $this->openedPanels)); ?>
+	</div>
+
+		<div class="controls left">
+			<input class="button buttonSave" type="submit" name="save" value="save" />
+			<input class="button buttonExpand" type="button" value="expand all" onclick="$('.ivconf').each(function () {$(this).addClass('open').next().show();});" />
+			<input class="button buttonCollapse" type="button" value="collapse all" onclick="$('.ivconf').each(function () {$(this).removeClass('open').next().hide();});" />
+		</div>
+	</form>
+</div>

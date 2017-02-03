@@ -1,0 +1,801 @@
+<?php
+	$conf = ivPool::get('conf');
+	$thumbWidth = ($this->folder->maxThumbWidth != 0) ? $this->folder->maxThumbWidth : $conf->get('/config/imagevue/thumbnails/thumbnail/boxwidth');
+	$thumbHeight = ($this->folder->maxThumbHeight != 0) ? $this->folder->maxThumbHeight : $conf->get('/config/imagevue/thumbnails/thumbnail/boxheight');
+	$thumbWidth = ($thumbWidth < 90) ? 90 : $thumbWidth;
+	$thumbHeight = ($thumbHeight < 60) ? 60 : $thumbHeight;
+	$maxFolderWidth = ($this->folder->getChildMaxPreviewWidth() > 90 ? $this->folder->getChildMaxPreviewWidth() : 90);
+	$maxFolderHeight = ($this->folder->getChildMaxPreviewHeight() > 80 ? $this->folder->getChildMaxPreviewHeight() : 80);
+?>
+<div class="bodySidebar folderParams">
+
+<div class="folderTop">
+
+	<form method="post" action="">
+		<?php if ($this->folder->Parent): ?>
+		<div class="folderUseAs">
+			Use as
+			<select name="newdata[page]" onchange="this.form.submit();">
+				<option value="gallery">Folder</option>
+				<option value="html" <?php echo ($this->folder->isPage() ? 'selected="selected"' : ''); ?>>Textpage&nbsp;</option>
+				<option value="link" <?php echo ($this->folder->isLink() ? 'selected="selected"' : ''); ?>>Link</option>
+				<option value="filemod" <?php echo ($this->folder->isFilemod() ? 'selected="selected"' : ''); ?>>Filemod</option>
+			</select>
+		</div>
+		<?php endif ?>
+
+		<div class="tags">
+			<span title="Folder date <?php echo htmlspecialchars(formatDate($this->folder->date)); ?>"><?php echo htmlspecialchars(formatDate($this->folder->date)); ?></span>
+			<span title="Visible/Total files"><?php echo htmlspecialchars($this->folder->fileCount); ?>
+				<?php if ($this->folder->fileCount != $this->folder->totalFileCount): ?>
+					/ <?php echo htmlspecialchars($this->folder->totalFileCount); ?>
+				<?php endif; ?>
+				files</span>
+
+		</div>
+	</form>
+</div>
+
+<div class="folderPreview" id="folderPreviewContainer">
+
+	<div class="thumb" title="Drag any thumbnail here to change the preview image">
+		<div class="controls" style="<?php echo ($this->folder->previewimage ? '' : 'display:none'); ?>">
+			<a title="Remove Preview Image" class="buttonDelete" href="?c=index&amp;a=setPreview&amp;path=<?php echo smart_urlencode($this->folder->getPrimary()); ?>">Clear</a>
+		</div>
+
+		<?php if ($this->folder->previewimage && ($file = ivMapperFactory::getMapper('file')->find($this->folder->getPrimary() . $this->folder->previewimage))): ?>
+			<img src="../<?php echo htmlspecialchars($file->thumbnail) ?>?<?php echo htmlspecialchars($file->getThumbnailMTime()); ?>" alt="" />
+		<?php else: ?>
+			<img class="default" src="../<?php echo htmlspecialchars($this->folder->thumbnail); ?>?<?php echo htmlspecialchars($this->folder->getThumbnailMTime()); ?>" alt="" />
+		<?php endif;?>
+	</div>
+</div><!-- folderPreview -->
+
+
+<?php if (!$this->folder->isLink()): ?>
+
+	<form method="post" action="">
+
+
+		<?php if ($this->folder->isFilemod()): ?>
+
+			<div class="row special">
+				<label>Filemod <a title="About Imagevue Filemod" class="iv-help" target="_blank" href="http://imagevuex.com/documentation/filemod/"></a>
+				</label>
+				<select name="newdata[fileMod]">
+					<option value="slideshow" <?php echo ('slideshow' == $this->folder->fileMod ? 'selected="selected"' : ''); ?>>Slideshow&nbsp;&nbsp;</option>
+					<option value="photoblinds" <?php echo ('photoblinds' == $this->folder->fileMod ? 'selected="selected"' : ''); ?>>Photoblinds&nbsp;&nbsp;</option>
+					<option value="randomimage" <?php echo ('randomimage' == $this->folder->fileMod ? 'selected="selected"' : ''); ?>>Random Image&nbsp;&nbsp;</option>
+					<option value="custom" <?php echo ('custom' == $this->folder->fileMod ? 'selected="selected"' : ''); ?>>Custom&nbsp;&nbsp;</option>
+					<?php foreach (getContent(BASE_DIR . 'filemods/') as $file): ?>
+						<?php if (ivFilepath::matchSuffix($file, $conf->get('/config/imagevue/settings/allowedext'))): ?>
+							<option value="<?php echo htmlspecialchars($file); ?>" <?php echo ($file == $this->folder->fileMod ? 'selected="selected"' : ''); ?>><?php echo htmlspecialchars($file); ?></option>
+						<?php endif; ?>
+					<?php endforeach; ?>
+				</select>
+			</div>
+
+
+		<?php endif; ?>
+
+		<?php if (!$this->folder->isPage()): ?>
+
+			<div class="row">
+				<label>Title</label>
+				<input type="text" class="text" name="newdata[title]" value="<?php echo htmlspecialchars($this->folder->title); ?>"/>
+			</div>
+
+			<div class="row">
+				<label>Description</label>
+				<div class="textarea">
+					<textarea cols="20" rows="5" name="newdata[description]"><?php echo htmlspecialchars($this->folder->description); ?></textarea>
+				</div>
+			</div>
+
+		<?php endif ?>
+
+		<?php foreach ($this->folder->getUserAttributeNames() as $name): ?>
+			<div class="row">
+				<label><?php echo htmlspecialchars(ucfirst($name)); ?></label>
+				<input type="text" class="text" name="newdata[<?php echo htmlspecialchars($name); ?>]" value="<?php echo htmlspecialchars($this->folder->$name); ?>"/>
+			</div>
+		<?php endforeach; ?>
+
+		<div class="row<?php echo ($this->folder->hasPassword() ? ' special' : '') ?>">
+			<?php $firstPasswordParent = $this->folder->findFirstPasswordParent(); ?>
+			<?php if (($firstPasswordParent && ($firstPasswordParent->getPrimary() == $this->folder->getPrimary())) || !$firstPasswordParent): ?>
+				<?php if ($this->folder->hasPassword()): ?>
+
+					<a class="unlockFolder" href="?c=index&amp;a=removePassword&amp;path=<?php echo smart_urlencode($this->folder->getPrimary()); ?>">&times; Remove</a>
+				<?php endif; ?>
+				<label>
+					<?php echo ($this->folder->hasPassword() ? 'Change ' : 'Set ') ?> Folder Password
+					<a class="iv-help" target="_blank" title="About Folder Passwords" href="http://imagevuex.com/documentation/folder-passwords/"></a>
+				</label>
+				<input type="password" class="text" name="folderPwd" value="<?php echo ($this->folder->hasPassword() ? '******' : '') ?>" autocomplete="off" />
+			<?php else: ?>
+				Password is set in
+				<a href="?path=<?php echo smart_urlencode($firstPasswordParent->getPrimary()) ?>">parent folder</a>
+			<?php endif; ?>
+		</div>
+
+		<div class="row">
+			<label class="inline" id="folderParameters" <?php echo ($this->folder->parameters) ? 'class="collapse"' : '' ?> onclick="$('#folderP').toggle(); $('#folderParameters').toggleClass('collapse');">Parameters
+				</label>
+				<a class="iv-help" target="_blank" title="About Folder Parameters" href="http://imagevuex.com/documentation/folder-parameters/"></a>
+			<div class="textarea" id="folderP" <?php echo ($this->folder->parameters) ? '' : 'style="display: none"' ?>>
+				<textarea cols="20" rows="5" name="newdata[parameters]"><?php echo htmlspecialchars($this->folder->parameters); ?></textarea>
+			</div>
+		</div>
+
+		<?php if ($this->folder->Parent): ?>
+		<div class="row special visibility">
+
+			<label class="inline">
+				<input type="hidden" name="newdata[showInHtml]" value="0" />
+				<input type="checkbox" name="newdata[showInHtml]" value="1" <?php echo ($this->folder->showInHtml ? 'checked="checked"' : '') ?> />
+				&nbsp;HTML
+			</label>
+			<label class="inline">
+				<input type="hidden" name="newdata[showInFlash]" value="0" />
+				<input type="checkbox" name="newdata[showInFlash]" value="1" <?php echo ($this->folder->showInFlash ? 'checked="checked"' : '') ?> />
+				&nbsp;Flash
+			</label>
+			<label class="inline">
+				<input type="hidden" name="newdata[showOnMobile]" value="0" />
+				<input type="checkbox" name="newdata[showOnMobile]" value="1" <?php echo ($this->folder->showOnMobile ? 'checked="checked"' : '') ?> />
+				&nbsp;Mobile
+			</label>
+		</div>
+		<?php endif ?>
+
+		<div class="controls left">
+			<input type="submit" class="button buttonSave" value="Save info"/>
+		</div>
+	</form>
+<?php endif ?>
+</div><!-- bodySidebar -->
+
+
+<div class="bodyContent folderThumbs">
+
+	<div class="contentBar">
+			<div class="controls right">
+				<?php if ((count($this->folder->Files)) && !$this->folder->isLink() ): ?>
+					<form method="post" action="" id="sfaForm">
+						<select name="selected[]" multiple="multiple" id="selected_files" style="display: none;">
+							<?php foreach ($this->folder->Files as $item): ?>
+								<option value="<?php echo htmlspecialchars($item->name); ?>"><?php echo htmlspecialchars($item->name); ?></option>
+							<?php endforeach; ?>
+						</select>
+						<input type="hidden" name="move" value="0" />
+						<span title="Copy or Move selected files to another folder">
+							<label><input type="radio" name="move" value="0" <?php echo (!isset($_SESSION['imagevue']['move']) || $_SESSION['imagevue']['move'] ? 'checked="checked"' : '') ?> /> Move</label>
+							<label><input type="radio" name="move" value="1" <?php echo (isset($_SESSION['imagevue']['move']) && !$_SESSION['imagevue']['move'] ? 'checked="checked"' : '') ?> id="groupCopyCheckbox" /> Copy</label>
+							&nbsp;selected to:
+						</span>
+						<span>
+							<select onchange="if ($('#groupCopyCheckbox').prop('checked')) {$(this.form).attr('action', '<?php echo $this->url(array('a' => 'copyFiles', 'path' => $this->folder->getPrimary())) ?>&amp;target=' + this.value)} else {$(this.form).attr('action', '<?php echo $this->url(array('a' => 'moveFiles', 'path' => $this->folder->getPrimary())) ?>&amp;target=' + this.value)} $(this.form).submit();">
+								<?php foreach ($this->folderTreeIterator as $folder):?>
+									<option value="<?php echo htmlspecialchars($folder->getPrimary()); ?>" <?php echo (ivFilepath::directory($this->path) == $folder->getPrimary() ? 'selected="selected"' : ''); ?>><?php echo str_repeat('--', $this->folderTreeIterator->getDepth()); ?> <?php echo smartStripTagsSubstr(t($folder->getTitle())); ?>&nbsp;&nbsp;</option>
+								<?php endforeach; ?>
+							</select>
+						</span>
+					</form><a title="Delete selected files" class="buttonDelete" href="#" onclick="if (confirm('Are you sure you want to delete selected files?')) {$('#sfaForm').attr('action', '<?php echo $this->url(array('a' => 'deleteFiles', 'path' => $this->folder->getPrimary())) ?>'); $('#sfaForm').submit();} return false;">Delete</a>
+				<?php endif; ?>
+			</div>
+			<div class="controls left">
+				<form method="post" action="">
+					<?php if ($this->folder->Parent): ?>
+						<a href="<?php echo $this->url(array('path' => $this->folder->Parent->getPrimary())) ?>">&uarr; Back</a>
+					<?php endif; ?>
+					<div class="viewas <?php echo htmlspecialchars($this->folder->viewAs) ?>">
+						<?php $views = $this->views; ?>
+						<?php foreach ($views as $view): ?>
+							<a title="View as <?php echo htmlspecialchars(ucfirst($view)); ?>" class="as<?php echo htmlspecialchars(ucfirst($view)); ?>" href="#" onclick="$.imagevueRequest('<?php echo htmlspecialchars($_SERVER['REQUEST_URI']) ?>', {parameters: {'newdata[viewAs]': '<?php echo htmlspecialchars($view); ?>'}}); return false;"></a>
+						<?php endforeach; ?>
+					</div>
+
+
+				<?php if ((count($this->folder->Files)) && !$this->folder->isLink() && !$this->folder->isPage()): ?>
+					<span class="pale" title="File sorting options">Sort:
+					<select name="newdata[sort]" onchange="this.form.submit();" id="sortSelect">
+						<?php $sorts = $this->sorts; ?>
+						<?php foreach ($sorts as $value => $data): ?>
+							<option value="<?php echo htmlspecialchars($value); ?>"<?php echo ($this->folder->sort == $value ? ' selected="selected"' : ''); ?>><?php echo htmlspecialchars($data['name']) ?>&nbsp;&nbsp;</option>
+						<?php endforeach; ?>
+					</select>
+					</span>
+				<?php endif ?>
+				</form>
+			</div>
+		</div><!-- contentBar -->
+
+
+
+		<?php if (count($this->folder->Folders)) : ?>
+			<div id="folders" class="<?php echo htmlspecialchars($this->folder->viewAs) ?>">
+
+				<div class="foldersHolder" id="foldersSortableContainer">
+				<?php foreach ($this->folder->Folders as $item): ?>
+					<ins class="folder subFolder" id="item_<?php echo encodeFilenameBase64($item->name); ?>">
+						<div class="folderHolder" <?php if (ivFolder::VIEW_AS_GRID == $this->folder->viewAs): ?>style="width: <?php echo $maxFolderWidth + 288; ?>px;"<?php endif ?>>
+
+							<div class="controls left">
+								<a href="<?php echo $this->url(array('a' => ($item->isHidden() ? 'unhide' : 'hide'), 'path' => $item->getPrimary())) ?>" class="button<?php echo ($item->isHidden() ? 'Unh' : 'H') ?>ide" title="<?php echo ($item->isHidden() ? 'Unh' : 'H') ?>ide this folder"></a>
+								<a class="buttonDelete" href="<?php echo $this->url(array('a' => 'delete', 'path' => $item->getPrimary())) ?>" title="Delete folder" onclick="return confirm('Are you sure you want to delete folder <?php echo htmlspecialchars($item->name); ?>?');"></a>
+							</div><!-- controls -->
+
+							<div class="folderBody">
+
+								<?php if (ivFolder::VIEW_AS_TEXT != $this->folder->viewAs): ?>
+									<a title="<?php echo htmlspecialchars(strip_tags($item->description)); ?>" class="folderImage" style="width: <?php echo $maxFolderWidth + 12; ?>px" href="?path=<?php echo smart_urlencode($item->getPrimary()); ?>" >
+										<?php if ($item->getPreviewImage()): ?>
+											<img src="../<?php echo htmlspecialchars($item->getPreviewImage()->thumbnail) ?>?<?php echo htmlspecialchars($item->getPreviewImage()->getThumbnailMTime()); ?>" class="thumbImage"/>
+											<?php if (!$item->isFolder()) :?><img src="../<?php echo htmlspecialchars($item->getThumbnail('overlay')); ?>" class="folderThumb" alt="" /><?php endif ?>
+										<?php else: ?>
+											<img src="../<?php echo htmlspecialchars($item->thumbnail); ?>?<?php echo htmlspecialchars($item->getThumbnailMTime()); ?>"  width="90" height="80" />
+										<?php endif ?>
+									</a>
+								<?php endif; ?><!-- !text -->
+
+								<div class="thumbInfo <?php echo ($item->isHidden() ? ' hidden' : '') ?>">
+									<div class="infoHead" style="background-image: url(../<?php echo htmlspecialchars($item->getThumbnail('small')); ?>)">
+
+										<div class="infoTitle <?php echo (empty($item->title) ? 'auto' : '') ?>">
+											<a href="?path=<?php echo smart_urlencode($item->getPrimary()); ?>"><?php echo htmlspecialchars(strip_icon(strip_tags(t($item->getTitle())))); ?></a>
+										</div>
+										<div class="infoFilename">
+											<a href="?path=<?php echo smart_urlencode($item->getPrimary()); ?>"><?php echo htmlspecialchars($item->getPrimary()); ?></a>
+										</div>
+									</div>
+
+									<div class="infoDescription">
+										<div><?php echo t($item->description); ?></div>
+									</div>
+									<div class="tags">
+										<span title="Folder created at: <?php echo htmlspecialchars(formatDate($item->date)); ?>"><?php echo htmlspecialchars(formatDate($item->date)); ?></span>
+										<span title="Visible / Total files"><?php echo htmlspecialchars($item->fileCount == $item->totalFileCount ? $item->fileCount : $item->fileCount . '/' . $item->totalFileCount ) ?> files</span>
+									</div>
+								</div><!-- thumbInfo -->
+
+							</div><!-- folderBody -->
+						</div><!-- folderHolder -->
+					</ins>
+				<?php endforeach; ?>
+				</div><!-- foldersHolder -->
+			</div><!-- folders -->
+		<?php endif; ?>
+
+		<?php if ($this->folder->isPage()): ?>
+			<!-- pageData -->
+
+			<?php if (!in_array('noteTextpage', ivPool::get('notes'))): ?>
+				<div class="note">
+					<a id="noteTextpage" class="close" href="#">&times;</a>
+					This folder will display as a text page. <a title="About Imagevue Textpages" class="iv-ext" target="_blank" href="http://imagevuex.com/documentation/textpages/">About Textpages</a>
+				</div>
+			<?php endif; ?>
+			<form method="post" class="textPage" action="">
+				<div class="row">
+					<input type="submit" class="button buttonSave" value="Save Text Page" name="save" />
+				</div>
+
+				<div class="row text">
+					Title<br/>
+					<input class="text "type="text" name="newdata[title]" value="<?php echo htmlspecialchars($this->folder->title) ?>"/>
+				</div>
+
+				<div class="row">
+					Description<br/>
+					<div class="textarea">
+						<textarea class="description" cols="20" rows="5" name="newdata[description]"><?php echo htmlspecialchars($this->folder->description) ?></textarea>
+					</div>
+				</div>
+
+				<div class="row">
+					Content<br/>
+					<textarea id="pageContent" class="pageContent" cols="20" rows="30" name="newdata[pageContent]"><?php echo htmlspecialchars($this->folder->pageContent); ?></textarea>
+				</div>
+				<div class="controls">
+					<input type="submit" class="button buttonSave" value="Save Text Page" name="save" />
+				</div>
+			</form>
+			<!-- /pageData -->
+		<?php elseif ($this->folder->isLink()): ?>
+
+			<?php if (!in_array('noteLink', ivPool::get('notes'))): ?>
+				<div class="note">
+					<a id="noteLink" class="close" href="#">&times;</a>
+					This folder will act as a link. To have the link open a new window, add <b>*_blank</b> after it.
+				</div>
+			<?php endif; ?>
+			<!-- linkData -->
+			<form method="post" action="" class="textPage">
+				<div class="row text">
+					Title:<br/>
+					<input type="text" class="text" name="newdata[title]" value="<?php echo htmlspecialchars($this->folder->title) ?>"/>
+				</div>
+
+				<div class="row">
+					Description:<br/>
+					<div class="textarea">
+						<textarea class="description" cols="20" rows="5" name="newdata[description]"><?php echo htmlspecialchars($this->folder->description) ?></textarea>
+					</div>
+				</div>
+
+				<?php
+					if ($this->folder->pageContent) {
+						$pageContent = htmlspecialchars($this->folder->pageContent);
+						$newWindow = strpos($pageContent, '*');
+
+						if (false !== $newWindow) {
+							$pageContent = substr($pageContent, 0, $newWindow);
+							$newWindow = true;
+						}
+					} else {
+						$pageContent = 'http://';
+						$newWindow = false;
+					}
+				?>
+
+				<div class="row text">
+					Link:<br/>
+					<input type="text" class="text" name="newdata[pageContent]" value="<?php echo ($pageContent); ?>"/>
+				</div>
+
+
+				<div class="row text">
+					<label><input type="checkbox" class="checkbox" name="newdata[newWindow]" value="1" <?php echo ($newWindow) ? 'checked="checked"' : ''; ?>/> Open link in a new window:</label>
+				</div>
+
+				<?php if ($this->folder->Parent): ?>
+					<div class="row special visibility">
+						<label class="inline">
+							<input type="hidden" name="newdata[showInHtml]" value="0" />
+							<input type="checkbox" name="newdata[showInHtml]" value="1" <?php echo ($this->folder->showInHtml ? 'checked="checked"' : '') ?> />
+							&nbsp;HTML
+						</label>
+						<label class="inline">
+							<input type="hidden" name="newdata[showInFlash]" value="0" />
+							<input type="checkbox" name="newdata[showInFlash]" value="1" <?php echo ($this->folder->showInFlash ? 'checked="checked"' : '') ?> />
+							&nbsp;Flash
+						</label>
+						<label class="inline">
+							<input type="hidden" name="newdata[showOnMobile]" value="0" />
+							<input type="checkbox" name="newdata[showOnMobile]" value="1" <?php echo ($this->folder->showOnMobile ? 'checked="checked"' : '') ?> />
+							&nbsp;Mobile
+						</label>
+					</div>
+				<?php endif ?>
+
+				<div class="row">
+					<input type="submit" class="button buttonSave" value="Save" name="save"/>
+				</div>
+			</form>
+			<!-- /linkData -->
+		<?php endif; ?>
+
+		<?php if (!$this->folder->isLink()): ?>
+
+			<?php if ($this->folder->isFilemod()) : ?>
+				<?php if (!in_array('noteFilemod', ivPool::get('notes'))): ?>
+					<div class="note">
+						<a id="noteFilemod" class="close" href="#">&times;</a>
+						The file module allows you to create custom pages in your Imagevue gallery.
+						<a title="About Imagevue Filemod" class="iv-ext" target="_blank" href="http://imagevuex.com/documentation/filemod/">About Imagevue Filemod</a>
+					</div>
+				<?php endif ?>
+			<?php else: ?>
+				<?php if (!in_array('noteManage', ivPool::get('notes')) && !$this->folder->isPage()): ?>
+					<div class="note">
+						<a id="noteManage" class="close" href="#">&times;</a>
+						Drag images and folders to sort them. <strong>Ctrl+A / Cmd+A</strong> selects all images for mass operations. <a class="iv-ext" title="About Imagevue file management" href="http://imagevuex.com/documentation/manage-page/" target="_blank">Imagevue file management</a>
+					</div>
+				<?php endif ?>
+			<?php endif ?>
+			<!-- imageList -->
+			<div class="<?php echo htmlspecialchars($this->folder->viewAs) ?>" id="thumbs">
+				<?php foreach ($this->folder->Files as $num => $item): ?>
+					<ins id="item_<?php echo encodeFilenameBase64($item->name); ?>"  class="thumb">
+						<div  class="thumbHolder<?php echo ($item->isVisibleOnFrontEnd() ? '' : ' excluded') ?>" <?php echo (ivFolder::VIEW_AS_GRID == $this->folder->viewAs ? 'style="width: ' . ($thumbWidth + 12) . 'px; "' : ''); ?>>
+
+							<div class="controls">
+								<a href="#" class="buttonCheckbox" title="Select for mass actions" onclick="$.imagevueToggleFile('<?php echo addslashes(htmlspecialchars($item->name)); ?>'); $(this.parentNode.parentNode.parentNode).toggleClass('selected'); return false; "></a>
+								<a href="?c=index&amp;a=setPreview&amp;path=<?php echo smart_urlencode($this->folder->getPrimary()); ?>&amp;id=<?php echo encodeFilenameBase64($item->name); ?>" title="Set as preview image" class="buttonPreview"></a>
+								<a href="#" title="Edit thumbnail" class="buttonThumb" id="thumbareaButton<?php echo htmlspecialchars($num) ?>" onclick="return false;"></a>
+									<script type="text/javascript">
+									// <![CDATA[
+										(function ($) {
+											$(document).ready(function() {
+												<?php if (is_a($item, 'ivFileImage')): ?>
+												    $("#thumbareaButton<?php echo $num ?>").colorbox({
+														title: ' ',
+														width:'800px',
+														height:'600px',
+														href: '?c=file&a=thumbarea&path=<?php echo smart_urlencode($item->getPrimary()); ?>',
+														iframe: true
+													});
+												<?php else: ?>
+												    $("#thumbareaButton<?php echo $num ?>").colorbox({
+														title: ' ',
+														width:'800px',
+														height:'520px',
+														href: '?c=file&a=thumbselect&path=<?php echo smart_urlencode($item->getPrimary()); ?>',
+														iframe: true
+													});
+												<?php endif; ?>
+											});
+										})(jQuery);
+									// ]]>
+									</script>
+								<a href="?c=file&amp;a=delete&amp;path=<?php echo smart_urlencode($item->getPrimary()); ?>" onclick="return confirm('Are you sure you want to delete file <?php echo htmlspecialchars($item->name); ?>?');" title="Delete" class="buttonDelete"></a>
+							</div>
+
+							<div class="amountOfSelectedFiles"></div>
+
+							<div class="thumbBody">
+
+								<?php if (ivFolder::VIEW_AS_TEXT != $this->folder->viewAs): ?>
+									<div class="thumbImage" <?php echo (ivFolder::VIEW_AS_LIST == $this->folder->viewAs ? 'style="width: ' . ($thumbWidth + 12) . 'px; "' : ''); ?>>
+
+										<a title="<?php echo htmlspecialchars(strip_icon(strip_tags($item->getTitle()))); ?>" href="<?php echo $this->url(array('c' => 'file', 'path' => $item->getPrimary())); ?>">
+											<?php if (ivPath::canonizeRelative(substr($item->thumbnail, 0, strlen($this->contentPath))) !== $this->contentPath): ?>
+												<img src="<?php echo $this->url(array('c' => 'file', 'a' => 'getthumb', 'path' => $item->getPrimary())) ?>" alt="" />
+											<?php else: ?>
+												<img src="../<?php echo htmlspecialchars($item->thumbnail); ?>?<?php echo htmlspecialchars($item->getThumbnailMTime()); ?>" alt="" />
+											<?php endif; ?>
+										</a>
+									</div>
+								<?php endif; ?>
+
+								<?php if (ivFolder::VIEW_AS_GRID != $this->folder->viewAs): ?>
+									<div class="thumbInfo">
+										<div class="infoTitle <?php echo (empty($item->title) ? 'auto' : '') ?>">
+											<a href="?c=file&amp;path=<?php echo smart_urlencode($item->getPrimary()); ?>"><?php echo htmlspecialchars(strip_icon(strip_tags(t($item->getTitle())))); ?></a>
+										</div>
+										<div class="infoFilename"><a href="?c=file&amp;path=<?php echo smart_urlencode($item->getPrimary()); ?>"><?php echo htmlspecialchars($item->name); ?></a></div>
+										<div class="infoDescription">
+											<div><?php echo t($item->description); ?></div>
+										</div>
+										<div class="tags">
+											<span title="File created at: <?php echo htmlspecialchars(formatDate($item->date)); ?>"><?php echo htmlspecialchars(formatDate($item->date)); ?></span>
+											<?php if ($item->width && $item->height): ?>
+												<span title="Picture dimensions: <?php echo htmlspecialchars($item->width); ?>x<?php echo htmlspecialchars($item->height); ?> px"><?php echo htmlspecialchars($item->width); ?>x<?php echo htmlspecialchars($item->height); ?></span>
+											<?php endif; ?>
+											<span title="File Size: <?php echo htmlspecialchars(formatFilesize($item->size)); ?>"><?php echo htmlspecialchars(formatFilesize($item->size)); ?></span>
+										</div>
+									</div>
+								<?php else: ?>
+									<div class="infoTitle <?php echo (empty($item->title) ? 'auto' : '') ?>">
+										<a href="?c=file&amp;path=<?php echo smart_urlencode($item->getPrimary()); ?>"><?php echo htmlspecialchars(strip_icon(strip_tags(t($item->getTitle())))); ?></a>
+									</div>
+								<?php endif ?>
+							</div>
+						</div>
+					</ins>
+				<?php endforeach; ?>
+			</div><!-- thumbs -->
+
+			<script type="text/javascript">
+			// <![CDATA[
+				(function ($) {
+					$(document).ready(function () {
+						$('#folderPreviewContainer').droppable({
+							accept: 'ins.thumb',
+							over: function(ev, ui) {
+								$('#folderPreviewContainer').addClass('hover');
+							},
+							out: function(ev, ui) {
+								$('#folderPreviewContainer').removeClass('hover');
+							},
+							drop: function(ev, ui) {
+								$('#thumbs').removeClass('startDrag');
+								if ($('#selected_files').val()) {
+									$('#folderPreviewContainer').removeClass('hover');
+									return;
+								}
+								$('#folderPreviewContainer').removeClass('hover');
+								var src = $(ui.draggable).find('img').attr('src');
+								var id = $(ui.draggable).attr('id').substring(5);
+								$('#thumbs').sortable('cancel');
+								$('#folderPreviewContainer').find('img').attr('src', src).removeClass('default');
+								$('#folderPreviewContainer .controls').css('display', '');
+								$.ajax({
+									url: '?c=index&a=setPreview&path=<?php echo smart_urlencode($this->folder->getPrimary()); ?>&id=' + id,
+									type: 'GET',
+									complete: function(xhr, status) {
+										if ('success' == status) {
+											$.imagevueMessenger(xhr.responseText, 'message');
+										}
+									}
+								});
+							}
+						});
+
+						$('#folders ins.subFolder').droppable({
+							accept: 'ins.thumb',
+							over: function(ev, ui) {
+								$(this).addClass('hover');
+							},
+							out: function(ev, ui) {
+								$(this).removeClass('hover');
+							},
+							drop: function(ev, ui) {
+								var fileId = $(ui.draggable).attr('id').substring(5);
+								var folderId = $(this).attr('id').substring(5);
+								$.ajax({
+									url: '?c=index&a=moveFileById&path=<?php echo urlencode($this->folder->getPrimary()); ?>&fileId=' + fileId + '&folderId=' + folderId,
+									type: 'POST',
+									data: $('#selected_files').serialize(),
+									complete: function(xhr, status) {
+										window.location.reload();
+									}
+								});
+							}
+						});
+
+						$('.parentFolder').droppable({
+							accept: 'ins.thumb',
+							over: function(ev, ui) {
+								$(this).addClass('hover');
+							},
+							out: function(ev, ui) {
+								$(this).removeClass('hover');
+							},
+							drop: function(ev, ui) {
+								var fileId = $(ui.draggable).attr('id').substring(5);
+								var folderId = '<?php echo encodeFilenameBase64('..') ?>';
+								$.ajax({
+									url: '?c=index&a=moveFileById&path=<?php echo urlencode($this->folder->getPrimary()); ?>&fileId=' + fileId + '&folderId=' + folderId,
+									type: 'POST',
+									data: $('#selected_files').serialize(),
+									complete: function(xhr, status) {
+										window.location.reload();
+									}
+								});
+							}
+						});
+
+						$('#thumbs').sortable({
+							tolerance: 'pointer',
+							over: function(ev, ui) {
+								$(ui.placeholder).css({visibility: 'visible'});
+							},
+							start: function(ev, ui) {
+								$(ui.placeholder).css({visibility: 'visible'});
+								$('#thumbs').addClass('startDrag');
+								if ($('#selected_files').val() && $('#selected_files').val().length > 1) {
+									$(ui.item).find('.amountOfSelectedFiles').html('<span>' + $('#selected_files').val().length + '</span>');
+								}
+							},
+							stop: function(ev, ui) {
+								$('#thumbs').removeClass('startDrag');
+								ui.item.find('.amountOfSelectedFiles').html('');
+							},
+							update: function(ev, ui) {
+								if ($('#selected_files').val()) {
+									$('#thumbs').removeClass('startDrag');
+									$(this).sortable('cancel');
+									return;
+								}
+								$.ajax({
+									url: '?c=index&a=sortFiles&path=<?php echo smart_urlencode($this->folder->getPrimary()) ?>',
+									type: 'POST',
+									data: $('#thumbs').sortable('serialize', {
+										expression: /^item_(.*)$/,
+										key: 'sort[]'
+									}),
+									complete: function(xhr, status) {
+										if ('success' == status) {
+											$('#sortSelect').val('<?php echo ivFolder::SORT_ORDER_MANUAL ?>');
+											$.imagevueMessenger('Folder data succesfully saved', 'message');
+										}
+									}
+								});
+							}
+						});
+
+						$('#foldersSortableContainer').sortable({
+							items: 'ins.subFolder',
+							tolerance: 'pointer',
+							revert: true,
+							distance: 10,
+							over: function(ev, ui) {
+								$(ui.placeholder).css({visibility: 'visible'});
+							},
+							start: function(ev, ui) {
+								$(ui.placeholder).css({visibility: 'visible'});
+							},
+							update: function(ev, ui) {
+								$.ajax({
+									url: '?c=index&a=sortFolders&path=<?php echo smart_urlencode($this->folder->getPrimary()) ?>',
+									type: 'POST',
+									data: $('#foldersSortableContainer').sortable('serialize', {
+										expression: /^item_(.*)$/,
+										key: 'sort[]'
+									}),
+									complete: function(xhr, status) {
+										if ('success' == status) {
+											$('#sortSelect').val('<?php echo ivFolder::SORT_ORDER_MANUAL ?>');
+											$.imagevueMessenger('Folder data succesfully saved', 'message');
+										}
+									}
+								});
+							}
+						});
+					});
+				})(jQuery);
+			// ]]>
+			</script>
+
+		<?php endif; ?>
+	</div>
+<?php ob_start(); ?>
+	<a href="#" class="buttonNew" title="Create new folder here" onclick="var dirName = window.prompt('Enter name for a new folder'); if (dirName) {location.href = '?a=create&amp;path=<?php echo smart_urlencode($this->path) ?>&amp;name=' + dirName;} return false;">New</a>
+
+	<?php if ($this->folder->Parent): ?>
+		<a title="Delete this folder" href="index.php?path=<?php echo smart_urlencode($this->path); ?>&amp;a=delete" class="buttonDelete" onclick="return confirm('Are you sure you want to delete folder <?php echo htmlspecialchars($this->folder->name); ?>?');">Delete</a>
+		<a title="Rename this folder" href="#" onclick="var dirName = window.prompt('Insert new name of folder', '<?php echo htmlspecialchars($this->folder->name) ?>'); if (dirName) {location.href = '?a=rename&amp;path=<?php echo smart_urlencode($this->path) ?>&amp;name=' + dirName;} return false;" class="buttonCopy">Rename</a>
+		<a href="index.php?path=<?php echo smart_urlencode($this->path); ?>&amp;a=<?php echo ($this->folder->isHidden() ? 'unhide' : 'hide') ?>" class="button<?php echo ($this->folder->isHidden() ? 'Unh' : 'H') ?>ide" title="<?php echo ($this->folder->isHidden() ? 'Unh' : 'H') ?>ide this folder"><?php echo ($this->folder->isHidden() ? 'Unh' : 'H') ?>ide</a>
+	<?php endif; ?>
+
+	<?php if (!$this->folder->isLink()): ?><a href="#" class="buttonUpload" id="buttonUpload" title="Upload files in this folder" onclick="return false;">Upload</a>
+
+	<a href="#" class="buttonThumbs" id="buttonThumbs" title="Create Thumbnails">Thumbs</a><?php endif ?>
+<?php $this->placeholder->set('controls', ob_get_clean()); ?>
+
+</div>
+<div style="display: none">
+
+<?php if (!$this->folder->isLink()): ?>
+
+<div class="layerBody" id="layerUpload">
+
+	<div class="layerHeader">
+		Upload
+	</div>
+
+	<fieldset>
+		<label>Upload path:</label>
+		<div>
+			<strong><?php echo htmlspecialchars($this->folder->getPath()) ?></strong>
+		</div>
+		<!--
+		TODO: Upload Path
+		<div class="row">
+		<select>
+			<option selected="selected">Places I've been to/Everest </option>
+			<option>Places I've been to/Everest/Views </option>
+			<option>Places I've been to/Everest/Climbing </option>
+			<option>Places I've been to/Everest/Death toll </option>
+
+		</select>
+		</div>
+		-->
+
+		<br />
+		<div class="row">
+			<label class="inline"><input type="checkbox" class="checkbox" checked="checked" id="uploadOverwriteCheckbox"/> Overwrite existing files</label>
+		</div>
+
+	</fieldset>
+
+	<?php if (('html' != $this->uploaderType) || class_exists('ivImageAdapterImagick') || class_exists('ivImageAdapterImagemagick')): ?>
+		<fieldset>
+			<div class="row">
+				<a class="iv-ext" target="_blank" title="About Uploader Image Resizer" href="http://imagevuex.com/documentation/uploader-image-resizer/">Resize Images</a>
+			</div>
+			<div class="row last">
+				<input id="uploadResizeOnBackend" type="hidden" value="<?php echo (integer) (class_exists('ivImageAdapterImagick') || class_exists('ivImageAdapterImagemagick')) ?>" />
+				<input id="uploadResizeCheckbox" type="checkbox" <?php echo ((isset($_COOKIE['resizeOnUpload']) && !!$_COOKIE['resizeOnUpload']) || $conf->get('/config/imagevue/settings/uploader/resizeDefault') ? 'checked="checked"' : '') ?> onclick="$.cookie('resizeOnUpload', (this.checked ? 1 : null)); if (Imagevue.SWFUpload &amp;&amp; ('0' == $('#uploadResizeOnBackend').val())) {Imagevue.SWFUpload.setFileSizeLimit((this.checked ? '1000000000B' : Imagevue.Environment.uploadMaxFilesize + 'B'))}" />
+				<label for="uploadResizeCheckbox" class="inline">Resize images uploaded to Width:</label>
+				<input id="uploadResizeWidth" type="text" class="text thumbSize" value="<?php echo htmlspecialchars($conf->get('/config/imagevue/settings/uploader/width')) ?>" />
+				<label class="inline">&nbsp;Height:</label>
+				<input id="uploadResizeHeight" type="text" class="text thumbSize" value="<?php echo htmlspecialchars($conf->get('/config/imagevue/settings/uploader/height')) ?>" />
+				<label class="inline">bounding box</label>
+			</div>
+		</fieldset>
+	<?php endif; ?>
+
+	<?php if ('html' != $this->uploaderType): ?>
+		<div class="row controls">
+			<div class="control" style="height: 40px; width: 100px;">
+				<div id="uploaderContainer"></div>
+			</div>
+		</div>
+	<?php else: ?>
+		<fieldset id="htmlUploaderContainer">
+			<form id="htmlUploader" action="index.php?a=upload&amp;path=<?php echo smart_urlencode($this->path); ?>" method="post" enctype="multipart/form-data" target="myIframe">
+				<input type="file" name="Filedata" />
+			</form>
+		</fieldset>
+
+		<div class="row controls">
+			<input id="htmlUploaderSubmitButton" type="submit" class="buttonUpload" value="Upload" />
+		</div>
+	<?php endif; ?>
+
+	<fieldset>
+		<div class="uploadProgress" id="fsUploadProgress"></div>
+	</fieldset>
+
+	<iframe id="myIframe" name="myIframe" style="display: none;"></iframe>
+</div>
+
+<div class="layerBody" id="layerThumbs">
+
+	<div class="layerHeader">
+		Create Thumbnails
+	</div>
+	<?php if (!in_array('noteThumbs', ivPool::get('notes'))): ?>
+		<div class="note">
+			<a id="noteThumbs" href="#" class="close">&times;</a>
+			<a class="iv-ext" title="How to create thumbnails" target="_blank" href="http://imagevuex.com/documentation/create-thumbnails/">How to create thumbnails</a>
+		</div>
+	<?php endif; ?>
+	<form action="?c=publish" method="post">
+		<fieldset>
+
+			<div class="row last">
+				Start Folder
+				<select name="publishData[path]">
+					<?php foreach ($this->folderTreeIterator as $folder):?>
+						<option value="<?php echo htmlspecialchars($folder->getPrimary()); ?>" <?php echo (ivFilepath::directory($this->path) == $folder->getPrimary() ? 'selected="selected"' : ''); ?>><?php echo str_repeat('--', $this->folderTreeIterator->getDepth()); ?> <?php echo htmlspecialchars(smartStripTagsSubstr(t($folder->getTitle()))); ?>&nbsp;&nbsp;</option>
+					<?php endforeach; ?>
+				</select>
+
+			</div>
+
+		</fieldset>
+
+		<fieldset>
+			<div class="row">
+				<label class="inline">
+					Width:
+					<input type="text" class="text thumbSize" name="publishData[width]" value="<?php echo htmlspecialchars($conf->get('/config/imagevue/thumbnails/thumbnail/boxwidth')); ?>" />
+				</label>
+				&nbsp;&nbsp;&nbsp;
+				<label class="inline">
+					Height:
+					<input type="text" class="text thumbSize" name="publishData[height]" value="<?php echo htmlspecialchars($conf->get('/config/imagevue/thumbnails/thumbnail/boxheight')); ?>" />
+				</label>
+				<a class="iv-help" title="How to create thumbnails" target="_blank" href="http://imagevuex.com/documentation/create-thumbnails/"></a>
+			</div>
+			<div class="row last">
+				<label class="inline">
+					<input type="radio" class="radio" name="publishData[resizetype]" value="<?php echo (ivImage::IMAGE_RESIZETYPE_CROPTOBOX); ?>" <?php echo (ivImage::IMAGE_RESIZETYPE_CROPTOBOX == $conf->get('/config/imagevue/thumbnails/thumbnail/resizetype') ? 'checked="checked"' : ''); ?> /> Crop to box
+				</label>
+				&nbsp;&nbsp;&nbsp;
+				<label class="inline">
+					<input type="radio" class="radio" name="publishData[resizetype]" value="<?php echo (ivImage::IMAGE_RESIZETYPE_RESIZETOBOX); ?>" <?php echo (ivImage::IMAGE_RESIZETYPE_RESIZETOBOX == $conf->get('/config/imagevue/thumbnails/thumbnail/resizetype') ? 'checked="checked"' : ''); ?> /> Resize to box
+				</label>
+			</div>
+		</fieldset>
+
+		<fieldset>
+			<div class="row">
+				<label class="inline">
+					<input name="publishData[thumbnails]" value="create" type="radio" class="radio" checked="checked"/>
+					Create Missing Thumbnails
+				</label>
+			</div>
+			<div class="row last">
+				<label class="inline">
+					<input name="publishData[thumbnails]" value="recreate" type="radio" class="radio" />
+					Re-Create All Thumbnails
+				</label>
+			</div>
+		</fieldset>
+
+		<div class="row controls">
+			<input type="submit" class="buttonSave" value="Create" />
+		</div>
+
+
+	</form>
+</div>
+
+<!-- layer layerCreateThumbnails-->
+
+<?php endif; ?>

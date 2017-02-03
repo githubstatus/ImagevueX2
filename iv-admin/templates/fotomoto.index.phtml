@@ -1,0 +1,70 @@
+<div class="narrow">
+
+	<div class="bodyContent single">
+		<div class="fotomotoLogo"><img src="assets/images/fotomoto.png" alt="Fotomoto"></div>
+
+		<?php if (!in_array('noteFotomoto', ivPool::get('notes'))): ?>
+			<div class="note">
+				<a id="noteFotomoto" href="#" class="close">&times;</a>
+				Add e-commerce to your Imagevue gallery with
+				<a title="More about Fotomoto" href="http://imagevuex.com/documentation/fotomoto/" class="fotomoto" target="_blank">Fotomoto.com</a>
+			</div>
+		<?php endif; ?>
+
+		<p>
+			First, let us create your FREE Fotomoto account. Set your pricing, offered sizes, and editions for your photos. In 5 minutes, you can start selling your photos! Fotomoto professionally print, pack, and ship orders to your customers for you. It's that easy!
+			<a href="?c=fotomoto&amp;a=edit">I already have a Fotomoto account.</a>
+		</p>
+		<form action="" method="post">
+			<input name="api_key" type="hidden" value="fa35e192121eabf3dabf9f5ea6abdbcbc107ac3b" />
+			<input name="affiliate_key" type="hidden" value="38e40b1303333859" />
+			<input name="setup_auto_pickup" type="hidden" value="1" />
+
+			<table  class="nice">
+				<tr>
+					<td class="text right">First Name:</td>
+					<td class="text">
+						<input class="text" id="first_name" name="first_name" size="30" type="text" />
+					</td>
+				</tr>
+
+				<tr>
+					<td class="text right">Last Name:</td>
+					<td class="text">
+						<input class="text" id="last_name" name="last_name" size="30" type="text" />
+					</td>
+				</tr>
+
+				<tr>
+					<td class="text right">Email:</td>
+					<td class="text">
+						<input class="text" id="email" name="email" size="30" type="text" value="<?php $email = ivPool::get('conf')->get('/config/imagevue/settings/email/ownerEmail'); echo htmlspecialchars(reset($email)); ?>" />
+				</tr>
+
+				<tr>
+					<td class="text right">Domain:</td>
+					<td class="text">
+						<input class="text" id="domain" name="domain" size="30" type="text" value="<?php echo htmlspecialchars(getHost()); ?>/" />
+					</td>
+				</tr>
+
+				<tr>
+					<td class="text right">Use default pricing</td>
+					<td class="text">
+						<input type="checkbox" value="1" name="use_default_pricing" id="use_default_pricing" checked="checked" />
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td class="controls left">
+						<input type="submit"  class="button buttonSave" id="submit" name="sub" value="Create Fotomoto Account" />
+
+					</td>
+				</tr>
+			</table>
+
+		</form>
+
+
+	</div>
+</div>

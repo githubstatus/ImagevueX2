@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+	<title>Imagevue Admin</title>
+	<link href="assets/css/imagevue.admin.css" rel="stylesheet" type="text/css" />
+	<link href="assets/imgareaselect/css/imgareaselect-animated.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="<?php echo htmlspecialchars(IV_PATH); ?>assets/js/jquery.min.js"></script>
+	<script type="text/javascript" src="assets/js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="assets/imgareaselect/scripts/jquery.imgareaselect.js"></script>
+</head>
+<body>
+	<?php if (!$this->done): ?>
+		<div class="layerBody" id="layerThumbArea">
+
+			<div class="layerHeader">
+				Edit Thumbnail
+			</div>
+
+			<fieldset>
+
+				<div  class="imagePane">
+					<label>Click and drag on the image to select an area.</label>
+
+					<?php
+						$width = $this->file->width;
+						$height = $this->file->height;
+						if ($width > 400 || $height > 400) {
+							$aspect = $width / $height;
+							if ($aspect > 1) {
+								$height = round(400 / $width * $height);
+								$width = 400;
+							} else {
+								$width = round(400 / $height * $width);
+								$height = 400;
+							}
+						}
+
+						if (file_exists(ROOT_DIR . $this->file->thumbnail)) {
+							$thumbSize = iv_getimagesize(ROOT_DIR . $this->file->thumbnail);
+							if (is_array($thumbSize) && isset($thumbSize[0]) && isset($thumbSize[1])) {
+								$thumbWidth = $thumbSize[0];
+								$thumbHeight = $thumbSize[1];
+							}
+						}
+
+						if (!isset($thumbWidth) || !isset($thumbHeight)) {
+							$thumbWidth = ivPool::get('conf')->get('/config/imagevue/thumbnails/thumbnail/boxwidth');
+							$thumbHeight = ivPool::get('conf')->get('/config/imagevue/thumbnails/thumbnail/boxheight');
+						}
+					?>
+					<div class="imageFrame">
+
+						<img id="thumbSelectArea" src="../<?php echo htmlspecialchars($this->file->getPath()); ?>" alt="" width="<?php echo htmlspecialchars($width); ?>" height="<?php echo htmlspecialchars($height); ?>" />
+
+					</div>
+
+				</div>
+
+				<div  class="thumbPane">
+
+					<label>Selection Preview</label>
+
+					<div id="currentThumbPreview" class="thumbImage">
+						<img src="../<?php echo htmlspecialchars($this->file->thumbnail); ?>" alt="" />
+					</div>
+
+					<div id="newThumbPreview" style="display: none; width: <?php echo htmlspecialchars($thumbWidth); ?>px; height: <?php echo htmlspecialchars($thumbHeight); ?>px;">
+						<div id="thumbAreaPreview" style="width: <?php echo htmlspecialchars($thumbWidth); ?>px; height: <?php echo htmlspecialchars($thumbHeight); ?>px; overflow: hidden;">
+							<img src="../<?php echo htmlspecialchars($this->file->getPath()); ?>" style="width: <?php echo htmlspecialchars($thumbWidth); ?>px; height: <?php echo htmlspecialchars($thumbHeight); ?>px;" alt="" />
+						</div>
+					</div>
+
+					<form class="nice" action="?c=file&amp;a=thumbarea&amp;path=<?php echo smart_urlencode($this->file->getPrimary()) ?>" id="thumbAreaForm" method="post" style="position: absolute; margin: 20px 0 0 0;">
+						<div>
+							<input type="hidden" id="thumbAreaFormX" value="-" name="x" />
+							<input type="hidden" id="thumbAreaFormY" value="-" name="y" />
+							<input type="hidden" id="thumbAreaFormW" value="-" name="width" />
+							<input type="hidden" id="thumbAreaFormH" value="-" name="height" />
+							<input type="hidden" value="<?php echo htmlspecialchars($thumbWidth) ?>" name="thumbWidth" />
+							<input type="hidden" value="<?php echo htmlspecialchars($thumbHeight) ?>" name="thumbHeight" />
+							<input type="submit"  class="button buttonSave" value="Apply" />
+							<input type="submit"  class="button buttonSave" value="Cancel" onclick="parent.$.fn.colorbox.close(); return false;" />
+						</div>
+					</form>
+				</div>
+			</fieldset>
+			<script type="text/javascript">
+			// <![CDATA[
+				(function ($) {
+					$(document).ready(function() {
+						parent.$.colorbox.resize({height: (<?php echo $height ?> + 166) + 'px'});
+
+						function preview(img, selection) {
+							if ($('#currentThumbPreview').is(':visible')) {
+								$('#newThumbPreview').show();
+								$('#currentThumbPreview').hide();
+							}
+
+							if (!selection.width || !selection.height) {
+								var instance = $('#thumbSelectArea').imgAreaSelect({instance: true});
+								var options = instance.getOptions();
+
+								var thumbAspect = options.aspectRatio.split(':')[0] / options.aspectRatio.split(':')[1];
+								var imageAspect = options.imageWidth / options.imageHeight;
+
+								var newSelX, newSelY, newSelW, newSelH, h;
+
+								if (thumbAspect > imageAspect) {
+									h = options.imageWidth / thumbAspect;
+
+									newSelX = 0;
+									newSelY = Math.round((options.imageHeight - h) / 2);
+									newSelW = options.imageWidth;
+									newSelH = Math.round(newSelY + h);
+								} else {
+									h = options.imageHeight * thumbAspect;
+
+									newSelX = Math.round((options.imageWidth - h) / 2);
+									newSelY = 0;
+									newSelW = Math.round(newSelX + h);
+									newSelH = options.imageHeight;
+								}
+
+								instance.setSelection(newSelX, newSelY, newSelW, newSelH);
+								instance.setOptions({ show: true });
+								instance.update(true);
+								preview(null, instance.getSelection());
+
+								return;
+							}
+
+							var scaleX = <?php echo $thumbWidth; ?> / selection.width;
+							var scaleY = <?php echo $thumbHeight; ?> / selection.height;
+
+							$('#thumbAreaPreview img').css({
+								width: Math.round(scaleX * <?php echo $this->file->width; ?>),
+								height: Math.round(scaleY * <?php echo $this->file->height; ?>),
+								marginLeft: -Math.round(scaleX * selection.x1),
+								marginTop: -Math.round(scaleY * selection.y1)
+							});
+
+							$('#thumbAreaFormX').val(selection.x1);
+							$('#thumbAreaFormY').val(selection.y1);
+							$('#thumbAreaFormW').val(selection.width);
+							$('#thumbAreaFormH').val(selection.height);
+						}
+
+						$('#thumbSelectArea').imgAreaSelect({
+							handles: true,
+							imageWidth: <?php echo $this->file->width; ?>,
+							imageHeight: <?php echo $this->file->height; ?>,
+							minWidth: <?php echo round(400 / ($aspect > 1 ? $this->file->width : $this->file->height) * $thumbWidth); ?>,
+							minHeight: <?php echo round(400 / ($aspect > 1 ? $this->file->width : $this->file->height) * $thumbHeight); ?>,
+							aspectRatio: '<?php echo $thumbWidth; ?>:<?php echo $thumbHeight; ?>',
+							zIndex: 10002,
+							onSelectChange: preview
+						});
+					});
+				})(jQuery);
+			// ]]>
+			</script>
+
+		</div>
+	<?php else: ?>
+		<script type="text/javascript">
+		// <![CDATA[
+			parent.$.fn.colorbox.close();
+			top.location.href = top.location.href;
+		// ]]>
+		</script>
+	<?php endif; ?>
+</body>
+</html>

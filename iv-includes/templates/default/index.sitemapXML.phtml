@@ -1,0 +1,44 @@
+<?php echo '<?xml version="1.0" encoding="UTF-8"?>' ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<?php
+	$conf = ivPool::get('conf');
+	$siteTitle = $conf->get('/config/imagevue/settings/sitetitle');
+	$currentTitle = $this->placeholder->get('currentTitle');
+	$swfAPath = $this->placeholder->get('currentPath');
+	if (substr($swfAPath,-1) != '/') {
+		$swfAPath .= '/';
+	}
+	$keywords = $conf->get('/config/imagevue/seo/keywords');
+	$description = $conf->get('/config/imagevue/seo/description');
+	$counters = $conf->get('/config/imagevue/seo/counters');
+?>
+<?php if (count($this->folderTreeIterator)): ?>
+	<?php foreach ($this->folderTreeIterator as $folder): ?>
+<url>
+	<loc>
+		<?php echo pageURL() ?>?share=<?php echo ($folder->isLink() ? t($folder->pageContent) : smart_urlencode($folder->getPrimary())); ?>
+	</loc>
+	<changefreq>monthly</changefreq>
+	<priority>0.8</priority>
+</url>
+		<?php $oldDepth = $this->folderTreeIterator->getDepth(); ?>
+		<?php if (!$folder->isPage() && !$folder->isLink()): ?>
+			<?php if (count($folder->getFolderdataXml()->file) && ($folder->checkPassword((isset($_SESSION['imagevue']['password']) ? $_SESSION['imagevue']['password'] : null)))): ?>
+				<?php foreach ($folder->getFolderdataXml()->file as $file): ?>
+					<?php if (in_array(strtolower(ivFilepath::suffix($file['name'])), $conf->get('/config/imagevue/settings/includefilesext'))): ?>
+<url>
+	<loc>
+		<?php echo pageURL() ?>?share=<?php echo smart_urlencode($folder->getPrimary() . $file['name']); ?>
+	</loc>
+	<changefreq>monthly</changefreq>
+	<priority>0.8</priority>
+</url>
+					<?php endif; ?>
+				<?php endforeach; ?>
+			<?php endif; ?>
+		<?php endif; ?>
+	<?php endforeach; ?>
+
+<?php endif; ?>
+</urlset>
+

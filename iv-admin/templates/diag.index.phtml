@@ -1,0 +1,54 @@
+<div class="narrow">
+	<div class="bodyContent single">
+		<h1>Imagevue X2.8.10.3</h1>
+
+		<?php if (!in_array('noteDiag', ivPool::get('notes'))): ?>
+			<div class="note">
+				<a id="noteDiag" href="#" class="close">&times;</a>
+				This page is used to help to diagnose your gallery if something is not working properly.
+			</div>
+		<?php endif; ?>
+
+		<div class="contentMenu">
+			<a href="index.php?c=diag" class="selected">File System</a>
+			<a href="index.php?c=diag&amp;a=errors">PHP check</a>
+			<a href="index.php?c=diag&amp;a=apachemod#error">Apache modules check</a>
+			<a href="index.php?c=diag&amp;a=phpinfo">PhpInfo</a>
+		</div>
+
+		<table class="nice">
+			<thead>
+				<tr>
+				<th width="100%">File/Folder</th>
+				<th>Read</th>
+				<th>Write</th>
+				<th>Execute</th>
+			</tr>
+			</thead>
+			<?php foreach ($this->iterator as $item): ?>
+				<tr>
+					<td>
+						<span style="margin-left: <?php echo (23 * $this->iterator->getDepth()); ?>px;">
+							<img src="assets/dtree/images/<?php echo ($item->isDir() ? 'folder' : 'node'); ?>.gif" alt="" />
+							<?php echo htmlspecialchars($item->getFilename()); ?>
+						</span>
+					</td>
+					<td align="center">
+						<img src="assets/images/<?php echo $item->isReadable() ? 'icon_ok' : 'icon_error'; ?>.gif" alt="" />
+					</td>
+					<td align="center">
+						<img src="assets/images/<?php echo $item->isWritable() ? 'icon_ok' : 'icon_error'; ?>.gif" alt="" />
+					</td>
+					<td align="center">
+						<?php if ($item->isDir()): ?>
+							<img src="assets/images/<?php echo ($item->isExecutable() ? 'icon_ok' : 'icon_error'); ?>.gif" alt="" />
+						<?php else: ?>
+							&nbsp;
+						<?php endif; ?>
+					</td>
+				</tr>
+			<?php endforeach; ?>
+		</table>
+
+	</div>
+</div>

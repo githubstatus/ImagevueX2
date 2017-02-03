@@ -1,0 +1,46 @@
+<div class="narrow">
+
+	<div class="bodyContent single">
+		<div class="fotomotoLogo"><img src="assets/images/fotomoto.png" alt="Fotomoto"></div>
+
+		<?php if (!in_array('noteFotomoto', ivPool::get('notes'))): ?>
+			<div class="note">
+				<a id="noteFotomoto" href="#" class="close">&times;</a>
+				Add e-commerce to your Imagevue gallery with
+				<a title="More about Fotomoto" href="http://imagevuex.com/documentation/fotomoto/" class="fotomoto" target="_blank">Fotomoto.com</a>
+			</div>
+		<?php endif; ?>
+
+
+		<p>
+			<strong><a href="http://my.fotomoto.com" target="_blank">Fotomoto Admin &rarr;</a></strong>
+		</p>
+		<form action="?c=fotomoto&amp;a=edit" method="post">
+			<input type="hidden" value="false" name="fotomoto[enabled]" />
+			<table class="nice">
+				<tr>
+					<td width="33%" class="text right">Enable Fotomoto in Imagevue</td>
+					<td class="text">
+						<input id="enabled" name="fotomoto[enabled]"  class="text" value="true" type="checkbox" <?php echo ($this->enabled ? 'checked="checked"' : '') ?> />
+					</td>
+				</tr>
+				<tr>
+					<td class="text right">Fotomoto Site Key:</td>
+					<td class="text"><input id="siteKey" name="fotomoto[siteKey]" size="50" type="text"  class="text" value="<?php echo htmlspecialchars($this->siteKey) ?>" /></td>
+				</tr>
+				<tr>
+					<td>
+						<td class="controls left">
+							<input type="submit"  class="button buttonSave" value="Save" />
+						</td>
+					</td>
+				</tr>
+			</table>
+			<?php if ($this->siteKey): ?>
+				<p>To create a new Fotomoto account please delete your <strong>Site Key</strong> first</p>
+			<?php endif ?>
+
+
+		</form>
+	</div>
+</div>

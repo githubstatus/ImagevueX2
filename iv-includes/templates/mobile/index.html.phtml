@@ -1,0 +1,254 @@
+<?php
+	$theConfig = ivPool::get('conf');
+	$this->placeholder->set('currentPath', $this->folder->getPrimary());
+	$theFolder = $this->folder;
+	$theTitle = $theFolder->getCleanTitle();
+	$theDescription = t($theFolder->getDescription(true));
+	$lang = ivPool::get('lang');
+
+	if ($theParent = $theFolder->Parent) {
+		if ('' == $theParent->getPrimary()) {
+			$this->placeholder->set('theParentLink', '/');
+		} else {
+			$this->placeholder->set('theParentLink', '/' . smart_urlencode($theParent->getPrimary()));
+		}
+	}
+
+	$this->placeholder->set('pageID', str_replace(DS, '', $theFolder->getPrimary()));
+	$this->placeholder->set('theTitle', $theTitle);
+
+	if (isset($_GET['theme']) && $jqueryMobileTheme = strtolower($_GET['theme'])) {
+		if (!in_array($jqueryMobileTheme, array('light', 'dark'))) $jqueryMobileTheme=$theConfig->get('/config/imagevue/mobile/jqueryMobileTheme');
+		$_SESSION['theme']=$jqueryMobileTheme;
+	} elseif (isset($_SESSION['theme'])) {
+		$jqueryMobileTheme=$_SESSION['theme'];
+	} else {
+		$jqueryMobileTheme=$theConfig->get('/config/imagevue/mobile/jqueryMobileTheme');
+	}
+
+	$jqueryMobileTheme=('light' == strtolower($jqueryMobileTheme))?'d':'a';
+	$textColor = (in_array($jqueryMobileTheme, array('a')))?'white':'black';
+
+
+	$shareUrl = $theFolder->getPrimary();
+
+	setcookie('location', $shareUrl);
+?>
+
+<?php if (!$theFolder->checkPassword(isset($_SESSION['imagevue']['password']) ? $_SESSION['imagevue']['password'] : null)): ?>
+
+	<!-- PASSWORD -->
+	<div class="textPage">
+		<div id="password">
+			<?php if ($this->wrongPassword): ?>
+				<div  class="error">
+					<?php echo $lang->get('/lang/incorrect_password') ?>
+				</div><!-- / -->
+			<?php endif; ?>
+			<form action="?/<?php echo $theFolder->getPrimary(); ?>" method="post">
+
+				<div>
+					<!-- <input type="text" name="path" value=""> -->
+				</div>
+				<div>
+				  <label><?php echo $lang->get('/lang/input_password') ?></label>
+				</div>
+				<div>
+					<input type="password" class="text" name="password" id="p">
+					<script type="text/javascript">
+						$('#p').focus();
+					</script>
+				</div>
+				 <input type="submit" value="<?php echo $lang->get('/lang/unlock') ?>"  class="submit buttonUnlock">
+			</form>
+		</div>
+	</div>
+
+<?php else :?>
+
+	<?php if ($theFolder->isPage()): ?>
+
+		<!-- TEXTPAGE -->
+
+		<div class="textPage">
+			<h1><?php echo $theTitle; ?></h1>
+			<div>
+				<?php echo $this->replaceSnippets(t($theFolder->getPageContent(true))); ?>
+			</div>
+		</div>
+
+	<?php endif; ?>
+
+
+	<?php if ($theFolder->Folders): ?>
+
+
+		<!-- FOLDERS -->
+
+		<ul data-role="listview" data-inset="true" <?php if ($theConfig->get('/config/imagevue/mobile/showMenuThumbnails')): ?>class="showMenuThumbnails"<?php endif ?>
+					>
+			<?php foreach ($theFolder->Folders as $item): ?>
+				<?php if (!$item->isHidden() && ($item->showOnMobile) && (!$item->isFilemod()) && ('share' != $item->name)): ?>
+					<li class="folder">
+
+						<?php list($link, $target) = getPageLink($item); ?>
+
+						<a href="<?php echo (t($link)); ?>"
+							<?php if ($target): ?>
+								target="<?php echo $target?>"
+							<?php elseif ($item->isLink() && preg_match('/https?:\/\//',t($link))): ?>
+								rel="external"
+							<?php else: ?>
+								onclick="current('<?php echo idfy($item->getPrimary()) ?>')"
+							<?php endif ?>
+							<?php if ($theConfig->get('/config/imagevue/mobile/showMenuThumbnails')): ?>class="showMenuThumbnails"<?php endif ?>
+						>
+							<?php if ($item->fileCount && $theConfig->get('/config/imagevue/mobile/showFileCounters')): ?>
+								<span class="ui-li-count ui-btn-up-c ui-btn-corner-all"><?php echo ($item->fileCount) ?></span>
+							<?php endif ?>
+							<?php if ($theConfig->get('/config/imagevue/mobile/showMenuThumbnails')): ?>
+							<span class="thumb-container">
+								<?php $src=''; if ($item->previewimage && ($file = ivMapperFactory::getMapper('file')->find($item->getPrimary() . $item->previewimage)))
+									$src=$file->thumbnail; ?>
+
+								<?php if (!$src && !($src=$item->getPreviewImage()->thumbnail) || $item->hasPassword()) : ?>
+									<?php
+										$src='iv-includes/images/mobile/folder';
+										if($item->hasPassword()) {
+											$src.='_locked';
+										} else {
+											$src.=($item->isLink())?'_link':'';
+											if ($item->isPage() && preg_match('/\<img\s+src\=\"contactform\".*?\>/i', $item->pageContent)) {
+												$src.= '_contact';
+											} else {
+												$src.= ($item->isPage())?'_textpage':'';
+											}
+											if (!($item->isPage() || $item->hasPassword() || $item->isLink() ) && !count($item->Folders)) $src.='_folder';
+										}
+										$src.= '_' . $textColor . '.png';
+
+									?>
+								<?php endif ?>
+
+								<?php $size=getimagesize(ROOT_DIR . $src); ?>
+								<img class="ui-li-thumb" src="<?php echo htmlentities($src) ?>" alt="" style="<?php if ($size[0]>$size[1]) :?>margin-left: <?php echo ceil((80-80/$size[1]*$size[0])/2) ?>px<?php else: ?>width: 80px; height: auto; max-height: none; margin-top: <?php echo ceil((80-80/$size[0]*$size[1])/2) ?>px<?php endif ?>" />
+
+							</span>
+
+							<?php endif ?>
+
+								<h3 class="ui-li-heading"><?php echo $item->getCleanTitle() ?></h3>
+								<?php if ($theConfig->get('/config/imagevue/mobile/showMenuDescriptions')) : ?>
+									<p class="ui-li-desc"><?php echo strip_tags(t($item->description)) ?></p>
+								<?php endif ?>
+						</a>
+
+					</li>
+				<?php endif; ?>
+			<?php endforeach; ?>
+		</ul>
+	<?php endif ?>
+
+	<?php if (count($theFolder->Files) && !$theFolder->isPage()): ?>
+
+		<!-- GALLERY -->
+		<?php if ($theDescription) : ?>
+			<h1 class="title"><?php echo strip_icon(strip_tags(t($theFolder->getTitle()))) ?></h1>
+			<p class="description"><?php echo $theDescription ?></p>
+		<?php endif ?>
+
+		<?php $this->placeholder->set('pageClass', 'gallery-page') ?>
+
+		<?php if ($theConfig->get('/config/imagevue/mobile/view')=='Thumbnails'): ?>
+		<!-- THUMBNAILS -->
+		<ul class="gallery"><?php foreach ($theFolder->Files as $item): ?><?php if (
+								in_array(strtolower(ivFilepath::suffix($item->name)), $theConfig->get('/config/imagevue/settings/includefilesext'))
+								&& strtolower(ivFilepath::suffix($item->name)) != 'flv'
+							):
+				?><li><span><a
+								<?php echo !is_a($item, 'ivFileVideo') && !$item->link ? 'class="img"':'' ?>
+								share="<?php echo smart_urlencode($item->getPrimary()); ?>"
+								rel="external"
+								href="<?php echo $item->link? $item->getLink(true):$item->getPath() ?>"
+							><img
+									data-original="<?php
+									if ((ivPath::canonizeRelative(substr($item->thumbnail, 0, strlen($this->contentPath))) !== $this->contentPath)) {
+										echo $this->url(array('c' => 'xml', 'a' => 'thumb', 'path' => $item->getPrimary()));
+								 	} else {
+								 		$size=getimagesize($item->thumbnail);
+										echo htmlentities($item->thumbnail, ENT_QUOTES) . '?' . $item->getThumbnailMTime();
+									}
+									?>"
+									src="iv-includes/images/nil.gif"
+									width="<?php echo $size[0] ?>"
+									height="<?php echo $size[1] ?>"
+									alt="<?php echo htmlspecialchars(strip_tags(t($item->description))); ?>"
+									title="<?php echo $item->getCleanTitle(); ?>"
+								/></a></span></li><?php endif; ?><?php endforeach; ?></ul>
+			<?php else : ?>
+			<!-- IMAGES -->
+				<?php
+					if ($theConfig->get('/config/imagevue/mobile/view')=='Images') { $mode='overlay'; $default='off'; }
+					elseif ($theConfig->get('/config/imagevue/mobile/view')=='Images with Info') { $mode='overlay'; $default=''; }
+					else { $mode='below'; $default=''; }
+				?>
+
+				<ul class="images <?php echo $mode; ?>">
+					<?php foreach ($theFolder->Files as $item): ?>
+						<?php
+							$d=htmlspecialchars(strip_tags(t($item->description)));
+							$t=$item->getCleanTitle();
+						?>
+						<?php if (strtolower(ivFilepath::suffix($item->name)) != 'flv'): ?>
+							<li>
+								<?php if (is_a($item, 'ivFileVideo')): ?>
+									<video controls src="<?php echo htmlspecialchars($item->getPath()) ?>"></video>
+								<?php else: ?>
+
+								<?php
+									if ( in_array(strtolower(ivFilepath::suffix($item->name)), $theConfig->get('/config/imagevue/settings/includefilesext'))) :
+									$fotomotoId = preg_replace('/\W+/', '_', $item->getPrimary());
+								?>
+									<?php if ($item->link) :?><a href="<?php echo htmlspecialchars($item->getLink(true)) ?>" rel="external"><?php endif; ?>
+									<img
+										id="<?php echo htmlspecialchars($fotomotoId); ?>"
+										src="iv-includes/images/nil.gif"
+										width="<?php echo $item->width ?>"
+										height="<?php echo $item->height ?>"
+										data-original="<?php echo htmlspecialchars($item->getPath()) ?>"
+										alt="<?php echo $d ?>"
+										title="<?php echo $item->getCleanTitle() ?>"
+									/>
+									<?php if ($item->getLink(true)) :?></a><?php endif; ?>
+
+									<?php endif; ?>
+								<?php endif; ?>
+								<?php	if ($d || $t) : ?>
+									<div class="info <?php echo $default ?>">
+										<?php if ($item->link) : ?>
+											<a  class="icon-right" title="This file has a link attached" href="<?php echo htmlspecialchars($item->getLink(true)) ?>"></a>
+										<?php endif ?>
+										<?php if (is_a($this->file, 'ivFileImage') && $coordinates=$item->getGPSCoords()): ?>
+						 						<a 	id="map"
+						 								class="icon-location"
+						 								href="http://maps.google.com/maps?ll=<?php echo $coordinates ?>"
+						 								title="View on the map"
+						 								target="_blank"></a>
+		 								<?php endif ?>
+		 								<?php if ($item->purchase) : ?>
+											<a  class="icon-basket" title="Purchase" href="<?php echo htmlspecialchars($item->purchase) ?>"></a>
+										<?php endif ?>
+										<?php if ($theConfig->get('/config/imagevue/fotomoto/siteKey') && $theConfig->get('/config/imagevue/fotomoto/enabled')): ?>
+											<a  class="icon-basket fotomoto" title="Purchase" href="#" onclick="if (FOTOMOTO) {FOTOMOTO.API.showWindow(FOTOMOTO.API.PRINT,'<?php echo htmlspecialchars($fotomotoId); ?>');} return false;" title="Buy print"></a>
+										<?php endif ?>
+										<?php echo ($t)?"<h2>{$t}</h2>":''; ?>
+										<?php echo ($d)?"<p>{$d}</p>":''; ?>
+									</div>
+							<?php endif; ?>
+						</li>
+					<?php endif; ?>
+				<?php endforeach; ?>
+			</ul>
+		<?php endif; ?>
+	<?php endif; ?>
+<?php endif; ?>

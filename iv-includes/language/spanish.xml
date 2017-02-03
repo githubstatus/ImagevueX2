@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lang>
+	<image>Imagen</image>
+	<page>Página</page>
+	<next_image>Imagen Siguiente </next_image>
+	<previous_image>Imagen Anterior</previous_image>
+	<next_thumbnails>Siguiente Página</next_thumbnails>
+	<previous_thumbnails>Página Anterior</previous_thumbnails>
+	<popup>Abrir en Ventana Popup</popup>
+	<window>Abrir en Ventana</window>
+	<download>Descargar Imagen</download>
+	<zoomin>Aumentar</zoomin>
+	<zoomout>Reducir</zoomout>
+	<play>Iniciar Presentación</play>
+	<stop>Detener Presentación</stop>
+	<showimage>Mostrar Imagen</showimage>
+	<showthumbnails>Mostrar Thumbnails</showthumbnails>
+	<imageinfo>Descripción de Imagen</imageinfo>
+	<mainmenu>Menu de Galeria</mainmenu>
+	<sendemail>Enviar Imagen</sendemail>
+	<login>Entrar</login>
+	<logout>Salir</logout>
+	<open>Abrir</open>
+	<copylocation>Copiar ruta de la Imagen</copylocation>
+	<enterfullscreen>Pantalla Completa</enterfullscreen>
+	<exitfullscreen>Salir de Pantalla Completa</exitfullscreen>
+	<videofullscreen>Ver en Pantalla Completa</videofullscreen>
+	<volume>Volumen</volume>
+	<yourname>Tu Nombre</yourname>
+	<youremail>Tu E-Mail</youremail>
+	<yourfriendsemail>Correo Electrónico de tu Amigo</yourfriendsemail>
+	<message>Mensaje</message>
+	<send>Enviar</send>
+	<sent>Mensaje Enviado!</sent>
+	<input_password>Escribir Contraseña</input_password>
+	<incorrect_password>Contraseña Incorrecta</incorrect_password>
+	<contact>Contáctanos</contact>
+	<sendlink>Enviar Imagen</sendlink>
+	<purchase>Comprar</purchase>
+	<link>Link</link>
+	<sfx>Cambiar Sonido</sfx>
+	<empty_message>Mensaje Vacio</empty_message>
+	<bad_email>Dirección Incorrecta</bad_email>
+	<cannot_open_template>No se puede abrir la plantilla</cannot_open_template>
+	<could_not_mail>No se puede enviar el e-mail</could_not_mail>
+	<email_disabled>Activa las opción de e-mail en el panel de control</email_disabled>
+	<no_such_pic>Imagen no encontrada</no_such_pic>
+	<path_is_empty>El directorio está vacio</path_is_empty>
+	<share>Compartir esta página</share>
+	<html>Ver en HTML</html>
+	<fotomoto>Comprar Ahora!</fotomoto>
+</lang>

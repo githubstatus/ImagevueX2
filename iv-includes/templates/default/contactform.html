@@ -1,0 +1,61 @@
+<!-- Do not remove or rename elements of form and script at the end of file -->
+<?php $lang = ivPool::get('lang'); ?>
+<br/><br/><div id="contactFormResponse"></div>
+<form id="contactForm" action="?a=contact" method="post">
+	<div>
+		<label><span class="label">
+			<?php echo $lang->get('/lang/yourname') ?></span>
+			<input type="text" name="senderName" />
+		</label>
+	</div>
+	<div>
+		<label><span class="label">
+			<?php echo $lang->get('/lang/youremail') ?></span>
+			<input type="text" name="senderEmail" />
+		</label>
+	</div>
+	<div>
+		<label><span class="label">
+			<?php echo $lang->get('/lang/message') ?></span>
+			<textarea name="messageBody" rows="5" cols="20"></textarea>
+		</label>
+	</div>
+	<div style="display: none">
+		<label><span class="label">
+			lastname</span>
+			<input type="text" name="lastname" />
+		</label>
+	</div>
+	<div>
+		<label><span class="label">&nbsp;</span>
+		<input type="submit" class="submit" value="<?php echo $lang->get('/lang/send') ?>" />
+		</label>
+	</div>
+</form>
+
+<script type="text/javascript">
+//<![CDATA[
+(function ($) {
+  $(document).ready(function () {
+    $('#contactForm').submit(function (event) {
+      $.ajax({
+        url: '?a=contact',
+        type: 'POST',
+        data: $('#contactForm').serialize(),
+        complete: function (xhr, status) {
+          var resp = xhr.responseText.substr('success='.length);
+          if ('true' == resp) {
+            $('#contactFormResponse').html('<div>Your message succesfully sent!</div>');
+            $('#contactForm')[0].reset();
+          } else {
+            resp = resp[0].toUpperCase() + resp.substr(1);
+            $('#contactFormResponse').html('<div class="error">' + resp + '</div>');
+          }
+        }
+      });
+      return false;
+    });
+  });
+})(jQuery);
+//]]>
+</script>

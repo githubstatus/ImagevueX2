@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lang>
+	<image>Kuva</image>
+	<page>Sivu</page>
+	<next_image>Seuraava kuva</next_image>
+	<previous_image>Edellinen kuva</previous_image>
+	<next_thumbnails>Seuraavat</next_thumbnails>
+	<previous_thumbnails>Edelliset</previous_thumbnails>
+	<popup>Avaa ponnahdusikkunassa</popup>
+	<window>Avaa ikkunassa</window>
+	<download>Lataa kuva</download>
+	<zoomin>Suurenna</zoomin>
+	<zoomout>Pienennä</zoomout>
+	<play>Käynnista esitys</play>
+	<stop>Näytä esitys</stop>
+	<showimage>Näytä kuva</showimage>
+	<showthumbnails>Näytä pikkukuvat</showthumbnails>
+	<imageinfo>Selite</imageinfo>
+	<mainmenu>Valikko</mainmenu>
+	<sendemail>Lähetä kuva</sendemail>
+	<login>Kirjaudu</login>
+	<logout>Kirjaudu ulos</logout>
+	<open>Avaa</open>
+	<copylocation>Kopioi kuvan sijainti</copylocation>
+	<enterfullscreen>Kokonäytöntila</enterfullscreen>
+	<exitfullscreen>Poistu kokonäytöntilasta</exitfullscreen>
+	<audio>Ääni</audio>
+	<volume>Äänenvoimakkuus</volume>
+	<yourname>Nimesi</yourname>
+	<youremail>Sähköpostiosoitteesi</youremail>
+	<yourfriendsemail>Ystäväsi sähköpostiosoite</yourfriendsemail>
+	<message>Viesti</message>
+	<send>Lähetä</send>
+	<sent>Lähetetty</sent>
+	<contact>Yhteydenotto</contact>
+	<sendlink>Lähetä kuva</sendlink>
+	<purchase>Osta kuva!</purchase>
+	<link>Linkki</link>
+	<sfx>Ääni</sfx>
+</lang>

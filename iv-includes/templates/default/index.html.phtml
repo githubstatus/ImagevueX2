@@ -1,0 +1,173 @@
+<?php
+	$this->placeholder->set('currentPath', $this->folder->getPrimary());
+	$this->placeholder->set('currentTitle', $this->folder->getTitle());
+	$this->placeholder->set('currentDescription', $this->folder->description);
+	$this->placeholder->set('thumbRecreationPath', $this->folder->getPrimary());
+	$conf = ivPool::get('conf');
+	$lang = ivPool::get('lang');
+
+	$maxThumbWidth = ($this->folder->maxThumbWidth > 90 ? $this->folder->maxThumbWidth : 90);
+	$maxThumbHeight = ($this->folder->maxThumbHeight > 75 ? $this->folder->maxThumbHeight : 75);
+	$maxFolderWidth = ($this->folder->getChildMaxPreviewWidth() > 90 ? $this->folder->getChildMaxPreviewWidth() : 90);
+	$maxFolderHeight = ($this->folder->getChildMaxPreviewHeight() > 80 ? $this->folder->getChildMaxPreviewHeight() : 80);
+?>
+
+<?php if (!$this->folder->checkPassword(isset($_SESSION['imagevue']['password']) ? $_SESSION['imagevue']['password'] : null)): ?>
+	<div id="password">
+		<form action="?/<?php echo $theFolder->getPrimary(); ?>" method="post">
+			<div>
+			  <label><?php echo $lang->get('/lang/input_password') ?></label>
+			</div>
+			<div>
+				<input type="password" class="text" name="password" id="p">
+				<script type="text/javascript">
+					$('#p').focus();
+				</script>
+			</div>
+			 <input type="submit" value="<?php echo $lang->get('/lang/unlock') ?>"  class="submit buttonUnlock">
+		</form>
+	</div>
+<?php else: ?>
+	<?php if ($this->folder->isPage()): ?>
+		<div id="textPage">
+			<h1><?php echo strip_icon(t($this->folder->getTitle())); ?></h1>
+			<div>
+				<?php echo $this->replaceSnippets(t($this->folder->getPageContent())); ?>
+			</div>
+		</div>
+	<?php else: ?>
+
+		<?php if ($this->folder->Parent): ?>
+			<div id="currentFolder">
+
+					<div class="levelUp">
+						<a href="?/<?php echo smart_urlencode($this->folder->Parent->getPrimary()); ?>">
+							<img src="iv-includes/images/folder/folder_parent.png" width="90" height="80" alt="Goto parent folder" title="Goto parent folder" /><br />
+							<span class="textblock">..</span>
+						</a>
+					</div>
+
+				<div class="currentFolderTitle">
+					<h1 class="title">
+						<?php echo strip_icon(t($this->folder->getTitle())); ?>
+					</h1>
+				   <h2 class="description">
+						<?php echo t($this->folder->description); ?>
+				   </h2>
+				</div>
+			</div>
+		<?php endif; ?>
+
+		<?php
+			$folderCount = 0;
+			foreach ($this->folder->Folders as $item) {
+				if (!$item->isHidden() && ('share' != $item->name)) {
+					$folderCount++;
+				}
+			}
+		?>
+
+		<?php if ($folderCount > 0): ?>
+			<div id="folders">
+				<?php foreach ($this->folder->Folders as $item): ?>
+					<?php if (!$item->isHidden() && $item->showInHtml && ('share' != $item->name)): ?>
+						<ins class="folder">
+							<div class="folderHolder" style="width: <?php echo $maxFolderWidth+10; ?>px" >
+									<?php
+										list($link, $target) = getPageLink($item);
+									?>
+									<a href="<?php echo (t($link)); ?>" <?php echo (empty($target) ? '' : "target=\"$target\"") ?> title="<?php echo strip_tags(t($item->description)); ?>" >
+
+									<table>
+										<td height="<?php echo $maxFolderHeight + 10; ?>">
+
+											<?php if ($item->previewimage && ($file = ivMapperFactory::getMapper('file')->find($item->getPrimary() . $item->previewimage))): ?>
+
+												<?php if (ivPath::canonizeRelative(substr($file->thumbnail, 0, strlen($this->contentPath))) !== $this->contentPath): ?>
+													<img src="<?php echo $this->url(array('c' => 'xml', 'a' => 'thumb', 'path' => $file->getPrimary())) ?>" alt="" />
+												<?php else: ?>
+													<img src="<?php echo htmlspecialchars($file->thumbnail) ?>?<?php echo htmlspecialchars($file->getThumbnailMTime()); ?>" class="thumbImage" alt="<?php echo htmlspecialchars($item->name); ?>"/>
+												<?php endif; ?>
+
+											<?php else: ?>
+												<img src="<?php echo htmlspecialchars($item->thumbnail); ?>?<?php echo htmlspecialchars($item->getThumbnailMTime()); ?>"  width="90" height="80" alt="<?php echo htmlspecialchars($item->name); ?>"/>
+											<?php endif ?>
+
+										</td>
+									</table>
+
+									<span><?php echo $item->getCleanTitle(); ?></span>
+								</a>
+
+							</div>
+						</ins>
+					<?php endif; ?>
+				<?php endforeach; ?>
+			</div>
+		<?php endif ?>
+
+		<div id="thumbs">
+			<?php foreach ($this->folder->Files as $item): ?>
+				<?php if (in_array(strtolower(ivFilepath::suffix($item->name)), $conf->get('/config/imagevue/settings/includefilesext'))): ?>
+					<ins class="thumb" style="width: <?php echo $maxThumbWidth + 36; ?>px">
+						<div class="thumbHolder">
+							<a <?php echo ($item->link || is_a($item, 'ivFileVideo')) ? '' : 'rel="colorbox"'; ?>
+							<?php
+								if ($item->link) {
+									$link=explode('*',t($item->link));
+									if (substr($link[0],0,1)=="#") $link[0]='?'.substr($link[0],1);
+									echo 'class="link" href="' . htmlspecialchars($link[0]) . '"';
+									if (count($link > 1)) {
+										echo ' target="' . htmlspecialchars($link[1]) . '"';
+									}
+								} else {
+									echo 'href="';
+									echo ($this->useLightview && !(is_a($item, 'ivFileVideo'))) ?
+									htmlspecialchars( $conf->get('/config/imagevue/settings/contentfolder/').$item->getPrimary() )  :
+									'?/' . smart_urlencode($item->getPrimary());
+									echo '"';
+								}
+							?>
+							  title="<?php echo htmlspecialchars(strip_tags(t($this->useLightview ? $item->title : br2nl($item->description)))); ?>">
+								<table>
+									<td height="<?php echo $maxThumbHeight + 10; ?>">
+
+										<?php if ((ivPath::canonizeRelative(substr($item->thumbnail, 0, strlen($this->contentPath))) !== $this->contentPath)): ?>
+											<img src="<?php echo $this->url(array('c' => 'xml', 'a' => 'thumb', 'path' => $item->getPrimary())) ?>" alt="" />
+										<?php else: ?>
+											<img src="<?php echo htmlspecialchars($item->thumbnail); ?>?<?php echo htmlspecialchars($item->getThumbnailMTime()); ?>"/>
+										<?php endif; ?>
+
+									</td>
+								</table>
+								<?php if ($item->link || $t=strip_icon(strip_tags(t($conf->get('/config/imagevue/settings/autoTitling') ? $item->getCleanTitle() : $item->title)))): ?>
+									<span class="thumbTitle">
+										<?php if ($item->link): ?>
+											<img src="iv-includes/images/controls/linkSmall.png" />
+										<?php endif ?>
+										<?php echo $t; ?>
+									</span>
+								<?php endif ?>
+							</a>
+						</div>
+					</ins>
+				<?php endif; ?>
+			<?php endforeach; ?>
+		</div>
+	<?php endif; ?>
+<?php endif; ?>
+
+<?php if ($this->useLightview): ?>
+<script type="text/javascript">
+// <![CDATA[
+  (function ($) {
+    $(document).ready(function () {
+      $("a[rel='colorbox']").colorbox({
+				maxWidth: "95%",
+				maxHeight: "95%",
+      });
+    });
+  })(jQuery);
+// ]]>
+</script>
+<?php endif; ?>

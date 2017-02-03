@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lang>
+	<image>Bild</image>
+	<page>Sida</page>
+	<next_image>Nästa bild</next_image>
+	<previous_image>Föregående bild</previous_image>
+	<next_thumbnails>Nästa sida</next_thumbnails>
+	<previous_thumbnails>Föregående sida</previous_thumbnails>
+	<popup>Öppna i popup fönster</popup>
+	<window>Öppna i nytt fönster</window>
+	<download>Ladda ned bild</download>
+	<zoomin>Zooma in</zoomin>
+	<zoomout>Zooma ut</zoomout>
+	<play>Starta bildspel</play>
+	<stop>Stoppa bildspel</stop>
+	<showimage>Visa bild</showimage>
+	<showthumbnails>Visa thumbnails</showthumbnails>
+	<imageinfo>Bild info</imageinfo>
+	<mainmenu>Huvudmeny</mainmenu>
+	<sendemail>Skicka bild</sendemail>
+	<login>Logga in</login>
+	<logout>Logga ut</logout>
+	<open>Öppna</open>
+	<copylocation>Kopiera bildens länk</copylocation>
+	<enterfullscreen>Fullskärm visning</enterfullscreen>
+	<exitfullscreen>Tillbaka till normalläge</exitfullscreen>
+	<videofullscreen>Titta i fullskärm</videofullscreen>
+	<audio>Musik</audio>
+	<volume>Volum</volume>
+	<yourname>Ditt namn</yourname>
+	<youremail>Din epost</youremail>
+	<yourfriendsemail>Din väns epost</yourfriendsemail>
+	<message>Meddelande</message>
+	<send>Skicka</send>
+	<sent>Skickat!</sent>
+	<contact>Kontakt</contact>
+	<sendlink>Skicka bild</sendlink>
+	<purchase>Köp bild</purchase>
+	<link>Länk</link>
+	<sfx>Hantera FX ljud</sfx>
+</lang>

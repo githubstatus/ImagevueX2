@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lang>
+	<image>Фото</image>
+	<page>Страница</page>
+	<next_image>Следующая</next_image>
+	<previous_image>Предыдущая</previous_image>
+	<next_thumbnails>Следующая</next_thumbnails>
+	<previous_thumbnails>Предыдущая</previous_thumbnails>
+	<popup>Открыть в новом окне</popup>
+	<lightbox>Открыть в Lightbox</lightbox>
+	<window>Открыть в новом окне</window>
+	<download>Скачать</download>
+	<zoomin>Увеличить</zoomin>
+	<zoomout>Уменьшить</zoomout>
+	<play>Слайд-шоу</play>
+	<stop>Остановить</stop>
+	<showimage>Показать</showimage>
+	<showthumbnails>Миниатюры</showthumbnails>
+	<imageinfo>Описание</imageinfo>
+	<mainmenu>Меню</mainmenu>
+	<sendemail>Отправить</sendemail>
+	<login>Вход</login>
+	<logout>Выход</logout>
+	<open>Открыть</open>
+	<copylocation>Копировать ссылку</copylocation>
+	<enterfullscreen>На весь экран</enterfullscreen>
+	<exitfullscreen>Обратно</exitfullscreen>
+	<videofullscreen>На весь экран</videofullscreen>
+	<volume>Громкость</volume>
+	<yourname>Ваше имя</yourname>
+	<youremail>Ваш e-mail</youremail>
+	<yourfriendsemail>E-mail получателя</yourfriendsemail>
+	<message>Сообщение</message>
+	<send>Отправить</send>
+	<sent>Отправлено!</sent>
+	<input_password>Введите пароль</input_password>
+	<incorrect_password>Неверный пароль</incorrect_password>
+	<unlock>Открыть</unlock>
+	<contact>Контакт</contact>
+	<sendlink>Отправить ссылку</sendlink>
+	<purchase>Купить</purchase>
+	<link>Ссылка</link>
+	<sfx>Контроль звука</sfx>
+	<empty_message>Пустое сообщение</empty_message>
+	<empty_owneremail>Укажите E-mail › Owner E-mail в настройках</empty_owneremail>
+	<bad_email>Неправильный адрес</bad_email>
+	<cannot_open_template>Не могу открыть шаблон</cannot_open_template>
+	<could_not_mail>Не могу отправить сообщение</could_not_mail>
+	<email_disabled>Включите E-mail › Enable E-mail в настройках</email_disabled>
+	<no_such_pic>Нет картинки</no_such_pic>
+	<path_is_empty>Пустой путь</path_is_empty>
+	<share>Поделиться</share>
+	<html>HTML версия</html>
+	<fotomoto>Купить сейчас</fotomoto>
+	<maplink>Показать на карте</maplink>
+	<mobile_cancel>Отменить</mobile_cancel>
+</lang>

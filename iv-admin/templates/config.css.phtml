@@ -1,0 +1,96 @@
+<div class="bodyContent single">
+	<div class="contentSubMenu">
+		<a title="Edit Gallery Settings" href="index.php?c=config">Gallery Settings</a>
+		<a title="Edit Email Templates" href="index.php?c=config&amp;a=templates">Email Templates</a>
+		<a title="Edit Custom CSS" class="selected" href="index.php?c=config&amp;a=css">Custom CSS</a>
+	</div>
+	<?php if (!in_array( 'noteSettings', ivPool::get( 'notes'))): ?>
+		<div class="note">
+			<a id="noteTemplates" href="#" class="close">&times;</a>
+			Here you can edit css files imagevue uses to display your gallery.
+		</div>
+	<?php endif; ?>
+	<form method="post" action="">
+		<div class="controls left">
+			<input type="submit" class="button buttonSave" name="save" value="Save"/>
+			<input type="button" class="button buttonExpand" value="Expand all" onclick="$('.ivconf').each(function () {$(this).addClass('open').next().show();});"/>
+			<input type="button" class="button buttonCollapse" value="Collapse all" onclick="$('.ivconf').each(function () {$(this).removeClass('open').next().hide();});"/>
+		</div>
+		<div class="contentMenu" id="cssTabHeaders">
+			<a href="#flash" class="tabHeader">Flash Gallery CSS</a>
+			<a href="#html" class="tabHeader">HTML Gallery CSS</a>
+			<a href="#mobile" class="tabHeader">Mobile Gallery CSS</a>
+		</div>
+		<div class="formTree">
+			<div id="flash" class="tabBody">
+				<table class="item">
+					<tbody>
+						<tr>
+							<td class="itemControl">
+								<div class="title">
+									imagevue.flash.css:
+								</div>
+								<div class="textarea">
+									<textarea name="flashCss" rows="10" cols="20"><?php echo htmlspecialchars($this->flashCss) ?></textarea>
+								</div>
+							</td>
+							<td class="itemHelp">
+								This css file will be used in addition to the original css when displaying Flash gallery
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div id="html" class="tabBody">
+				<table class="item">
+					<tbody>
+						<tr>
+							<td class="itemControl">
+								<div class="title">
+									imagevue.html.css:
+								</div>
+								<div class="textarea">
+									<textarea name="htmlCss" rows="10" cols="20"><?php echo htmlspecialchars($this->htmlCss) ?></textarea>
+								</div>
+							</td>
+							<td class="itemHelp">
+								This css file will be used in addition to the original css when displaying HTML gallery
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+
+			<div id="mobile" class="tabBody">
+				<table class="item">
+					<tbody>
+						<tr>
+							<td class="itemControl">
+								<div class="title">
+									imagevue.mobile.css:
+								</div>
+								<div class="textarea">
+									<textarea name="mobileCss" rows="10" cols="20"><?php echo htmlspecialchars($this->mobileCss) ?></textarea>
+								</div>
+							</td>
+							<td class="itemHelp">
+								This css file is used in addition to the Mobile CSS when gallery is viewed on mobile devices
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+
+		</div>
+
+		<div class="controls left">
+			<input type="submit" class="button buttonSave" name="save" value="Save"/>
+			<input type="button" class="button buttonExpand" value="Expand all" onclick="$('.ivconf').each(function () {$(this).addClass('open').next().show();});"/>
+			<input type="button" class="button buttonCollapse" value="Collapse all"
+			onclick="$('.ivconf').each(function () {$(this).removeClass('open').next().hide();});"/>
+		</div>
+	</form>
+</div>

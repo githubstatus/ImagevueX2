@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<?php
+	$conf = ivPool::get('conf');
+	$keywords = $conf->get('/config/imagevue/seo/keywords');
+	$description = $conf->get('/config/imagevue/seo/description');
+?>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="<?php echo htmlspecialchars($keywords); ?>" />
+		<meta name="description" content="<?php echo htmlspecialchars($description); ?>" />
+		<title><?php echo htmlspecialchars($this->file->getTitle()); ?></title>
+		<script type="text/javascript" src="<?php echo htmlspecialchars(IV_PATH); ?>assets/js/jquery.min.js"></script>
+		<script type="text/javascript">
+		// <![CDATA[
+		(function() {
+			$(window).load(function () {
+				if (!$('#image').size()) {
+					return;
+				}
+
+				if (!$('#image').width() || !$('#image').height()) {
+					return;
+				}
+
+				window.resizeBy($('#image').width() + 20 - $(window).width(), $('#image').height() + 20 - $(window).height());
+				window.resizeTo(Math.min(screen.availWidth, window.outerWidth), Math.min(screen.availHeight, window.outerHeight));
+
+				window.moveTo((screen.availWidth - window.outerWidth) / 2, (screen.availHeight - window.outerHeight) / 2);
+			});
+		}) (jQuery);
+		// ]]>
+		</script>
+		<style type="text/css">
+		<!--
+			* { margin:0; padding:0 }
+			body {
+				background-color: #FFFFFF;
+				margin: 0px;
+				padding: 10px 0 0 10px;
+			}
+			.od {
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				width:100%;
+				text-align:right;
+				-moz-opacity: .5;
+				filter: alpha(opacity=50);
+				visibility:hidden;
+			}
+			.id {
+				float:right;
+				background-color:#FFFFFF;
+				margin: 20px;
+				padding: 10px;
+				font-family:Verdana, Arial, Helvetica, sans-serif;
+				font-size: 13px;
+				font-weight: bold;
+				border: dashed 1px #FFFFFF;
+
+			}
+			.img:hover .od { visibility: visible; }
+			a:link {
+				color: #000000;
+				text-decoration: none;
+			}
+			a:visited {
+				text-decoration: none;
+				color: #000000;
+			}
+			a:hover {
+				text-decoration: none;
+				color: #000000;
+			}
+			a:active {
+				text-decoration: none;
+				color: #000000;
+			}
+		-->
+		</style>
+	</head>
+
+	<body>
+		<a href="javascript: window.close();" class="img">
+			<img src="<?php echo htmlspecialchars($this->file->getPath()); ?>" alt="<?php echo htmlspecialchars($this->file->getTitle()); ?>" border="0" id="image" />
+			<div id="closelayer" class="od"><div class="id">Close&nbsp;[x]</div></div>
+		</a>
+	</body>
+</html>

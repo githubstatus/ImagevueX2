@@ -1,0 +1,198 @@
+<div class="bodySidebar folderParams">
+	<div class="folderTitle"><?php echo htmlspecialchars(t($this->file->getTitle())); ?></div>
+
+	<p class="tags">
+		<span><?php echo htmlspecialchars(formatDate($this->file->date)); ?></span>
+		<?php if (is_a($this->file, 'ivFileImage')):?>
+			<span><?php echo htmlspecialchars($this->file->width); ?>&times;<?php echo htmlspecialchars($this->file->height); ?></span>
+		<?php endif;?>
+		<span><?php echo htmlspecialchars(formatFilesize($this->file->size)); ?></span>
+	</p>
+
+	<div class="folderPreview" id="folderPreviewContainer">
+		<div class="thumb">
+			<img src="../<?php echo htmlspecialchars($this->file->thumbnail); ?>?<?php echo htmlspecialchars($this->file->getThumbnailMTime()); ?>" alt="" id="buttonThumbArea2" />
+		</div>
+	</div>
+
+	<form method="post" action="">
+		<div><input type="hidden" name="path" value="<?php echo htmlspecialchars($this->file->getPrimary()); ?>" /></div>
+		<div class="row">
+			<label>Title</label>
+			<input type="text"  class="text" name="newdata[title]" value="<?php echo htmlspecialchars($this->file->title); ?>" />
+		</div>
+		<?php if (is_a($this->file, 'ivFileMP3')): ?>
+			<div class="row">
+				<label>Artist</label>
+				<input type="text"  class="text" name="newdata[artist]" value="<?php echo htmlspecialchars($this->file->artist); ?>" />
+			</div>
+		<?php endif; ?>
+		<div class="row">
+			<label>Description</label>
+			<div class="textarea"><textarea cols="1" rows="5" name="newdata[description]"><?php echo $this->file->description; ?></textarea></div>
+		</div>
+		<?php if (is_a($this->file, 'ivFileImage')): ?>
+			<?php if ($GPSCoords = $this->file->getGPSCoords()): ?>
+				<div class="row gps">
+					<a id="map" href="../imagevue.php?a=map&path=<?php echo $this->file->getPrimary() ?>" title="View on the map">View on the map</a>
+				 	<script>$('#map').colorbox({iframe:true, width: '80%', height: '80%', title: ' '});</script>
+				</div>
+			<?php endif ?>
+		<?php endif ?>
+		<?php foreach ($this->file->getUserAttributeNames() as $name): ?>
+			<div class="row">
+				<label><?php echo htmlspecialchars(ucfirst($name)); ?></label>
+				<input type="text" class="text" name="newdata[<?php echo htmlspecialchars($name); ?>]" value="<?php echo htmlspecialchars($this->file->$name); ?>" />
+			</div>
+		<?php endforeach; ?>
+		<div class="controls left">
+			<input type="submit" class="buttonSave" value="Save" name="save" />
+			<label>
+				<input type="checkbox" name="editNext" id="editNextCheckbox" onclick="return false;" />
+				and edit next file
+			</label>
+		</div>
+	</form>
+</div>
+<div class="bodyContent folderThumbs">
+	<div class="contentBar">
+		<div class="controls right">
+			<form method="post" action="">
+				<span title="Copy or Move selected files to another folder">
+					<label><input type="radio" name="copy" value="0" <?php echo (!isset($_SESSION['imagevue']['move']) || $_SESSION['imagevue']['move'] ? 'checked="checked"' : '') ?> /> Move</label>
+					<label><input type="radio" name="copy" value="1" <?php echo (isset($_SESSION['imagevue']['move']) && !$_SESSION['imagevue']['move'] ? 'checked="checked"' : '') ?> /> Copy</label>
+					&nbsp;to:
+				</span>
+				<span>
+					<select onchange="this.form.action='index.php?c=file&amp;a=move&amp;path=<?php echo smart_urlencode($this->path) ?>&amp;target=' + this.value; this.form.submit();">
+					<?php foreach ($this->folderTreeIterator as $folder):?>
+						<option value="<?php echo htmlspecialchars($folder->getPrimary()); ?>" <?php echo (ivFilepath::directory($this->path) == $folder->getPrimary() ? 'selected="selected"' : ''); ?>><?php echo str_repeat('--', $this->folderTreeIterator->getDepth()); ?> <?php echo smartStripTagsSubstr(t(strip_icon($folder->getTitle()))); ?>&nbsp;&nbsp;</option>
+					<?php endforeach; ?>
+					</select>
+				</span>
+			</form>
+				<a title="Rename this file" href="#" onclick="var fileName = window.prompt('Insert new name of file', '<?php echo htmlspecialchars($this->file->name) ?>'); if (fileName) {location.href = '?c=file&amp;a=rename&amp;path=<?php echo smart_urlencode($this->path) ?>&amp;name=' + fileName;} return false;" class="buttonCopy">Rename</a>
+				<a class="buttonDelete" href="index.php?c=file&amp;a=delete&amp;path=<?php echo smart_urlencode($this->path); ?>" onclick="return confirm('Are you sure you want to delete file <?php echo ($this->file->name); ?>?');">Delete</a>
+		</div>
+		<div class="controls left">
+		<a href="?c=file&amp;path=<?php echo smart_urlencode($this->file->Parent->getPrimary()); ?>">&uarr; Back</a>
+		<a title="Previous image" href="?c=file&amp;path=<?php echo smart_urlencode($this->prevFile->getPrimary()); ?>">&nbsp;&larr;&nbsp;</a>
+		<span><?php echo $this->current; ?>/<?php echo $this->count; ?></span>
+		<a title="Next image" href="?c=file&amp;path=<?php echo smart_urlencode($this->nextFile->getPrimary()); ?>">&nbsp;&rarr;&nbsp;</a>
+		<?php if (is_a($this->file, 'ivFileImage')):?>
+			<a class="button buttonPreview" href="?c=index&amp;a=setPreview&amp;path=<?php echo smart_urlencode($this->file->Parent->getPrimary()); ?>&amp;id=<?php echo encodeFilenameBase64($this->file->name); ?>" title="Set as Preview Image for folder">&nbsp;</a>
+		<?php endif; ?>
+
+		<a href="#" class="button buttonThumb" id="buttonThumbArea" title="Edit Thumbnail">&nbsp;</a>
+
+		<?php if (GD_INSTALLED & is_a($this->file, 'ivFileImage')): ?>
+			<a class="button buttonCW" title="Rotate image ClockWise" href="index.php?c=file&amp;a=rotate&amp;dir=<?php echo ivImage::IMAGE_ROTATE_CW ?>&amp;path=<?php echo smart_urlencode($this->path); ?>">&nbsp;</a>
+			<a class="button buttonCCW" title="Rotate image CounterClockWise" href="index.php?c=file&amp;a=rotate&amp;dir=<?php echo ivImage::IMAGE_ROTATE_CCW ?>&amp;path=<?php echo smart_urlencode($this->path); ?>">&nbsp;</a>
+		<?php endif; ?>
+			</div>
+	</div>
+
+	<?php if (!in_array('noteManage', ivPool::get('notes'))): ?>
+		<div class="note">
+			<a id="noteManage" class="close" href="#">&times;</a>
+			<a class="iv-ext" title="About Imagevue Manage Page" href="http://imagevuex.com/documentation/manage-page/" target="_blank">Imagevue file management</a>
+		</div>
+	<?php endif; ?>
+	<div class="image">
+		<?php if (is_a($this->file, 'ivFileImage')): ?>
+			<img alt="<?php echo htmlspecialchars($this->file->getTitle()); ?>" src="../<?php echo htmlspecialchars($this->file->getPath()); ?>?<?php echo htmlspecialchars($this->file->date); ?>" style="background: #<?php echo ivPool::get('conf')->get('/config/imagevue/thumbnails/thumbnail/backgroundColor')?> "/>
+		<?php elseif (is_a($this->file, 'ivFileVideo')): ?>
+
+
+			<video id="flv" src="../<?php echo htmlspecialchars($this->file->getPath()); ?>" width="<?php echo $this->file->width ?>" height="<?php echo $this->file->height ?>"></video>
+			<script type="text/javascript">
+			$('video').mediaelementplayer({enablePluginSmoothing: true});
+			</script>
+
+		<?php elseif (is_a($this->file, 'ivFileMp3')): ?>
+			<div id="mp3">
+				<audio src="../<?php echo htmlspecialchars($this->file->getPath()); ?>"></audio>
+			</div>
+
+			<script type="text/javascript">
+			$('audio').mediaelementplayer();
+			</script>
+
+
+		<?php else: ?>
+			<img alt="<?php echo htmlspecialchars($this->file->getTitle()); ?>" src="../<?php echo htmlspecialchars($this->file->thumbnail); ?>" />
+		<?php endif; ?>
+	</div>
+	<table class="holder">
+		<tr>
+			<td>
+				<table class="nice small">
+					<?php foreach ($this->file->getPropertyNames() as $name): ?>
+						<tr>
+							<?php if ('date' == $name): ?>
+								<td><b><?php echo htmlspecialchars(ucfirst($name)); ?></b>:</td>
+								<td> <?php echo htmlspecialchars(formatDate($this->file->$name)); ?></td>
+							<?php elseif ('size' == $name): ?>
+								<td><b><?php echo htmlspecialchars(ucfirst($name)); ?></b>:</td>
+								<td><?php echo htmlspecialchars(formatFilesize($this->file->$name)); ?></td>
+							<?php else: ?>
+								<td><b><?php echo htmlspecialchars(ucfirst($name)); ?></b>:</td>
+								<td><?php echo htmlspecialchars($this->file->$name); ?></td>
+							<?php endif; ?>
+						</tr>
+					<?php endforeach; ?>
+				</table>
+			</td>
+			<?php $metaData = $this->file->getMetaData(); ?>
+			<?php if (isset($metaData) && !empty($metaData)): ?>
+				<td>
+					<table class="nice small">
+						<?php foreach ($metaData as $key => $value): ?>
+							<tr>
+								<td><b><?php echo htmlspecialchars($key); ?>:</b></td>
+								<td><?php echo is_array($value) ? htmlspecialchars(implode("\n", $value)) : nl2br(htmlspecialchars($value)); ?></td>
+							</tr>
+						<?php endforeach; ?>
+					</table>
+				</td>
+			<?php endif; ?>
+
+		</tr>
+	</table>
+
+</div>
+
+<script type="text/javascript">
+// <![CDATA[
+  $(document).ready(function() {
+    $("#buttonThumbArea, #buttonThumbArea2").colorbox({
+      title: ' ',
+      width:'800px',
+      height:'600px',
+      href: '?c=file&a=thumbarea&path=<?php echo smart_urlencode($this->file->getPrimary()); ?>',
+      iframe: true
+    });
+
+    $(document).keyup(function (event) {
+      if (jQuery.inArray(event.target.tagName.toLowerCase(), ['input', 'textarea']) > -1)
+        return;
+
+      switch (event.keyCode) {
+        case 37:
+          location = '?path=<?php echo smart_urlencode($this->prevFile->getPrimary()); ?>';
+          event.stopPropagation();
+          break;
+        case 39:
+          location = '?c=file&path=<?php echo smart_urlencode($this->nextFile->getPrimary()); ?>';
+          event.stopPropagation();
+          break;
+        case 38:
+        case 27:
+          location = '?c=file&path=<?php echo smart_urlencode($this->file->Parent->getPrimary()); ?>';
+          event.stopPropagation();
+          break;
+      }
+    });
+  });
+// ]]>
+</script>

@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<?php
+	$conf = ivPool::get('conf');
+	$siteTitle = $conf->get('/config/imagevue/settings/sitetitle');
+	$currentTitle = $this->placeholder->get('currentTitle');
+	$swfAPath = $this->placeholder->get('currentPath');
+	if (substr($swfAPath,-1) != '/') {
+		$swfAPath .= '/';
+	}
+	if ($swfAPath==$conf->get('/config/imagevue/settings/contentfolder')) $swfAPath=''; else $swfAPath='#/' . $swfAPath;
+	$keywords = $conf->get('/config/imagevue/seo/keywords');
+	$description = $conf->get('/config/imagevue/seo/description');
+	if ($this->placeholder->get('currentDescription')) {
+		$description = strip_tags(t($this->placeholder->get('currentDescription')));
+	}
+	$counters = $conf->get('/config/imagevue/seo/counters');
+ 	$brCrumbs = ivPool::get('breadCrumbs');
+	$sharing = $conf->get('/config/imagevue/misc/sharing/enabled');
+	$useLightview = $conf->get('/config/imagevue/settings/useLightview');
+?>
+		<meta content="minimum-scale=0.5, width=device-width, maximum-scale=1, user-scalable=yes" name="viewport" />
+		<link href="<?php echo htmlspecialchars(IV_PATH); ?>images/imagevueTouch.png" rel="apple-touch-icon" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-touch-fullscreen" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<link rel="canonical" href="/<?php echo $swfAPath; ?>" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="<?php echo htmlspecialchars($keywords); ?>" />
+		<meta name="description" content="<?php echo htmlspecialchars($description); ?>" />
+		<title><?php echo (($currentTitle) ? htmlspecialchars(strip_icon(strip_tags(t($currentTitle)))) . ' ‹ ' : '') ?><?php echo htmlspecialchars($siteTitle); ?></title>
+		<link rel="icon" type="image/png" href="favicon.png" />
+		<link href="<?php echo htmlspecialchars(IV_PATH); ?>assets/dtree/css/dtree.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="<?php echo htmlspecialchars(IV_PATH); ?>assets/mediaelement/mediaelementplayer.min.css" />
+		<?php if (IS_FIRSTTIME || ivAcl::isAdmin()): ?><link href="<?php echo htmlspecialchars(IV_PATH); ?>assets/css/imagevue.adminbar.css" rel="stylesheet" type="text/css" /><?php endif ?>
+		<link href="<?php echo htmlspecialchars(IV_PATH); ?>assets/css/imagevue.html.css" rel="stylesheet" type="text/css" />
+		<?php if (getCssPath('html')): ?>
+			<link href="<?php echo htmlspecialchars(getCssPath('html')); ?>" rel="stylesheet" type="text/css" />
+		<?php endif; ?>
+
+		<script type="text/javascript" src="<?php echo htmlspecialchars(IV_PATH); ?>assets/dtree/js/dtree.js"></script>
+		<script type="text/javascript" src="<?php echo htmlspecialchars(IV_PATH); ?>assets/js/swfobject.js"></script>
+		<script type="text/javascript" src="<?php echo htmlspecialchars(IV_PATH); ?>assets/js/jquery.min.js"></script>
+		<script type="text/javascript" src="<?php echo htmlspecialchars(IV_PATH); ?>assets/js/jquery.c.js"></script>
+		<script type="text/javascript" src="<?php echo htmlspecialchars(IV_PATH); ?>assets/mediaelement/mediaelement-and-player.min.js"></script>
+
+		<script type="text/javascript" src="<?php echo htmlspecialchars(IV_PATH); ?>assets/colorbox/jquery.colorbox-min.js"></script>
+		<link rel="stylesheet" href="<?php echo htmlspecialchars(IV_PATH); ?>assets/colorbox/colorbox.css" type="text/css" media="screen" />
+
+		<script type="text/javascript" src="<?php echo htmlspecialchars(IV_PATH); ?>assets/js/functions.js"></script>
+
+		<?php if ($sharing): ?>
+			<script type="text/javascript">
+			// <![CDATA[
+				$(window).load(function () {
+					$.getScript('http://s7.addthis.com/js/250/addthis_widget.js#pubid=<?php $a_user = $conf->get('/config/imagevue/misc/sharing/addthis_username'); echo urlencode($a_user ? $a_user : 'imagevue'); ?>&domready=1', function () {
+						window.addthis_config = {
+								data_track_clickback: true
+							};
+						addthis.init();
+					});
+				});
+			// ]]>
+			</script>
+		<?php endif ?>
+		<?php if (IS_MOBILE): ?>
+			<script type="text/javascript">
+			// <![CDATA[
+				function initScreen() {
+					setTimeout("window.scrollTo(0,1);", 100);
+				}
+				$(document).ready(initScreen());
+			// ]]>
+			</script>
+		<?php endif; ?>
+		<?php if ($conf->get('/config/imagevue/fotomoto/siteKey') && $conf->get('/config/imagevue/fotomoto/enabled')): ?>
+			<script type="text/javascript">
+			// <![CDATA[
+				$(window).load(function () {
+					$.getScript('http://widget.fotomoto.com/stores/script/<?php echo htmlspecialchars($conf->get('/config/imagevue/fotomoto/siteKey')) ?>.js?api=true&aid=38e40b1303333859');
+				});
+			// ]]>
+			</script>
+		<?php endif; ?>
+
+		<?php if ($googleAnalytics = $conf->get('/config/imagevue/seo/googleAnalytics')) :?>
+			<script type="text/javascript">
+
+			  var _gaq = _gaq || [];
+			  _gaq.push(['_setAccount', '<?php echo $googleAnalytics; ?>']);
+			  _gaq.push(['_trackPageview']);
+
+			  (function() {
+			    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			  })();
+
+			</script>
+		<?php endif ?>
+
+		<?php if ($conf->get('/config/imagevue/seo/htmlRedirect') && $conf->get('/config/imagevue/settings/defaultPage') != 'html') : ?>
+			<script type="text/javascript" src="<?php echo htmlspecialchars(IV_PATH); ?>assets/js/flash_detect_min.js"></script>
+			<script type="text/javascript"> 
+	      if(window.location.href.indexOf("/?") && FlashDetect.installed)
+						location.href=window.location.href.replace( '/?', '/#' );
+			</script>	
+		<?php endif; ?>
+
+	</head>
+
+	<body class="<?php echo IS_FIRSTTIME?'firsttime':'' ?>" <?php if (IS_MOBILE): ?>onorientationchange="initScreen()"<?php endif; ?>>
+
+	<div id="body"	class="<?php if ($brCrumbs->count()>1): ?>inner<?php endif; ?><?php echo ivPool::get('bodyClass') ?>">
+
+		<?php if (IS_FIRSTTIME || ivAcl::isAdmin() && !ivPool::get('conf')->get('/config/imagevue/settings/disableAdminbar')): ?>
+			<!-- #adminBar -->
+			<div id="adminBar" class="<?php echo (isset($_COOKIE['adminBarHidden']) && $_COOKIE['adminBarHidden'] ? 'closed' : '') ?>">
+				<div class="right">
+					<?php echo (IS_FIRSTTIME)?'Imagevue Admin':htmlspecialchars(ivAuth::getCurrentUserLogin()) ?>
+				</div>
+				<?php if (IS_FIRSTTIME): ?>
+					<a id="editPageLink" href="<?php echo htmlspecialchars($conf->get('/config/imagevue/settings/adminfolder')); ?>" title="Gallery Admin / File Management">/<?php echo htmlspecialchars($conf->get('/config/imagevue/settings/adminfolder')); ?> &raquo;</a>
+
+				<?php else: ?>
+					<a href="<?php echo htmlspecialchars($conf->get('/config/imagevue/settings/adminfolder')) ?>?path=<?php echo smart_urlencode($this->placeholder->get('currentPath')); ?>" title="Gallery Admin / File Management">Edit this page &raquo;</a>
+					<a href="?p=gallery<?php echo $swfAPath; ?>" title="Flash Gallery">Flash gallery &raquo;</a>
+					<?php $thumbRecreationPath = $this->placeholder->get('thumbRecreationPath'); ?>
+					<?php if ($thumbRecreationPath): ?>
+						<a href="<?php echo htmlspecialchars($conf->get('/config/imagevue/settings/adminfolder')) ?>?c=publish&amp;path=<?php echo smart_urlencode($thumbRecreationPath); ?>" title="Recreate thumbnails in this folder">Recreate thumbs &raquo;</a>
+					<?php endif; ?>
+					<a href="<?php echo htmlspecialchars($conf->get('/config/imagevue/settings/adminfolder')) ?>?c=config" title="Change <?php echo htmlspecialchars($siteTitle); ?> settings">Settings &raquo;</a>
+				<?php endif; ?>
+			</div>
+			<a href="#" id="barOpen">&times;</a>
+
+			<!-- /adminBar -->
+		<?php endif; ?>
+		<div id="page">
+
+
+			<div id="pageHeader">
+				<div id="tree" onmouseover="$('#hidden').show();" onmouseout="$('#hidden').hide();">
+					<div class="holder">
+						<a href="?/" id="logo"></a>
+					</div>
+					<div class="hidden" style="display: none;" id="hidden">
+						<?php
+							$contentFolder = ivMapperFactory::getMapper('folder')->find('');
+							$iterator = new ivRecursiveFolderIterator($contentFolder);
+							$filter1 = new ivRecursiveFolderIteratorVisible($iterator);
+							$filter2 = new ivRecursiveFolderIteratorPassword($filter1, (isset($_SESSION['imagevue']['password']) ? (string) $_SESSION['imagevue']['password'] : null));
+							$filter3 = new ivRecursiveFolderIteratorShare($filter2);
+							$folderTreeIterator = new RecursiveIteratorIterator($filter3, RecursiveIteratorIterator::SELF_FIRST);
+							echo $this->partial('tree', array('folderTreeIterator' => $folderTreeIterator, 'path' => $this->placeholder->get('currentPath')));
+						?>
+					</div>
+				</div>
+				<script type="text/javascript">
+				// <![CDATA[
+					$(document).ready(function () {
+						$(document).bind('touchstart', function (ev) {
+							if (!$('#tree').has(ev.target).length)
+								$('#hidden').hide();
+						})
+					});
+				// ]]>
+				</script>
+
+				<a class="logo" href="?/"><?php echo ($siteTitle == 'Imagevue Gallery') ? '<i></i>' : htmlspecialchars($siteTitle); ?></a>
+			</div><!-- pageHeader -->
+
+
+
+
+			<?php if ($brCrumbs->count()>1): ?>
+				<span id="pageCrumbs">
+						<?php $i=0; ?>
+						<?php foreach ($brCrumbs->get() as $crumb): ?>
+							<a class="<?php echo htmlspecialchars($crumb->className); ?>" href="<?php echo htmlspecialchars($crumb->url); ?>" <?php echo (!$i) ? 'id="home" title="' . htmlspecialchars(strip_icon(strip_tags(t($crumb->title)))) . '"' : '' ?>><?php echo (!$i++) ? '<img src="iv-includes/images/home.png"/>' : htmlspecialchars(strip_icon(strip_tags(t($crumb->title)))); ?></a>
+							<span class="files">&nbsp;<?php echo $crumb->suffix; ?></span>
+							<?php echo ($brCrumbs->tail() === $crumb ? '' : '&rsaquo;'); ?>
+						<?php endforeach; ?>
+				</span>
+			<?php endif ?>
+
+			<div id="pageBody">
+				<?php echo $this->getPageContent(); ?>
+			</div>
+
+			<div id="counters">
+				<?php echo $counters; ?>
+			</div>
+		</div>
+	</div>
+
+	<div id="footer">
+		Powered by <a href="http://imagevuex.com"><strong>Imagevue<span>X</span></strong><span> - Photo Gallery Website and Mobile Portfolio for Photographers</span></a>
+
+	</div>
+	</body>
+</html>

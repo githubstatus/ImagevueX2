@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<?php
+			if (IS_MOBILE || 'html' == ivPool::get('conf')->get('/config/imagevue/settings/defaultPage')) {
+				$refreshUrl = '?/';
+			} else {
+				$refreshUrl = '#/';
+			}
+
+			$refreshUrl = pageURL() . $refreshUrl . $this->item->getPrimary();
+
+			if (is_a($this->item, 'ivFolder')) {
+				$image = $thumbnail = $this->firstImage;
+			} elseif ($this->item->thumbnail) {
+				$image = $this->item->getPath();
+				$thumbnail = $this->item->thumbnail;
+			}
+
+			if ( is_a($this->item, 'ivFileVideo') ) {
+				$image = $thumbnail;
+			}
+
+			$title = htmlspecialchars(($title = strip_icon(strip_tags(t($this->item->title)))) ? $title : $this->item->name);
+			$description = htmlspecialchars( strip_tags( t( $this->item->description ) ) );
+			$imageSrc = htmlspecialchars(pageURL() .  $image );
+
+			if (!$this->item->Parent && ($siteTitle = ivPool::get('conf')->get('/config/imagevue/settings/sitetitle'))) {
+				$title = $siteTitle;
+			}
+		?>
+		<meta name="robots" content="noindex,follow" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+		<title><?php echo $title ?></title>
+		<meta http-equiv="description" content="<?php echo $description ?>">
+
+
+		<meta property="og:title" content="<?php echo $title ?>" />
+		<meta property="og:description" content="<?php echo $description ?>" />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="<?php echo htmlspecialchars(pageURL() . 'imagevue.php?share=/' . $this->item->getPrimary()); ?>" />
+		<meta property="og:image" content="<?php echo $imageSrc ?>" />
+		<script type="text/javascript">
+			window.location.href="<?php echo htmlspecialchars($refreshUrl) ?>";
+		</script>
+
+		<link href="<?php echo htmlspecialchars(IV_PATH); ?>assets/css/imagevue.flash.css" rel="stylesheet" type="text/css" />
+		<?php if (getCssPath('flash')): ?>
+			<link href="<?php echo htmlspecialchars(getCssPath('flash')); ?>" rel="stylesheet" type="text/css" />
+		<?php endif; ?>
+
+	</head>
+	<body>
+		<div id="na">
+
+			<div id="top">
+
+				<div id="text">
+					<h1><a href="<?php echo htmlspecialchars($refreshUrl) ?>"><?php echo $title ?></a></h1><p><?php echo $description ?></p>
+				</div>
+
+			</div>
+
+			<?php if ($image): ?>
+				<div id="preview">
+					<img src="<?php echo $imageSrc ?>" alt="<?php echo $title ?>" />
+				</div>
+			<?php endif ?>
+
+		</div>
+		<div id="footer">
+			Powered by <a href="http://imagevuex.com"><strong>Imagevue<span>X</span></strong><span> - Photo Gallery Website and Mobile Portfolio for Photographers</span></a>
+
+		</div>
+
+	</body>
+</html>

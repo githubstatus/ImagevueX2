@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lang>
+   <image>Obrazek</image>
+   <page>Strona</page>
+   <next_image>Następny</next_image>
+   <previous_image>Poprzedni</previous_image>
+   <next_thumbnails>Następna strona</next_thumbnails>
+   <previous_thumbnails>Poprzednia strona</previous_thumbnails>
+   <popup>Otwórz w oknie popup</popup>
+   <window>Otwórz w nowym oknie</window>
+   <download>Ściągnij obrazek</download>
+   <zoomin>Powiększ</zoomin>
+   <zoomout>Zmniejsz</zoomout>
+   <play>Uruchom pokaz slajdów</play>
+   <stop>Zatrzymaj pokaz slajdów</stop>
+   <showimage>Pokaż obrazek</showimage>
+   <showthumbnails>Pokaż miniaturki</showthumbnails>
+   <imageinfo>Opis obrazka</imageinfo>
+   <mainmenu>Menu</mainmenu>
+   <sendemail>Wyślij znajomemu</sendemail>
+   <login>Zaloguj się</login>
+   <logout>Wyloguj się</logout>
+   <open>Otwórz</open>
+   <copylocation>Kopiuj adres obrazka</copylocation>
+   <enterfullscreen>Pełny ekran</enterfullscreen>
+   <exitfullscreen>Wyłącz pełny ekran</exitfullscreen>
+   <videofullscreen>Obejrzyj na pełnym ekranie</videofullscreen>
+   <audio>Dźwięk</audio>
+   <volume>Głośność</volume>
+   <yourname>Twoje Imię</yourname>
+   <youremail>Twój E-mail</youremail>
+   <yourfriendsemail>E-mail znajomego</yourfriendsemail>
+   <message>Treść wiadomości</message>
+   <send>Wyślij</send>
+   <sent>Wysłano!</sent>
+   <input_password>Wprowadź hasło</input_password>
+   <incorrect_password>Hasło jest niepoprawne</incorrect_password>
+   <unlock>Odblokuj</unlock>
+   <contact>Kontakt</contact>
+   <sendlink>Poinforumj znajomego</sendlink>
+   <purchase>Kup teraz!</purchase>
+   <link>link</link>
+   <sfx>Włącz/wyłącz efekty dźwiękowe</sfx>
+   <empty_message>Wiadomość jest pusta</empty_message>
+   <empty_owneremail>Settings › Email › Brak E-mail właściciela</empty_owneremail>
+   <bad_email>E-mail jest błędny</bad_email>
+   <cannot_open_template>Błąd wczytywania</cannot_open_template>
+   <could_not_mail>Błąd, E-mail nie mógł zostać wysłany</could_not_mail>
+   <email_disabled>Settings › Email › Właściciel wyłączył możliwość wysyłania E-mail</email_disabled>
+   <no_such_pic>Obrazek nie został znaleziony</no_such_pic>
+   <path_is_empty>Odnośnik jest pusty</path_is_empty>
+   <share>Podziel się stroną ze znajomymi</share>
+   <html>Otwórz wersję HTML</html>
+   <fotomoto>Kup teraz</fotomoto>
+   <maplink>Zobacz na mapie</maplink>
+   <mobile_cancel>Anuluj</mobile_cancel>
+</lang>

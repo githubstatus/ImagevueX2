@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lang>
+	<image>Mynd</image>
+	<indexseparator> af </indexseparator>
+	<page>Síða</page>
+	<next_image>Næsta mynd</next_image>
+	<previous_image>Fyrri mynd</previous_image>
+	<next_thumbnails>Næsta síða</next_thumbnails>
+	<previous_thumbnails>Fyrri síða</previous_thumbnails>
+	<window>Opna í nýjum glugga</window>
+	<download>Niðurhala mynd</download>
+	<zoomin>Stækka</zoomin>
+	<zoomout>Minnka</zoomout>
+	<play>Spila myndasýningu</play>
+	<stop>Stoppa myndasýningu</stop>
+	<showimage>Sýna mynd</showimage>
+	<showthumbnails>Yfirlit mynda</showthumbnails>
+	<imageinfo>Myndlýsing</imageinfo>
+	<mainmenu>Valmynd</mainmenu>
+	<sendemail>Senda tölvupóst</sendemail>
+	<login>Skrá inn</login>
+	<logout>Skrá út</logout>
+	<open>Opna</open>
+	<copylocation>Afrita slóð</copylocation>
+	<enterfullscreen>Fylla skjá</enterfullscreen>
+	<audio>Tónlist</audio>
+	<volume>Hljóðstyrkur</volume>
+	<yourname>Nafnið þitt</yourname>
+	<youremail>Netfangið þitt</youremail>
+	<yourfriendsemail>Netfang vinar</yourfriendsemail>
+	<message>Skilaboð</message>
+	<send>Senda</send>
+	<input_password>Lykilorð</input_password>
+	<incorrect_password>Rangt lykilorð</incorrect_password>
+	<contact>Hafa samband</contact>
+	<sendlink>Senda mynd</sendlink>
+	<purchase>Versla núna</purchase>
+	<link>Tengill</link>
+	<empty_message>Hreinsa</empty_message>
+	<bad_email>Rangt netfang</bad_email>
+	<cannot_open_template>Get ekki opnað snið</cannot_open_template>
+	<could_not_mail>Gat ekki sent tölvupóst</could_not_mail>
+	<email_disabled>Tölvupóstur ekki virkur</email_disabled>
+	<no_such_pic>Mynd ekki tiltæk</no_such_pic>
+	<path_is_empty>Slóð ekki til</path_is_empty>
+	<share>Deila</share>
+</lang>

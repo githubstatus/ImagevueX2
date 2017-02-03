@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This is the default LANGUAGE file. You should not edit this file manually - Any changes should be done through the admin, which is saved in a specific language files in your iv-includes/language/ folder-->
+<!-- Catalan translation by Rafa - http://www.bordes.ws -->
+<lang>
+	<image>Imatge</image>
+	<indexseparator>/</indexseparator>
+	<page>Página</page>
+	<next_image>Imatge Següent</next_image>
+	<previous_image>Imatge Anterior</previous_image>
+	<next_thumbnails>Pàgina Següent</next_thumbnails>
+	<previous_thumbnails>Pàgina Anterior</previous_thumbnails>
+	<popup>Obrir en Finestra Popup</popup>
+	<window>Obrir en Finestra</window>
+	<download>Descargar Imatge</download>
+	<zoomin>Zoom in</zoomin>
+	<zoomout>Zoom out</zoomout>
+	<play>Reproduir Presentació</play>
+	<stop>Detindre Presentació</stop>
+	<showimage>Mostrar Imatge</showimage>
+	<showthumbnails>Mostrar Miniatures</showthumbnails>
+	<imageinfo>Descripció de la Imatge</imageinfo>
+	<mainmenu>Menú de la Galeria</mainmenu>
+	<sendemail>Enviar Imatge</sendemail>
+	<login>Conectarse</login>
+	<logout>Desconectarse</logout>
+	<open>Obrir</open>
+	<copylocation>Copiar ruta de la Imatge</copylocation>
+	<enterfullscreen>Pantalla Completa</enterfullscreen>
+	<exitfullscreen>Eixir de Pantalla Completa</exitfullscreen>
+	<videofullscreen>Veure a Pantalla Completa</videofullscreen>
+	<audio>Audio</audio>
+	<volume>Volume</volume>
+	<yourname>El teu nom</yourname>
+	<youremail>El teu E-mail</youremail>
+	<yourfriendsemail>El E-mail d'un amic</yourfriendsemail>
+	<message>Missatge</message>
+	<send>Enviar</send>
+	<sent>Enviar!</sent>
+	<contact>Contacta'ns</contact>
+	<sendlink>Enviar Imatge</sendlink>
+	<purchase>Compra ara!</purchase>
+	<link>enllaç</link>
+	<sfx>Activar So FX</sfx>
+	<empty_message>Missatge buit</empty_message>
+	<bad_email>E-mail incorrecte</bad_email>
+	<cannot_open_template>No es pot obrir la plantilla</cannot_open_template>
+	<could_not_mail>Se s'ha pogut enviar</could_not_mail>
+	<email_disabled>Per favor, habilita el E-mail en la pàgina de configuració</email_disabled>
+	<no_such_pic>No es troba la imatge</no_such_pic>
+	<path_is_empty>Ruta d'accés buida</path_is_empty>
+</lang>

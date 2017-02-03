@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- Translation by Daniel Krauße & S.Linge (www.s-linge.de)-->
+<lang>
+	<image>صورة</image>
+	<page>صفحة</page>
+	<next_image>الصورة التالية</next_image>
+	<previous_image>الصورة السابقة</previous_image>
+	<next_thumbnails>الصفحة التالية</next_thumbnails>
+	<previous_thumbnails>الصفحة السابقة</previous_thumbnails>
+	<popup>فتح في نافدة منبثقة</popup>
+	<window>فتح في نافدة جديدة</window>
+	<download>تحميل الصورة</download>
+	<play>بدء عرض الشرائح</play>
+	<stop>توقيف عرض الشرائح</stop>
+	<showimage>استعراض الصورة</showimage>
+	<showthumbnails>استعراض العروض التمهيدية </showthumbnails>
+	<imageinfo>وصف الصورة</imageinfo>
+	<mainmenu>قائمة الاختيارات لمعرض الصور</mainmenu>
+	<sendemail>بعث الصورة</sendemail>
+	<login>تسجيل الدخول</login>
+	<logout>تسجيل الخروج</logout>
+	<open>فتح</open>
+	<copylocation>نسخ موقع الصورة</copylocation>
+	<enterfullscreen>العرض في ملء الشاشة</enterfullscreen>
+	<exitfullscreen>إنهاء العرض في ملء الشاشة</exitfullscreen>
+	<audio>مؤثرات صوتية</audio>
+	<volume>مستوى الصوت</volume>
+</lang>

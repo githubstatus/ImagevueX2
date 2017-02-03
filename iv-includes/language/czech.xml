@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lang>
+	<image>Fotka</image>
+	<page>Strana</page>
+	<next_image>Další fotka</next_image>
+	<previous_image>Předchozí fotka</previous_image>
+	<next_thumbnails>Další náhled</next_thumbnails>
+	<previous_thumbnails>Předchozí náhled</previous_thumbnails>
+	<popup>Otevřít v POP-UP okně</popup>
+	<window>Otevřít v novém okně</window>
+	<download>Stáhnout soubor</download>
+	<zoomin>Zoom</zoomin>
+	<zoomout>Zoom</zoomout>
+	<play>Přehrát Slideshow</play>
+	<stop>Zastavit Slideshow</stop>
+	<showimage>Ukázat fotku</showimage>
+	<showthumbnails>Ukázat náhledy</showthumbnails>
+	<imageinfo>Popis fotky</imageinfo>
+	<mainmenu>Menu</mainmenu>
+	<sendemail>Odeslat mail</sendemail>
+	<login>Přihlásit</login>
+	<logout>Odhlásit</logout>
+	<open>Otevřít</open>
+	<copylocation>Kopírovat umístění</copylocation>
+	<enterfullscreen>Režim celé obrazovky</enterfullscreen>
+	<exitfullscreen>Ukončit režim celé obrazovky</exitfullscreen>
+	<videofullscreen>Přehrát na celé obrazovce</videofullscreen>
+	<volume>Hlasitost</volume>
+	<yourname>Vaše jméno</yourname>
+	<youremail>Váš e-mail</youremail>
+	<yourfriendsemail>Adresátův e-mail</yourfriendsemail>
+	<message>Zpráva</message>
+	<send>Odeslat</send>
+	<sent>Odesláno !</sent>
+	<input_password>Vstupní heslo</input_password>
+	<incorrect_password>Špatné heslo</incorrect_password>
+	<contact>Napište nám</contact>
+	<sendlink>Odeslat fotku</sendlink>
+	<purchase>Koupit !</purchase>
+	<link>Odkaz</link>
+	<sfx>Zvuky</sfx>
+	<empty_message>Prázdná zpráva</empty_message>
+	<bad_email>Špatný e-mail</bad_email>
+	<cannot_open_template>Nemohu otevřít šablonu</cannot_open_template>
+	<could_not_mail>Nemohu odeslat mail</could_not_mail>
+	<email_disabled>Nejprve povolte e-mail v nastavení</email_disabled>
+	<no_such_pic>Fotka neexistuje</no_such_pic>
+	<path_is_empty>Složka je prázdná</path_is_empty>
+	<share>Sdílet stránku</share>
+	<html>Ukázat HTML</html>
+	<fotomoto>Koupit</fotomoto>
+</lang>

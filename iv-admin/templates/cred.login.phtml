@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<?php $siteTitle = ivPool::get('conf')->get('/config/imagevue/settings/sitetitle'); ?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title><?php echo htmlspecialchars(t($siteTitle)); ?></title>
+	<link href="assets/css/imagevue.admin.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<div class="page">
+
+		<div id="pageHeader">
+			<div id="tree"  class="static">
+				<div class="holder">
+					<span id="logo"></span>
+				</div>
+			</div>
+			<?php if (!ivPool::get('conf')->get('/config/imagevue/settings/disableDashboard')): ?>
+				<a class="logo" href="index.php?c=dashboard" <?php echo ('dashboard' == $this->moduleName ? 'class="selected" ' : ''); ?> title="Imagevue Dashboard"><?php echo ($siteTitle=='Imagevue Gallery')?'<i></i>':htmlspecialchars(t($siteTitle)) ?></a>
+			<?php else: ?>
+				<a class="logo" href="index.php"><?php echo ('Imagevue Gallery' == $siteTitle) ? '<i></i>' : htmlspecialchars(t($siteTitle)); ?></a>
+			<?php endif; ?>
+		</div>
+		<div class="pageMessenger">
+			<?php foreach (ivMessenger::get(ivMessenger::NOTICE) as $notice): ?>
+				<div class="message"><?php echo $notice; ?></div>
+			<?php endforeach; ?>
+			<?php foreach (ivMessenger::get(ivMessenger::ERROR) as $error): ?>
+				<div class="error"><?php echo $error; ?></div>
+			<?php endforeach; ?>
+			<?php if ($this->defaultUser): ?>
+				<div class="error">Login as admin/admin and change password!</div>
+			<?php endif; ?>
+			<?php if ($this->defaultGuest): ?>
+				<div class="message">Visitors may login as guest/guest</div>
+			<?php endif; ?>
+		</div>
+
+		<div class="layer layerLogin">
+			<div class="layerBody">
+				<div class="layerHeader">
+					Login
+				</div>
+				<?php if ($this->defaultUser): ?>
+					<form method="post" action="index.php?redirect=<?php echo urlencode('index.php?c=user'); ?>">
+				<?php elseif (!authCheck()): ?>
+					<form method="post" action="index.php?redirect=<?php echo urlencode('index.php?c=auth'); ?>">
+				<?php else: ?>
+					<form method="post" action="">
+				<?php endif; ?>
+					<table class="nice">
+						<tr>
+							<td class="c1">Username</td>
+							<td>
+								<input name="login" type="text" class="text" id="login"/>
+								<script>document.getElementById('login').focus()</script>
+							</td>
+						</tr>
+						<tr>
+							<td class="c1">Password</td>
+							<td>
+								<input type="password" name="password" class="text" />
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								<label>
+									<input type="checkbox" name="rememberme"/> &nbsp;
+									Remember me
+								</label>
+							</td>
+						</tr>
+						<tr class="controls left">
+							<td></td>
+							<td>
+								<input type="submit" class="button buttonSave" value="Login"/>
+							</td>
+						</tr>
+					</table>
+					</form>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

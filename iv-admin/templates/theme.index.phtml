@@ -1,0 +1,141 @@
+<?php
+	$descriptions = Array (
+		'abyss' => 'Underwater blue shades with animated background.',
+		'bluedragon' =>	'Light blue theme with small pixel font as default. Select optional stylesheet for a universal font.',
+		'carbonizer' =>	'Elegant multi-purpose dark theme with a variety of beautiful backgrounds. Try to change stylesheet to <em>color.css</em> for some nice contrasts.',
+		'default'	=>	'Dark theme. <em>*This theme has been replaced by Carbonizer as default theme.</em>',
+		'firestarter' => 'Dark theme with strong colors and an abstract animated background.',
+		'gardener'	=>	'A mellow green theme with small pixel font as default. Select optional stylesheet for a universal font.',
+		'illuminati' =>	'Elegant multi-purpose white theme with a variety of beautiful backgrounds and optional color.css stylesheet. <em>*Illuminati is sibling of Carbonizer</em>',
+		'lucida' =>		'Minimalistic light theme with small fonts and no shadows or frames. <em>*Lucida is a stripped version of Illuminati</em>',
+		'lucido' =>		'Minimalistic dark theme with small fonts and no shadows or frames. <em>*Lucido is a stripped version of Carbonizer</em>',
+		'persimmon' =>	'A beige theme with full stage SWF background, and a classic sans font',
+		'white' =>		'Another white theme ...',
+		'zanzibar' =>	'A light burgundy theme with full stage SWF background, and a classic sans font'
+	);
+
+?>
+
+<?php $themes = $this->themes; ?>
+<div class="narrow">
+
+<div class="bodyContent single themesIndex">
+    <?php $i = 0; $note = true;?>
+	<?php foreach ($themes as $theme): ?>
+		<?php if (!in_array($theme, $this->defaultThemes)): ?>
+			<?php $note = false; ?>
+		<?php endif ?>
+	<?php endforeach; ?>
+	<h1>Manage Themes</h1>
+
+	<?php if ($note): ?>
+
+		<?php if (!in_array('noteThemesUser', ivPool::get('notes'))): ?>
+			<div class="note">
+				<a id="noteThemesUser" href="#" class="close">&times;</a>
+				<strong>Note:</strong> You can't edit original themes. <b>Create New</b> theme from an existing one first!
+				<a  title="About Imagevue Themes"  class="iv-ext" target="_blank" href="http://imagevuex.com/documentation/edit-themes/">Create and Edit Themes</a>
+			</div>
+		<?php endif; ?>
+
+	<?php else: ?>
+
+		<?php if (!in_array('noteThemes', ivPool::get('notes'))): ?>
+			<div class="note">
+				<a id="noteThemes" href="#" class="close">&times;</a>
+				You can change the visual style of your gallery with themes.
+				<a title="About Imagevue Themes" class="iv-ext" target="_blank" href="http://imagevuex.com/documentation/edit-themes/">Create and Edit Themes</a>
+			</div>
+
+		<?php endif; ?>
+
+		<table class="nice">
+			<thead>
+				<tr>
+					<th width="50%" class="text captions">User Themes</th>
+					<th width="300"></th>
+					
+				</tr>
+			</thead>
+
+			<?php foreach ($themes as $theme): ?>
+				<?php if (!in_array($theme, $this->defaultThemes)): ?>
+				<?php $i++; ?>
+				<tr class="<?php echo ($i % 2 ? 'odd' : ''); ?> <?php echo ($this->theme == $theme ? 'current' : ''); ?>" onclick="window.location.href='index.php?c=theme&amp;a=use&amp;name=<?php echo urlencode($theme); ?>'">
+					<td>
+						<div style="overflow: hidden">
+						<h2 style="float: left"><a title="edit <?php echo htmlspecialchars($theme); ?> theme" href="index.php?c=theme&amp;a=editconfig&amp;name=<?php echo urlencode($theme); ?>"><?php echo htmlspecialchars(ucfirst($theme)); ?></a></h2>
+
+						<div style="float: left; margin: 13px 0 0 9px">
+							<a class="button buttonEdit" title="Edit <?php echo htmlspecialchars(ucfirst($theme)); ?> theme" href="index.php?c=theme&amp;a=editconfig&amp;name=<?php echo urlencode($theme); ?>" <?php echo (in_array($theme, $this->defaultThemes) ? 'style="visibility: hidden;"' : '') ?>>Edit</a>
+							<a class="button buttonDelete" title="Delete <?php echo htmlspecialchars(ucfirst($theme)); ?> theme" href="index.php?c=theme&amp;a=delete&amp;name=<?php echo urlencode($theme); ?>" onclick="return confirm('This will delete theme \'<?php echo htmlspecialchars($theme); ?>\'. Would you like to proceed?');"  <?php echo (in_array($theme, $this->defaultThemes) ? 'style="visibility: hidden;"' : '') ?>>Delete</a>
+						</div>
+						</div>
+						<div><?php if ($this->theme == $theme): ?>
+							<img src="assets/images/icon_checked.gif" style="vertical-align: -3px"/> Use
+						<?php else: ?>
+							<a  class="button buttonCheckbox" title="use <?php echo htmlspecialchars($theme); ?> theme" href="index.php?c=theme&amp;a=use&amp;name=<?php echo urlencode($theme); ?>">Use</a>
+						<?php endif; ?>
+						<a class="button buttonCopy" title="create new theme based on <?php echo htmlspecialchars($theme); ?> theme" href="#" onclick="var themeName = window.prompt('Enter name for a new theme'); if (themeName) {location.href = 'index.php?c=theme&amp;a=copy&amp;name=<?php echo urlencode($theme); ?>&amp;new=' + themeName;} return false;">Create New</a>
+						<a class="button buttonView" title="view <?php echo htmlspecialchars($theme); ?> theme" href="../index.php?c=gallery&amp;theme=<?php echo urlencode($theme); ?>" target="_blank" >Preview</a></div>
+					</td>
+					<td>
+						
+					</td>
+					<td>
+						
+
+					</td>
+					<td>
+
+						
+
+					</td>
+
+				</tr>
+				<?php endif ?>
+
+			<?php endforeach; ?>
+		</table>
+	<?php endif ?>
+
+	<table class="nice">
+			<thead>
+				<tr>
+					<tr>
+						<th width="50%" class="text captions">Built-in Themes</th>
+						<th width="300"></th>
+						
+					</tr>
+				</tr>
+			</thead>
+
+			<?php foreach ($themes as $theme): ?>
+				<?php if (in_array($theme, $this->defaultThemes)): ?>
+				<?php $i++; ?>
+
+				<tr class="<?php echo ($i % 2 ? 'odd' : ''); ?> <?php echo ($this->theme == $theme ? 'current' : ''); ?>">
+					<td >
+						<h2><?php echo htmlspecialchars(ucfirst($theme)); ?></h2>
+						<div class="themeDescription">
+							<?php echo isset($descriptions[$theme])?$descriptions[$theme]:'' ?>
+						</div><!-- / -->
+						<?php if ($this->theme == $theme): ?>
+							<img src="assets/images/icon_checked.gif" style="vertical-align: -3px"/> Use
+						<?php else: ?>
+							<a  class="button buttonCheckbox" title="Use <?php echo htmlspecialchars($theme); ?> theme" href="index.php?c=theme&amp;a=use&amp;name=<?php echo urlencode($theme); ?>">Use</a>
+						<?php endif; ?>
+						<a class="button buttonCopy" title="Create new theme based on <?php echo htmlspecialchars(ucfirst($theme)); ?> theme" href="#" onclick="var themeName = window.prompt('Enter name for a new theme'); if (themeName) {location.href = 'index.php?c=theme&amp;a=copy&amp;name=<?php echo urlencode($theme); ?>&amp;new=' + themeName;} this.preventDefault(); return false;">Create New</a>
+						<a class="button buttonView" title="View <?php echo htmlspecialchars(ucfirst($theme)); ?> theme" href="../index.php?c=gallery&amp;theme=<?php echo urlencode($theme); ?>" target="_blank" >Preview</a>
+
+					</td>
+					<td>
+						<a class="image" title="view <?php echo htmlspecialchars($theme); ?> theme" href="../index.php?c=gallery&amp;theme=<?php echo urlencode($theme); ?>" target="_blank" ><img   align="right" class="themeImage" src="<?php echo htmlspecialchars(IV_PATH); ?>themes/<?php echo htmlspecialchars($theme); ?>/thumb.jpg" alt="<?php echo htmlspecialchars(ucfirst($theme)); ?> Theme Preview"></a>
+					</td>
+					
+				</tr>
+				<?php endif ?>
+			<?php endforeach; ?>
+		</table>
+	</div>
+</div>

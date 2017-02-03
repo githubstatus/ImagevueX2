@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lang>
+	<next_image>Image suivante</next_image>
+	<previous_image>Image précédente</previous_image>
+	<next_thumbnails>Page suivante</next_thumbnails>
+	<previous_thumbnails>Page précédente</previous_thumbnails>
+	<popup>Ouvrir dans une fenêtre pop-up</popup>
+	<lightbox>Ouvrir dans Lightbox</lightbox>
+	<window>Ouvrir dans une nouvelle fenêtre</window>
+	<download>Télécharger l'image</download>
+	<zoomin>Zoom avant</zoomin>
+	<zoomout>Zoom arrière</zoomout>
+	<play>Jouer le diaporama</play>
+	<stop>Arrêter le diaporama</stop>
+	<showimage>Montrer le diaporama</showimage>
+	<showthumbnails>Montrer les vignettes</showthumbnails>
+	<imageinfo>Description de l'image</imageinfo>
+	<mainmenu>Menu de la galerie</mainmenu>
+	<sendemail>Envoyer l'image</sendemail>
+	<login>Ouvrir la session</login>
+	<logout>Fermer la session</logout>
+	<open>Ouvrir</open>
+	<copylocation>Copier l'adresse de l'image</copylocation>
+	<enterfullscreen>Afficher en plein écran</enterfullscreen>
+	<exitfullscreen>Sortir du mode plein écran</exitfullscreen>
+	<videofullscreen>Voir en plein écran</videofullscreen>
+	<yourname>Votre nom/prénom</yourname>
+	<youremail>Votre adresse e-mail</youremail>
+	<yourfriendsemail>L'adresse e-mail de votre ami</yourfriendsemail>
+	<send>Envoyer</send>
+	<sent>Votre message a bien été envoyé. Merci !</sent>
+	<input_password>Entrez le mot de passe</input_password>
+	<incorrect_password>Mauvais mot de passe</incorrect_password>
+	<unlock>Débloquer</unlock>
+	<contact>Me contacter</contact>
+	<sendlink>Envoyer l'image</sendlink>
+	<purchase>Acheter maintenant !</purchase>
+	<link>Lien</link>
+	<sfx>Activer le son</sfx>
+	<empty_message>Message vide</empty_message>
+	<bad_email>Adresse email invalide</bad_email>
+	<cannot_open_template>Ne peut pas ouvrir le modèle</cannot_open_template>
+	<could_not_mail>Ne peut pas envoyer l'email</could_not_mail>
+	<email_disabled>Veuillez activer l'email dans les options</email_disabled>
+	<no_such_pic>Image indisponible</no_such_pic>
+	<path_is_empty>Le chemin d'accès est vide</path_is_empty>
+	<share>Partager cette page</share>
+	<html>Voir en HTML</html>
+	<fotomoto>Acheter maintenant !</fotomoto>
+	<maplink>Voir sur une carte</maplink>
+	<mobile_cancel>Annuler</mobile_cancel>
+	<mobile_homescreen>Installer la galerie sur votre appareil:  cliquez sur &lt;b style='font-size:15px'&gt;+&lt;/b&gt; et &lt;b&gt;'Installer sur l'écran d'accueil'&lt;/b&gt;</mobile_homescreen>
+</lang>

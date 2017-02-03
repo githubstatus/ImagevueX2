@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lang>
+	<image>Billede</image>
+	<page>Side</page>
+	<next_image>Næste billede</next_image>
+	<previous_image>Forrige billede</previous_image>
+	<next_thumbnails>Næste side</next_thumbnails>
+	<previous_thumbnails>Forrige side</previous_thumbnails>
+	<popup>Åbn i Popup vindue</popup>
+	<window>Åbn i nyt vindue</window>
+	<download>Download billede</download>
+	<zoomin>Zoom ind</zoomin>
+	<zoomout>Zoom ud</zoomout>
+	<play>Start Slideshow</play>
+	<showimage>Vis billede</showimage>
+	<showthumbnails>Vis thumbnails</showthumbnails>
+	<imageinfo>Billede beskrivelse</imageinfo>
+	<sendemail>Send billede</sendemail>
+	<open>Åbn</open>
+	<copylocation>Kopier billede adressen</copylocation>
+	<enterfullscreen>Vis fuld skærm</enterfullscreen>
+	<exitfullscreen>Stop fuld skærm</exitfullscreen>
+	<videofullscreen>Se fuld skærm</videofullscreen>
+	<audio>Lyd</audio>
+	<yourname>Dit navn</yourname>
+	<youremail>Din E-mail</youremail>
+	<yourfriendsemail>Din vens E-mail</yourfriendsemail>
+	<message>Besked</message>
+	<sent>Sendt!</sent>
+	<input_password>Angiv Password</input_password>
+	<incorrect_password>Ukorrekt Password</incorrect_password>
+	<contact>Kontakt mig</contact>
+	<sendlink>Send billede</sendlink>
+	<purchase>Køb nu!</purchase>
+	<sfx>Toggle lyd FX</sfx>
+	<empty_message>Tom besked</empty_message>
+	<bad_email>Dårlig email</bad_email>
+	<cannot_open_template>Kan ikke åbne skabelon</cannot_open_template>
+	<could_not_mail>Kan ikke sende din mail</could_not_mail>
+	<email_disabled>Tillad først email i Settings </email_disabled>
+	<no_such_pic>Billede ikke fundet</no_such_pic>
+	<path_is_empty>Stien er tom</path_is_empty>
+</lang>

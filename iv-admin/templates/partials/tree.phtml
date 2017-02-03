@@ -1,0 +1,61 @@
+<div class="tree">
+	<div class="control" id="menuicon">
+	<div class="hiddenmenu">
+		<div style="white-space: nowrap">
+			<script type="text/javascript">
+			//<![CDATA[
+				dtree = new dTree('dtree');
+				dtree.icon = {
+					root: 'assets/dtree/images/root.gif',
+					folder: 'assets/dtree/images/folder.gif',
+					folderOpen: 'assets/dtree/images/folderOpen.gif',
+					node: 'assets/dtree/images/node.gif',
+					empty: 'assets/dtree/images/empty.gif',
+					line: 'assets/dtree/images/line.gif',
+					join: 'assets/dtree/images/join.gif',
+					joinBottom: 'assets/dtree/images/joinBottom.gif',
+					plus: 'assets/dtree/images/plus.gif',
+					plusBottom: 'assets/dtree/images/plusBottom.gif',
+					minus: 'assets/dtree/images/minus.gif',
+					minusBottom: 'assets/dtree/images/minusBottom.gif',
+					nlPlus: 'assets/dtree/images/nolinesPlus.gif',
+					nlMinus: 'assets/dtree/images/nolinesMinus.gif'
+				};
+				dtree.config.inOrder = true;
+				<?php $id = 0; ?>
+				<?php $stack = array(); ?>
+				<?php $prevDepth = -1; ?>
+				<?php $parentId = -1; ?>
+				<?php foreach ($this->folderTreeIterator as $folder): ?>
+					<?php
+						if ($prevDepth < $this->folderTreeIterator->getDepth()) {
+							array_push($stack, $parentId);
+							$parentId = $id - 1;
+						} elseif ($prevDepth > $this->folderTreeIterator->getDepth()) {
+							for ($i = 0; $i < ($prevDepth - $this->folderTreeIterator->getDepth()); $i++) {
+								$parentId = array_pop($stack);
+							}
+						}
+					?>
+					dtree.add(<?php echo $id++; ?>,<?php echo $parentId; ?>,"<span class='text'><span class='title'><?php echo htmlspecialchars(strip_icon(strip_tags(t($folder->getTitle())))); ?><\/span><?php if (!$folder->isPage() && !$folder->isLink()): ?><?php if ($folder->totalFileCount):?><span class='number'>[<?php echo ($folder->fileCount == $folder->totalFileCount ? $folder->fileCount : $folder->fileCount . '/' . $folder->totalFileCount . '</span>'); ?>]<\/span><?php endif; ?><?php endif; ?><\/span>","?path=<?php echo smart_urlencode($folder->getPrimary()); ?>","<?php echo htmlspecialchars(str_replace(array("\r", "\n"), ' ', strip_tags($folder->isPage() || $folder->isLink() ? $folder->getTitle() : $folder->description))); ?>",''<?php
+					$title = t( $folder->getTitle() );
+					$icon = get_icon($title);
+					if ($icon) {
+						echo (strstr($icon, '.'))? ', "../iv-includes/images/icons/' . htmlspecialchars($icon) . '"' : ', "http://cache.addthiscdn.com/icons/v1/thumbs/'. basename($icon) .'.gif"';
+					} else
+					 echo ($folder->isPage() ? ',"assets/dtree/images/node.gif","assets/dtree/images/node.gif"' : ($folder->isLink() ? ',"assets/dtree/images/link.gif","assets/dtree/images/link.gif"' : ($folder->hasPassword() ? ',"assets/dtree/images/folderLocked.gif","assets/dtree/images/folderOpenLocked.gif"' : ($folder->isHidden() ? ',"assets/dtree/images/folderHidden.gif","assets/dtree/images/folderOpenHidden.gif"' : ',"assets/dtree/images/folder.gif","assets/dtree/images/folderOpen.gif"')))); ?>);
+
+					<?php if ($this->path === $folder->getPrimary()): ?>
+						<?php $selectedId = $id - 1; ?>
+					<?php endif; ?>
+					<?php $prevDepth = $this->folderTreeIterator->getDepth(); ?>
+				<?php endforeach; ?>
+				<?php unset($stack); ?>
+				document.write(dtree);
+				<?php echo (isset($selectedId) ? "dtree.s($selectedId);\n" : ''); ?>
+			//]]>
+			</script>
+		</div>
+	</div>
+	</div>
+</div>

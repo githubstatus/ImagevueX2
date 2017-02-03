@@ -1,0 +1,72 @@
+<?php $conf = ivPool::get('conf'); ?>
+<div class="narrow">
+
+	<div class="bodyContent single">
+		<h1>Create Thumbnails</h1>
+
+		<?php if (!in_array('noteThumbs', ivPool::get('notes'))): ?>
+			<div class="note">
+				<a id="noteThumbs" href="#" class="close">&times;</a>
+				<a class="iv-ext" title="How to create thumbnails" target="_blank" href="http://imagevuex.com/documentation/create-thumbnails/">How to create thumbnails</a>
+			</div>
+		<?php endif; ?>
+
+		<form action="" method="post">
+		<fieldset>
+			<div class="row last">
+				Start Folder
+				<select name="publishData[path]">
+					<?php foreach ($this->folderTreeIterator as $folder):?>
+						<option value="<?php echo htmlspecialchars($folder->getPrimary()); ?>" <?php echo (ivFilepath::directory($this->path) == $folder->getPrimary() ? 'selected="selected"' : ''); ?>><?php echo str_repeat('--', $this->folderTreeIterator->getDepth()); ?> <?php echo htmlspecialchars(smartStripTagsSubstr(t($folder->getTitle()))); ?>&nbsp;&nbsp;</option>
+					<?php endforeach; ?>
+				</select>
+			</div>
+
+		</fieldset>
+
+		<fieldset>
+			<div class="row">
+				<label class="inline">
+					Width:
+					<input type="text" class="text thumbSize" name="publishData[width]" value="<?php echo htmlspecialchars($conf->get('/config/imagevue/thumbnails/thumbnail/boxwidth')); ?>" />
+				</label>
+				&nbsp;&nbsp;&nbsp;
+				<label class="inline">
+					Height:
+					<input type="text" class="text thumbSize" name="publishData[height]" value="<?php echo htmlspecialchars($conf->get('/config/imagevue/thumbnails/thumbnail/boxheight')); ?>" />
+				</label>
+
+			</div>
+			<div class="row last">
+				<label class="inline">
+					<input type="radio" class="radio" name="publishData[resizetype]" value="<?php echo urlencode(ivImage::IMAGE_RESIZETYPE_CROPTOBOX); ?>" <?php echo (ivImage::IMAGE_RESIZETYPE_CROPTOBOX == $conf->get('/config/imagevue/thumbnails/thumbnail/resizetype') ? 'checked="checked"' : ''); ?> /> Crop to box
+				</label>
+				&nbsp;&nbsp;&nbsp;
+				<label class="inline">
+					<input type="radio" class="radio" name="publishData[resizetype]" value="<?php echo urlencode(ivImage::IMAGE_RESIZETYPE_RESIZETOBOX); ?>" <?php echo (ivImage::IMAGE_RESIZETYPE_RESIZETOBOX == $conf->get('/config/imagevue/thumbnails/thumbnail/resizetype') ? 'checked="checked"' : ''); ?> /> Resize to box
+				</label>
+			</div>
+		</fieldset>
+
+
+		<fieldset>
+			<div class="row">
+				<label class="inline">
+					<input name="publishData[thumbnails]" value="create" type="radio"  class="radio" checked="checked"/>
+					Create Missing Thumbnails
+				</label>
+			</div>
+			<div class="row last">
+				<label  class="inline">
+					<input name="publishData[thumbnails]"  value="recreate" type="radio" class="radio" />
+					Re-Create All Thumbnails
+				</label>
+			</div>
+		</fieldset>
+
+		<div class="controls">
+			<input type="submit" class="buttonSave" value="Create" />
+		</div>
+	</form>
+	</div>
+</div>

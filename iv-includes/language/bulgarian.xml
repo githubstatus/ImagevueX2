@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lang>
+	<image>Изображение</image>
+	<page>Страница</page>
+	<next_image>Следваща снимка</next_image>
+	<previous_image>Предишна снимка</previous_image>
+	<next_thumbnails>Следваща страница</next_thumbnails>
+	<previous_thumbnails>Предишна страница</previous_thumbnails>
+	<popup>Отвори в изкачащ прозорец</popup>
+	<window>Отвори в нов прозорец</window>
+	<download>Свали изображение</download>
+	<zoomin>Приближи</zoomin>
+	<zoomout>Отдалечи</zoomout>
+	<play>Пусни Слайд</play>
+	<stop>Спри Слайд</stop>
+	<showimage>Покажи изображение</showimage>
+	<showthumbnails>Покажи като миниатюри</showthumbnails>
+	<imageinfo>Информация за изображението</imageinfo>
+	<mainmenu>Меню</mainmenu>
+	<sendemail>Изпрати изображение</sendemail>
+	<login>Вход</login>
+	<logout>Изход</logout>
+	<open>Отвори</open>
+	<copylocation>Копирай линка към изображение</copylocation>
+	<enterfullscreen>Отиди на цял екран</enterfullscreen>
+	<exitfullscreen>Излез от цял екран</exitfullscreen>
+	<videofullscreen>Преглед на цял екран</videofullscreen>
+	<volume>Говор</volume>
+	<yourname>Твоето име</yourname>
+	<youremail>Твоя емайл</youremail>
+	<yourfriendsemail>Емайл на твой приятели</yourfriendsemail>
+	<message>Съобщение</message>
+	<send>Изпрати</send>
+	<sent>Изпратено!</sent>
+	<contact>Връзка с нас</contact>
+	<sendlink>Изпрати изображение</sendlink>
+	<purchase>Купи сега!</purchase>
+	<link>Линк</link>
+	<empty_message>Празно съобщение</empty_message>
+	<bad_email>Погрешен емайл</bad_email>
+	<cannot_open_template>Не може да отвори скина</cannot_open_template>
+	<could_not_mail>Няма емайл</could_not_mail>
+	<email_disabled>Емайла е забранен</email_disabled>
+	<no_such_pic>Няма снимка</no_such_pic>
+	<path_is_empty>Директорията е празна</path_is_empty>
+</lang>

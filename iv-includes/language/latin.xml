@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- Translation by Daniel KrauЯe & S.Linge (www.s-linge.de)-->
+<lang>
+	<image>Imago</image>
+	<page>Pagina</page>
+	<next_image>Imago proxima</next_image>
+	<previous_image>Imago prior</previous_image>
+	<next_thumbnails>Pagina proxima</next_thumbnails>
+	<previous_thumbnails>Pagina prior</previous_thumbnails>
+	<popup>Fenestra in eminente aperire</popup>
+	<window>Fenestra in nova aperire</window>
+	<download>Imaginem extrahere</download>
+	<play>Praesentationem canere</play>
+	<stop>Praesentationem intermittere</stop>
+	<showimage>Imaginem monstrare</showimage>
+	<showthumbnails>Aspectum minutum monstrare</showthumbnails>
+	<imageinfo>Descriptio imaginis</imageinfo>
+	<mainmenu>Pagina pinacothecae</mainmenu>
+	<sendemail>Imaginem mittere</sendemail>
+	<login>Inire</login>
+	<logout>Exire</logout>
+	<open>Aperire</open>
+	<copylocation>Imaginis locum copiare</copylocation>
+	<enterfullscreen>Scrinium plenum aperire</enterfullscreen>
+	<exitfullscreen>Scrinium plenum claudere</exitfullscreen>
+	<audio>Sonus</audio>
+	<volume>Altitudo soni</volume>
+</lang>

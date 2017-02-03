@@ -1,0 +1,62 @@
+<div id="hiddenmenu">
+	<script type="text/javascript">
+	//<![CDATA[
+		dtree = new dTree('dtree');
+		dtree.icon = {
+			root: '<?php echo htmlspecialchars(IV_PATH) ?>assets/dtree/images/root.gif',
+			folder: '<?php echo htmlspecialchars(IV_PATH) ?>assets/dtree/images/folder.gif',
+			folderOpen: '<?php echo htmlspecialchars(IV_PATH) ?>assets/dtree/images/folderOpen.gif',
+			node: '<?php echo htmlspecialchars(IV_PATH) ?>assets/dtree/images/node.gif',
+			empty: '<?php echo htmlspecialchars(IV_PATH) ?>assets/dtree/images/empty.gif',
+			line: '<?php echo htmlspecialchars(IV_PATH) ?>assets/dtree/images/line.gif',
+			join: '<?php echo htmlspecialchars(IV_PATH) ?>assets/dtree/images/join.gif',
+			joinBottom: '<?php echo htmlspecialchars(IV_PATH) ?>assets/dtree/images/joinBottom.gif',
+			plus: '<?php echo htmlspecialchars(IV_PATH) ?>assets/dtree/images/plus.gif',
+			plusBottom: '<?php echo htmlspecialchars(IV_PATH) ?>assets/dtree/images/plusBottom.gif',
+			minus: '<?php echo htmlspecialchars(IV_PATH) ?>assets/dtree/images/minus.gif',
+			minusBottom: '<?php echo htmlspecialchars(IV_PATH) ?>assets/dtree/images/minusBottom.gif',
+			nlPlus: '<?php echo htmlspecialchars(IV_PATH) ?>assets/dtree/images/nolinesPlus.gif',
+			nlMinus: '<?php echo htmlspecialchars(IV_PATH) ?>assets/dtree/images/nolinesMinus.gif'
+		};
+		dtree.config.inOrder = true;
+		<?php $id = 0; ?>
+		<?php $stack = array(); ?>
+		<?php $prevDepth = -1; ?>
+		<?php $parentId = -1; ?>
+		<?php foreach ($this->folderTreeIterator as $folder): ?>
+			<?php
+				if ($prevDepth < $this->folderTreeIterator->getDepth()) {
+					array_push($stack, $parentId);
+					$parentId = $id - 1;
+				} elseif ($prevDepth > $this->folderTreeIterator->getDepth()) {
+					for ($i = 0; $i < ($prevDepth - $this->folderTreeIterator->getDepth()); $i++) {
+						$parentId = array_pop($stack);
+					}
+				}
+				if ($folder->isLink()) {
+					$linkParams = explode('*', $folder->pageContent, 2);
+					$link = $linkParams[0];
+					$target = isset($linkParams[1]) ? $linkParams[1] : '';
+				} else {
+					$link = '?' . smart_urlencode($folder->getPrimary());
+					$target = '';
+				}
+			?>
+			dtree.add(<?php echo $id++; ?>,<?php echo $parentId; ?>,"<span class='text'><span class='title'><?php echo htmlspecialchars(strip_icon(strip_tags(t($folder->getTitle())))); ?><\/span><?php if (!$folder->isPage() && !$folder->isLink()): ?><?php if ($folder->fileCount) : ?> <span class='number'>[<?php echo htmlspecialchars($folder->fileCount); ?>]<\/span><?php endif; ?><?php endif; ?><\/span>","<?php echo htmlspecialchars(t($link)); ?>","<?php echo htmlspecialchars(str_replace(array("\r", "\n"), ' ', strip_tags(t($folder->isPage() || $folder->isLink() ? $folder->getTitle() : $folder->description)))); ?>","<?php echo htmlspecialchars($target); ?>",<?php
+			$title = t( $folder->getTitle() );
+			$icon = get_icon($title);
+			if ($icon) {
+				echo (strstr($icon, '.'))? '"iv-includes/images/icons/' . $icon . '"' : '"http://cache.addthiscdn.com/icons/v1/thumbs/' . basename($icon) . '.gif"';
+			} else
+			echo ($folder->isPage() ? '"' . htmlspecialchars(IV_PATH) . 'assets/dtree/images/node.gif","' . htmlspecialchars(IV_PATH) . 'assets/dtree/images/node.gif"' : ($folder->isLink() ? '"' . IV_PATH . 'assets/dtree/images/link.gif","' . IV_PATH . 'assets/dtree/images/link.gif"' : '"' . IV_PATH . 'assets/dtree/images/folder.gif","' . IV_PATH . 'assets/dtree/images/folderOpen.gif"')); ?>);
+			<?php if ($this->path === $folder->getPrimary()): ?>
+				<?php $selectedId = $id - 1; ?>
+			<?php endif; ?>
+			<?php $prevDepth = $this->folderTreeIterator->getDepth(); ?>
+		<?php endforeach; ?>
+		<?php unset($stack); ?>
+		document.write(dtree);
+		<?php echo (isset($selectedId) ? "dtree.s($selectedId);\n" : "dtree.s(-1);\n"); ?>
+	//]]>
+	</script>
+</div>

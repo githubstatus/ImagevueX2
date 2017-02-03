@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<?php
+			if 	(IS_MOBILE || 'html' == ivPool::get('conf')->get('/config/imagevue/settings/defaultPage')) {
+				$refreshUrl = '?';
+			} else {
+				$refreshUrl = '#/';
+			}
+
+			$refreshUrl = pageURL() . $refreshUrl . $this->item->getPrimary();
+
+ 			if (is_a($this->item, 'ivFolder')) { ?>
+				<script type="text/javascript">
+					window.location.href="<?php echo htmlspecialchars($refreshUrl) ?>";
+				</script>
+				<?php
+				die();
+
+			} elseif ($this->item->thumbnail){
+				$image = $this->item->getPath();
+				$thumbnail = $this->item->thumbnail;
+			}
+
+			$title = htmlspecialchars( ( $title = strip_icon( strip_tags( t( $this->item->title ) ) ) ) ? $title:$this->item->name );
+			$description = htmlspecialchars( strip_tags( t( $this->item->description ) ) );
+			$imageSrc = htmlspecialchars(pageURL() .  $image );
+			$thumbnailSrc = htmlspecialchars(pageURL() .  $thumbnail );
+		?>
+		<meta name="robots" content="noindex,follow" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+		<title><?php echo $title ?></title>
+		<meta http-equiv="description" content="<?php echo $description ?>">
+		<script type="text/javascript" src="<?php echo htmlspecialchars(IV_PATH); ?>assets/js/jquery.min.js"></script>
+		<style>
+			html, body { height: 100%; min-height: 100%; }
+			body { font: 12px/18px "Helvetica Neue", Helvetica, Arial, sans-serif;color: #f2f2f2; background: #222; margin: 0;}
+			table, td { border-collapse: collapse; border:0; padding: 0; vertical-align: top;}
+			.page {  height: 100%; ; width: 100%;}
+			body, a { color: #666; text-decoration: none;}
+			.header { padding: 0 30px 0 0; }
+			.header h1 { font-size: 18px; line-height: 27px; color: #AAAAAA;}
+			.header p { color: white;}
+			.header .padding { margin: 0 0 15px; }
+			.header img {  padding: 1px; border: 1px solid #666;}
+			.header .div { position: relative; overflow: hidden; padding: 2px; margin: -2px 0 0 -2px;}
+			td.info { padding: 15px 30px }
+			#map_canvas {width: 100%; height: 100%; display: table; }
+		</style>
+		<script>
+			$(function(){$('<style>#map_canvas{height:' + $(document).height() + 'px }</style>').appendTo('head')});
+		</script>
+
+	</head>
+	<body>
+		<table class="page" height="100%" width="100%">
+
+			<!-- / -->
+			<tr>
+				<td class="info">
+						<div class="header">
+
+								<h1><?php echo $title ?></h1>
+								<?php if ($description): ?>
+									<p><?php echo $description ?></p>
+								<?php endif; ?>
+
+							<!-- / -->
+							<?php if ($thumbnail): ?>
+								<img src="<?php echo $thumbnailSrc ?>" alt="<?php echo $title ?>" />
+							<?php endif ?>
+						<div>
+					</div><!-- / -->
+
+				</div><!-- / -->
+			</td>
+
+			<td width="100%" style="position: relative">
+				<?php if ($coordinates=$this->item->getGPSCoords()): ?>
+					<div id="map_canvas"></div>
+					<script src="http://www.google.com/jsapi"></script>
+					<script>
+					// <![CDATA[
+						google.load("maps", "3", {"callback" : initialize, other_params: "sensor=false"});
+						var map;
+						var marker;
+						function initialize() {
+							infowindow = new google.maps.InfoWindow();
+							var latlng = new google.maps.LatLng(<?php echo $coordinates ?>);
+							var myOptions = {
+								zoom: 15,
+								center: latlng,
+								mapTypeId: google.maps.MapTypeId.ROADMAP,
+								panControl: false,
+								zoomControl: true,
+								mapTypeControl: true,
+								scaleControl: true,
+								streetViewControl: false,
+								overviewMapControl: false
+							};
+							map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+									marker = new google.maps.Marker({
+									position: latlng,
+									map: map,
+									icon: 'iv-includes/images/map.png'
+							});
+						}
+					</script>
+
+				<?php endif ?>
+				</td>
+			</tr>
+		</table>
+
+	</body>
+</html>

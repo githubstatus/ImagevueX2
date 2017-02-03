@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lang>
+	<image>Immagine</image>
+	<page>Pagina</page>
+	<next_image>Immagine Seguente</next_image>
+	<previous_image>Immagine Precedente</previous_image>
+	<next_thumbnails>Pagina Seguente</next_thumbnails>
+	<previous_thumbnails>Pagina Precedente</previous_thumbnails>
+	<popup>Apri Finestra in popup</popup>
+	<window>Apri in Finestra</window>
+	<download>Scarica Immagine</download>
+	<zoomin>Zoomma</zoomin>
+	<zoomout>De-Zooma</zoomout>
+	<play>Inizia Slideshow</play>
+	<stop>Ferma Slideshow</stop>
+	<showimage>Mostra Immagine</showimage>
+	<showthumbnails>Mostra Thumbnails</showthumbnails>
+	<imageinfo>Descrizione Immagine</imageinfo>
+	<mainmenu>Menu della Galleria</mainmenu>
+	<sendemail>Manda L'Immagine</sendemail>
+	<login>Loggati</login>
+	<logout>Esci</logout>
+	<open>Apri</open>
+	<copylocation>Copia Posizione Immagine</copylocation>
+	<enterfullscreen>Vai a Schermo Intero</enterfullscreen>
+	<exitfullscreen>Esci da Schermo Intero</exitfullscreen>
+	<videofullscreen>Guarda a Schermo Intero</videofullscreen>
+	<audio>Audio</audio>
+	<volume>Volume</volume>
+	<yourname>Il Tuo Nome</yourname>
+	<youremail>La Tua Email</youremail>
+	<yourfriendsemail>L'Email del tuo Amico</yourfriendsemail>
+	<message>Messaggio</message>
+	<send>Invia</send>
+	<sent>Inviata!</sent>
+	<contact>Contattaci</contact>
+	<sendlink>Invia Immagine</sendlink>
+</lang>
